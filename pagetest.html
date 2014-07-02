@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id="Description">Campagne Detail</title>
+    <meta name="description" content="Column Hierarchies - JavaScript Tree Grid Demo | jQWidgets"> 
+    <link rel="stylesheet" href="jqwidgets/styles/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxdatatable.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxtreegrid.js"></script>
+    <script type="text/javascript" src="jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="scripts/demos.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+		var data = [];
+		//0 :columnName
+		//1:dataFields
+		//2:cpvi data
+			 $.ajax({
+				url: 'btest2.php',
+				async: false,
+				success: function(d) {
+					data = d;
+				},
+				cache: false
+			});
+			console.log(data[2]);
+
+            var source =
+             {
+                 dataType: "json",
+                 dataFields: data[1],
+                 hierarchy:
+                     {
+                         root: "children"
+                     },
+                 localData: data[2],
+                 id: "id"
+             };
+
+            var dataAdapter = new $.jqx.dataAdapter(source, {
+                loadComplete: function () {
+
+                }
+            });
+            // create jqxTreeGrid.
+            $("#treeGrid").jqxTreeGrid(
+            {
+                source: dataAdapter,
+                altRows: true,
+				sortable: true,
+                columnsResize: true,
+                ready: function () {
+                    $("#treeGrid").jqxTreeGrid('expandRow', '1'); 
+                },
+                columns: data[0],
+                columnGroups:
+                [
+                  { text: "One Mymedia Campagne", name: "JSTCorp", align: "center" }
+                ]
+            });
+        });
+    </script>
+</head>
+<body class="default">
+    <div id="treeGrid">
+    </div>
+</body>
+</html>
