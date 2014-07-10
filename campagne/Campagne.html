@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title id="Description">Campagne Detail</title>
+    <meta name="description" content="Column Hierarchies - JavaScript Tree Grid Demo | jQWidgets">
+    <link rel="stylesheet" href="../library/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="../library/jqwidgets/styles/jqx.energyblue.css" type="text/css" />
+    <link rel="stylesheet" href="../library/jqwidgets/styles/jqx.ui-start.css" type="text/css" />
+    <link rel="stylesheet" href="colourConf.css" type="text/css" />
+    <script type="text/javascript" src="../library/scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxdata.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxbuttons.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxdatatable.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxdata.export.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxcheckbox.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxlistbox.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxtreegrid.js"></script>
+    <script type="text/javascript" src="../library/jqwidgets/jqxdropdownlist.js"></script>
+    <script type="text/javascript" src="../library/scripts/demos.js"></script>
+    <script type="text/javascript" src="mainController.js"></script>
+
+</head>
+<body class="default">
+    <div id='jqxWidget'>
+        <div style="float: left;Position:fixed;display: block;" id="columnfilterbox"></div>
+        <div style='float: left;Position:fixed;display: block;margin-top: 400px;'>
+            <input type="button" value="Export to CSV" id='csvExport' />
+            <div style="margin-top: 10px;" id="lengthfilterbox"></div>
+            <div style="margin-top: 10px;" id="versionfilterbox"></div>
+            <div style="margin-top: 10px;">
+                <input type="button" id="applyFilter" value="Apply Filter" />
+            </div>
+        </div>
+        <div style="margin-left: 140px;float: left;Position:relative;display: block;" id="treeGrid"></div>
+
+        </div>
+</body>
+</html>

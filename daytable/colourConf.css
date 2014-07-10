@@ -1,0 +1,41 @@
+.levelOne {
+color: black\9;
+background-color: #D6FFAD\9;
+}
+.levelTwo {
+color: black\9;
+background-color: #E5FFCA\9;
+}
+.levelThree {
+color: black\9;
+background-color: #F7FFEF\9;
+}
+.levelFour {
+color: black\9;
+background-color: #FF9D5C\9;
+}
+.levelFive {
+color: black\9;
+background-color: #FF3333\9;
+}
+
+.levelOne:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelOne:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+color: black;
+background-color: #D6FFAD;
+}
+.levelTwo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelTwo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+color: black;
+background-color: #E5FFCA;
+}
+.levelThree:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelThree:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+color: black;
+background-color: #F7FFEF;
+}
+.levelFour:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelFour:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+color: black;
+background-color: #FF9D5C;
+}
+.levelFive:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelFive:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
+color: black;
+background-color: #FF3333;
+}

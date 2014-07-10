@@ -1,21 +1,21 @@
 <?php
-    function getSQLString($post,&$testString){
-        $requestType = $post["requestType"];
-        $verisonList = $post["verisonList"];
-        $lengthList = $post["lengthList"];
-        $condition= "";
+function getSQLString($post, &$testString) {
+	$requestType = $post["requestType"];
+	$verisonList = $post["verisonList"];
+	$lengthList  = $post["lengthList"];
+	$condition   = "";
 
-        if ($requestType == "ALL"){
-            $condition= "";
-        }else{
-            $lengthList = implode(',', array_map("intval",array_keys($post["lengthList"])));
-            $verisonList = "'". implode("', '", array_keys($post["verisonList"])) ."'";
-            $condition = "length in (".$lengthList.")"." AND crea in (".$verisonList.") AND ";
-            $testString = $condition;
-            //echo json_encode(array("x"=>$condition));
-        }
+	if ($requestType == "ALL") {
+		$condition = "";
+	} else {
+		$lengthList  = implode(',', array_map("intval", array_keys($post["lengthList"])));
+		$verisonList = "'".implode("', '", array_keys($post["verisonList"]))."'";
+		$condition   = "length in (".$lengthList.")"." AND crea in (".$verisonList.") AND ";
+		$testString  = $condition;
+		//echo json_encode(array("x"=>$condition));
+	}
 
-        return  "select mm.cpvi as cpvi, mm.nb as positif, mm1.nb as total, mm.client, mm1.channel as channel , mm1.mmdaypart as MMDayPart, mm.campaign as campaign,dmin,dmax, mm1.weekday as WEEKDAY, mm1.screen as screen, mm1.daypart as daypart , mm1.length as format , mm1.crea as crea from ((SELECT AVG(`budgetnet` / ( `apres-count1` - `avant-count1` )) AS cpvi, sum(budgetnet),sum(`apres-count1`) , screen,crea,length , sum(`avant-count1`) ,client, campaign ,count(*) as nb, channel,if( weekday( date ) >4, replace( date, date, 'WE' ) , 'WD' ) AS WEEKDAY, (
+	return "select mm.cpvi as cpvi, mm.nb as positif, mm1.nb as total, mm.client, mm1.channel as channel , mm1.mmdaypart as MMDayPart, mm.campaign as campaign,dmin,dmax, mm1.weekday as WEEKDAY, mm1.screen as screen, mm1.daypart as daypart , mm1.length as format , mm1.crea as crea from ((SELECT AVG(`budgetnet` / ( `apres-count1` - `avant-count1` )) AS cpvi, sum(budgetnet),sum(`apres-count1`) , screen,crea,length , sum(`avant-count1`) ,client, campaign ,count(*) as nb, channel,if( weekday( date ) >4, replace( date, date, 'WE' ) , 'WD' ) AS WEEKDAY, (
 
 CASE
 WHEN (
@@ -157,6 +157,6 @@ FROM `spotleads`
 WHERE ".$condition." isole =1 and client = 'tripadvisor' and date >  DATE_SUB(curdate(),INTERVAL 2 month)  and stataud  in (0,1) and campaign in (select distinct(campaign) from (select * from spotleads where
 isole =1 and client = 'tripadvisor' and date >  DATE_SUB(curdate(),INTERVAL 2 month)  and stataud  in (0,1) group by campaign having count(distinct(date))> 7)as camp)
 group by channel, screen, campaign
-ORDER BY cpvi ASC) as mm1 ) where mm.weekday = mm1.weekday and mm.mmdaypart = mm1.mmdaypart and mm.channel = mm1.channel and mm.campaign = mm1.campaign  and mm.screen = mm1.screen and mm.daypart = mm1.daypart and mm.crea = mm1.crea and mm.length = mm1.length  order by mm.cpvi " ;
+ORDER BY cpvi ASC) as mm1 ) where mm.weekday = mm1.weekday and mm.mmdaypart = mm1.mmdaypart and mm.channel = mm1.channel and mm.campaign = mm1.campaign  and mm.screen = mm1.screen and mm.daypart = mm1.daypart and mm.crea = mm1.crea and mm.length = mm1.length  order by mm.cpvi ";
 }
 ?>
