@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function gridController(server_url) {
     var data = [];
     var dataCellWithoutColour = [[],[]];
     var showColourDataOnly = false;
@@ -9,7 +9,7 @@ $(document).ready(function() {
     //4:column fitler
     $.ajax({
         dataType: 'json',
-        url: 'mmtable.php',
+        url: server_url,
         async: false,
         success: function(d) {
             data = d;
@@ -53,8 +53,8 @@ $(document).ready(function() {
     $("#jqxgrid").jqxGrid({
         source: dataAdapter,
         height: 800,
-        showtoolbar: true,
-        width: 1474,
+        width: "85%",
+        showtoolbar:true,
         sortable: true,
         filterable: true,
         theme: 'ui-start',
@@ -73,7 +73,7 @@ $(document).ready(function() {
     //create check list
     $("#columnfilterbox").jqxListBox({
         source: data[4],
-        width: 130,
+        width: 140,
         autoHeight: true,
         theme: 'ui-start',
         checkboxes: true
@@ -105,12 +105,12 @@ $(document).ready(function() {
             if (event.args.checked) {
                 $("#columnfilterbox").jqxListBox('checkAll');
                 for (var i = 0; i < data[4].length; i++) {
-                    $("#jqxgrid").jqxGrid('showColumn', data[4][i]);
+                    $("#jqxgrid").jqxGrid('showColumn', data[4][i]["value"]);
                 }
             } else {
                 $("#columnfilterbox").jqxListBox('uncheckAll');
                 for (var i = 0; i < data[4].length; i++) {
-                    $("#jqxgrid").jqxGrid('hideColumn', data[4][i]);
+                    $("#jqxgrid").jqxGrid('hideColumn', data[4][i]["value"]);
                 }
             }
             handleColumnFilterBoxCheckChange = true;
@@ -122,7 +122,7 @@ $(document).ready(function() {
     $("#applyFilter").jqxButton({
         theme: 'ui-start'
     });
-
+    $("#applyFilter").val("Optimisation");
 
     // applies the filter.
     $("#applyFilter").click(function() {
@@ -141,4 +141,4 @@ $(document).ready(function() {
         $("#jqxgrid").jqxGrid('updateBoundData');
         $("#jqxgrid").jqxGrid('endUpdate');
     });
-});
+}
