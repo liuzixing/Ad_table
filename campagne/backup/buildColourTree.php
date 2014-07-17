@@ -1,5 +1,5 @@
 <?php
-function buildColourTree($array, $delimiter = '_', &$colourTable, $cpviAVG) {
+function buildColourTree($array, $delimiter = '_', &$colourTable, $cpviAVGTable) {
 	if (!is_array($array)) {return false;
 	}
 
@@ -17,12 +17,12 @@ function buildColourTree($array, $delimiter = '_', &$colourTable, $cpviAVG) {
 			$indx = -1;
 			for ($i = 0; $i < count($parentArr); $i++) {
 				if ($parentArr[$i]["name"] == $part) {
-					$parentArr[$i][$val[1]] = array("total" => 0, "positif" => 0, "fiabilite" => 0, "cpvi" => 0,"budgetnet" => 0,"apres" => 0,"avant" => 0);
+					$parentArr[$i][$val[1]] = array("total" => 0, "positif" => 0, "fiabilite" => 0, "cpvi" => 0);
 					$indx                   = $i;
 				}
 			}
 			if ($indx < 0) {
-				$parentArr[] = array("id" => $count, "name" => $part, $val[1]=> array("total" => 0, "positif" => 0, "fiabilite" => 0, "cpvi" => 0,"budgetnet" => 0,"apres" => 0,"avant" => 0), "children" => array());
+				$parentArr[] = array("id" => $count, "name" => $part, $val[1]=> array("total" => 0, "positif" => 0, "fiabilite" => 0, "cpvi" => 0), "children" => array());
 				$count++;
 				$indx = count($parentArr)-1;
 			}
@@ -36,14 +36,14 @@ function buildColourTree($array, $delimiter = '_', &$colourTable, $cpviAVG) {
 		for ($i = 0; $i < count($parentArr); $i++) {
 			if ($parentArr[$i]["name"] == $leafPart) {
 				$parentArr[$i][$val[1]]                     = $val[0];
-				$colourTable[$parentArr[$i]["id"]][$val[1]] = getColourString($val[0]["fiabilite"], $val[0]["cpvi"], $cpviAVG);
+				$colourTable[$parentArr[$i]["id"]][$val[1]] = getColourString($val[0]["fiabilite"], $val[0]["cpvi"], $cpviAVGTable[$val[1]]);
 
 				$indx = $i;
 			}
 		}
 		if ($indx < 0) {
 			$parentArr[]                                = array("id" => $count, "name" => $leafPart, $val[1]=> $val[0]);
-			$colourTable[$parentArr[$i]["id"]][$val[1]] = getColourString($val[0]["fiabilite"], $val[0]["cpvi"], $cpviAVG);
+			$colourTable[$parentArr[$i]["id"]][$val[1]] = getColourString($val[0]["fiabilite"], $val[0]["cpvi"], $cpviAVGTable[$val[1]]);
 			$count++;
 		}
 	}

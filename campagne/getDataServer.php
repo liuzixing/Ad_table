@@ -32,32 +32,37 @@ $cpviRows     = array();
 $cpviAVGTable = array();
 
 require_once ("getSQLString.php");
-$testString;
 if (!empty($_POST["requestType"])) {
-	$sqlrequest = getSQLString($_POST, $testString);
+	$sqlrequest = getSQLString($_POST);
 }
 
 if ($sqlresult = mysql_query($sqlrequest)) {
+
 	while ($sqlrow = mysql_fetch_assoc($sqlresult)) {
 
 		$versionName[] = $sqlrow['crea'];
 		$LengthsName[] = $sqlrow['format'];
 
 		$cpviRows["/ALL/".$sqlrow['WEEKDAY']."/".$sqlrow['daypart']."/".$sqlrow['MMDayPart']."/".$sqlrow['screen']."/".$sqlrow['channel']] = array(
-			floatval($sqlrow['cpvi']),
+			array(
+				"cpvi"      => floatval($sqlrow['cpvi']),
+				"budgetnet" => floatval($sqlrow['budgetnet']),
+				"apres" => floatval($sqlrow['apres']),
+				"avant" => floatval($sqlrow['avant'])
+			),
 			$sqlrow['channel']
 		);
-
-		$cpviAVGTable[$sqlrow['channel']]["value"] += floatval($sqlrow['cpvi']);
-		$cpviAVGTable[$sqlrow['channel']]["count"]++;
 
 		//get colour table
 		$colourRows["/ALL/".$sqlrow['WEEKDAY']."/".$sqlrow['daypart']."/".$sqlrow['MMDayPart']."/".$sqlrow['screen']."/".$sqlrow['channel']] = array(
 			array(
 				"total"     => $sqlrow['total'],
 				"positif"   => $sqlrow['positif'],
-				"fiabilite" => floatval((1-(($total-$positif+1)/$positif))),
-				"cpvi"      => floatval($sqlrow['cpvi'])
+				"fiabilite" => floatval((1-(($sqlrow['total']-$sqlrow['positif']+1)/$sqlrow['positif']))),
+				"cpvi"      => floatval($sqlrow['cpvi']),
+				"budgetnet" => $sqlrow['budgetnet'],
+				"apres" => floatval($sqlrow['apres']),
+				"avant" => floatval($sqlrow['avant'])
 			),
 			$sqlrow['channel']
 		);
@@ -74,10 +79,7 @@ $versionName  = array_unique($versionName);
 $channelName  = array_unique($columnName);
 $dataFields   = array_unique($columnName);
 $dataFields[] = "total";
-//get  cpvi AVG Table
-foreach ($channelName as $c) {
-	$cpviAVGTable[$c] = $cpviAVGTable[$c]["value"]/$cpviAVGTable[$c]["count"];
-}
+
 
 $channelName[] = "total";
 //create json format column data
@@ -133,7 +135,8 @@ $cpviTree = buildCPVITree($cpviRows, "/");
 
 //get avg data
 require_once ("calAVG.php");
-$cpviTree[0] = calTheFuckingAVG($channelName, $cpviTree[0]);
+$cpviTree[0] = calAVG($channelName, $cpviTree[0]);
+$cpviAVG = $cpviTree[0]["total"];
 $res[]       = $cpviTree;
 
 // create column filter list.
@@ -156,13 +159,14 @@ $res[] = $columnListSource;
 //get Colour Tree
 require_once ("buildColourTree.php");
 $colourTable;
-$colourTree = buildColourTree($colourRows, "/", $colourTable, $cpviAVGTable);
+$colourTree = buildColourTree($colourRows, "/", $colourTable, $cpviAVG);
 
 //get final colour table
 require_once ("getFinalColourTable.php");
-array_pop($channelName);
-$colourTree[0] = getFinalColourTable($channelName, $colourTree[0], $colourTable, $cpviAVGTable);
-
+//array_pop($channelName);
+$colourTree[0] = getFinalColourTable($channelName, $colourTree[0], $colourTable, $cpviAVG);
+//deal with total
+$colourTable[1]["total"] = "total";
 $res[] = $colourTable;
 
 // create length filter list.
@@ -200,6 +204,8 @@ foreach ($versionName as $v) {
 $res[] = $verisonListSource;
 
 $res[] = $sqlrequest;
+$res[] = $cpviAVG;
+$res[] = $colourTree;
 echo json_encode($res);
 
 ?>

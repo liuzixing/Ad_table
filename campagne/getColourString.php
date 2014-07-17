@@ -1,15 +1,16 @@
 <?php
 	function getColourString($fiabilite,$cpvi,$cpviAVG){
-		if ($fiabilite >= 0.75 && $cpvi <= 0.25 * $cpviAVG){
-			return "green";
-		}elseif($fiabilite >= 0.5 && $fiabilite < 0.75 && $cpvi <= 0.25 * $cpviAVG){
-			return "yellow";
-		}elseif($fiabilite >= 0.5 && $fiabilite < 0.75 && $cpvi <= 0.5 * $cpviAVG && $cpvi > 0.25 * $cpviAVG){
-			return "orange";
-		}elseif($fiabilite >= 0.5 && $cpvi > 0.5 * $cpviAVG){
-			return "red";
-		}else{
+		if ($fiabilite < 0.5){
 			return "";
+		}
+		if ($cpvi <= 0.5 * $cpviAVG){
+			return "green";
+		}elseif($cpvi <= $cpviAVG){
+			return "yellow";
+		}elseif($cpvi <= 1.5 * $cpviAVG){
+			return "orange";
+		}else{
+			return "red";
 		}
 	}
 ?>

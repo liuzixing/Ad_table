@@ -17,12 +17,12 @@ function buildCPVITree($array, $delimiter = '_') {
 			$indx = -1;
 			for ($i = 0; $i < count($parentArr); $i++) {
 				if ($parentArr[$i]["name"] == $part) {
-					$parentArr[$i][$val[1]] = array("budgetnet" => 0, "apres" => 0, "avant" => 0,"cpvi"    => 0 );
+					$parentArr[$i][$val[1]] = 0;
 					$indx                   = $i;
 				}
 			}
 			if ($indx < 0) {
-				$parentArr[] = array("id" => $count, "name" => $part, $val[1]=> array("budgetnet" => 0, "apres" => 0, "avant" => 0,"cpvi"    => 0), "children" => array());
+				$parentArr[] = array("id" => $count, "name" => $part, $val[1]=> 0, "children" => array());
 				$count++;
 				$indx = count($parentArr)-1;
 			}

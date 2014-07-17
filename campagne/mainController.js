@@ -1,20 +1,20 @@
 $(document).ready(function() {
     var data = [];
     var getLocalization = function() {
-            var localizationobj = {};
-            localizationobj.currencySymbol = '£';
-            localizationobj.currencySymbolPosition = "before";
-            return localizationobj;
-        }
+        var localizationobj = {};
+        localizationobj.currencySymbol = '£';
+        localizationobj.currencySymbolPosition = "before";
+        return localizationobj;
+    }
 
-        //0 :columnName
-        //1:dataFields
-        //2:cpvi data
-        //3:column filter list source
-        //4:colour table
-        //5:length filter list source
-        //6:version filter list source
-        //7:sql request checker
+    //0 :columnName
+    //1:dataFields
+    //2:cpvi data
+    //3:column filter list source
+    //4:colour table
+    //5:length filter list source
+    //6:version filter list source
+    //7:sql request checker
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -34,27 +34,47 @@ $(document).ready(function() {
             if (cellValue === undefined) {
                 return "nothing";
             }
-            if (!(data[4][rowData["id"]] && data[4][rowData["id"]][dataField])) {
-                return "";
-            }
-            //else{
-            //  return data[4][rowData["id"]] && data[4][rowData["id"]][dataField];
-            //}
-            if (cellValue < 5) {
-                return "green";
-            }
-            if (cellValue < 10) {
-                return "yellow";
-            }
-            if (cellValue < 15) {
-                return "orange";
-            }
-            return "red";
+            return data[4][rowData["id"]][dataField];
         }
         //update cell formatting even
     for (var i = 1; i < data[0].length; i++) {
         data[0][i]["cellClassName"] = cellClass;
     }
+        //fire animation
+
+     // var cellsRendererFunction = function(row, dataField, cellValue, rowData, cellText) {
+     //    if(rowData["id"] == 1){
+     //        var letters = cellText.split('');
+     //        var res = "";
+     //        $.each(letters,function(el){
+     //            res= res + ('<span>'+this+'</span>');
+     //        });
+     //        return res;
+     //    }
+
+     // }
+     // data[0][data[0].length - 1]["cellsRenderer"] = cellsRendererFunction;
+     //  var step = 1;
+     // function nextShadow() {
+     //        $('.total span').each(function() {
+
+     //            y = parseFloat($(this).attr("y_pos"));
+     //            y += step + Math.random() * 3;
+     //            $(this).attr("y_pos", y);
+     //            shaking = Math.random();
+     //            shadow1 = "0px 0px " + (y % 5) + "px white";
+     //            shadow2 = shaking * 24 / y * Math.cos(y / 5) * 15 + "px -" + (shaking * 4 / y + (y % 17)) + "px " + (shaking + (y % 17)) + "px red";
+     //            shadow3 = shaking * 24 / y * Math.cos(y / 7) * 15 + "px -" + (shaking * 4 / y + (y % 31)) + "px " + (shaking + (y % 31)) + "px #993";
+     //            shadow4 = shaking * 24 / y * Math.cos(y / 13) * 15 + "px -" + (shaking * 4 / y + (y % 41)) + "px " + (shaking + (y % 41)) + "px yellow";
+     //            $(this).css("text-shadow", shadow2 + ", " + shadow1 + ", " + shadow4 + ", " + shadow3);
+     //        });
+     //    }
+     //    $(function() {
+     //        $('.total span').each(function() {
+     //            $(this).attr("y_pos", "0");
+     //        });
+     //        setInterval(nextShadow, 50);
+     //    });
 
     var source = {
         dataType: "json",
@@ -74,12 +94,10 @@ $(document).ready(function() {
         source: dataAdapter,
         localization: getLocalization(),
         selectionMode: 'none',
-        altRows: true,
         sortable: true,
         pageable: true,
         filterable: true,
         enablehover: false,
-        altrows: true,
         filterMode: 'advanced',
         theme: 'ui-start',
         pagerMode: 'advanced',
@@ -182,6 +200,7 @@ $(document).ready(function() {
     });
     $("#csvExport").click(function() {
         $("#treeGrid").jqxTreeGrid('exportData', 'csv');
+
     });
     //create check list
     $("#columnfilterbox").jqxListBox({
@@ -228,7 +247,14 @@ $(document).ready(function() {
             }
             handleColumnFilterBoxCheckChange = true;
         }
+
         $("#treeGrid").jqxTreeGrid('endUpdate');
+        $(function() {
+            $('.total span').each(function() {
+                $(this).attr("y_pos", "0");
+            });
+            setInterval(nextShadow, 50);
+        });
     });
     $("#applyFilter").click(function() {
         var lengthList = {},
@@ -245,23 +271,28 @@ $(document).ready(function() {
                 versionList[verisonItems[i].label] = verisonItems[i].label;
             }
         }
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                'requestType': "part",
-                "verisonList": versionList,
-                "lengthList": lengthList
-            },
-            url: 'getDataServer.php',
-            async: false,
-            success: function(d) {
-                data = d;
-            },
-            cache: false
-        });
-        //console.log(data);
-        source.localData = data[2];
+        console.log(lengthList);
+        if(lengthItems.length > 0 && verisonItems.length > 0){
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    'requestType': "part",
+                    "verisonList": versionList,
+                    "lengthList": lengthList
+                },
+                url: 'getDataServer.php',
+                async: false,
+                success: function(d) {
+                    data = d;
+                },
+                cache: false
+            });
+        console.log(data);
+            source.localData = data[2];
+        }else{
+            source.localData = null;
+        }
         dataAdapter = new $.jqx.dataAdapter(source, {
             loadComplete: function() {}
         });

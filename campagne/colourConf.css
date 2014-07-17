@@ -7,9 +7,22 @@
 		color: black\9;
 		background-color: #f8e984\9;
 	}
+	.total{
+		height:auto;
+      		padding-top:0.5em;
+     		font-size: 15px;
+     		font-weight: bold;
+      		text-align: center;
+      		color:white;
+      		background-color:black;
+	}
+
+
+
 	.orange {
 		color: black\9;
-		background-color: #f9806f\9;
+		background-color: #FF925E\9;
+
 	}
 	.red {
 		color: black\9;
@@ -29,7 +42,7 @@
 	}
 	.orange:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .orange:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
 		color: black;
-		background-color: #f9806f;
+		background-color: #FF925E;
 	}
 	.red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .red:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
 		color: black;

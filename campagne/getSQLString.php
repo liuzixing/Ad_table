@@ -3,19 +3,17 @@ function getSQLString($post, &$testString) {
 	$requestType = $post["requestType"];
 	$verisonList = $post["verisonList"];
 	$lengthList  = $post["lengthList"];
-	$condition   = "";
 
 	if ($requestType == "ALL") {
 		$condition = "";
 	} else {
-		$lengthList  = implode(',', array_map("intval", array_keys($post["lengthList"])));
 		$verisonList = "'".implode("', '", array_keys($post["verisonList"]))."'";
-		$condition   = "length in (".$lengthList.")"." AND crea in (".$verisonList.") AND ";
-		$testString  = $condition;
+		$lengthList  = implode(',', array_map("intval", array_keys($post["lengthList"])));
+		$condition   = "length in (".$lengthList.") AND crea in (".$verisonList.") AND ";
 		//echo json_encode(array("x"=>$condition));
 	}
 
-	return "select mm.cpvi as cpvi, mm.nb as positif, mm1.nb as total, mm.client, mm1.channel as channel , mm1.mmdaypart as MMDayPart, mm.campaign as campaign,dmin,dmax, mm1.weekday as WEEKDAY, mm1.screen as screen, mm1.daypart as daypart , mm1.length as format , mm1.crea as crea from ((SELECT AVG(`budgetnet` / ( `apres-count1` - `avant-count1` )) AS cpvi, sum(budgetnet),sum(`apres-count1`) , screen,crea,length , sum(`avant-count1`) ,client, campaign ,count(*) as nb, channel,if( weekday( date ) >4, replace( date, date, 'WE' ) , 'WD' ) AS WEEKDAY, (
+	return "select mm.cpvi as cpvi,mm.budgetnet as budgetnet,mm.apres as apres,mm.avant as avant, mm.nb as positif, mm.nb as total, mm.client, mm.channel as channel , mm.mmdaypart as MMDayPart, mm.campaign as campaign,dmin,dmax, mm.weekday as WEEKDAY, mm.screen as screen, mm.daypart as daypart , mm.length as format , mm.crea as crea from ((SELECT (sum(`budgetnet`) / sum( `apres-count1` - `avant-count1` )) AS cpvi, sum(budgetnet) as budgetnet,sum(`apres-count1`) as apres, screen,crea,length , sum(`avant-count1`) as avant,client, campaign ,count(*) as nb, channel,if( weekday( date ) >4, replace( date, date, 'WE' ) , 'WD' ) AS WEEKDAY, (
 
 CASE
 WHEN (
@@ -49,11 +47,11 @@ THEN replace( time, time, 'Peak' )
 WHEN (
  hour( time ) =18
 )
-THEN replace( time, time, 'Acess18' )
+THEN replace( time, time, 'Access18' )
 WHEN (
  hour( time ) =19
 )
-THEN replace( time, time, 'Acess19' )
+THEN replace( time, time, 'Access19' )
 when (hour( time ) <=23
 AND hour( time ) >=22
 )
@@ -79,7 +77,7 @@ WHEN (
 hour( time ) <=19
 AND hour( time ) >=18
 )
-THEN replace( time, time, 'Acess' )
+THEN replace( time, time, 'Access' )
 ELSE 'Night'
 END ) AS DayPart
 FROM `spotleads`
@@ -120,11 +118,11 @@ THEN replace( time, time, 'Peak' )
 WHEN (
  hour( time ) =18
 )
-THEN replace( time, time, 'Acess18' )
+THEN replace( time, time, 'Access18' )
 WHEN (
  hour( time ) =19
 )
-THEN replace( time, time, 'Acess19' )
+THEN replace( time, time, 'Access19' )
 when (hour( time ) <=23
 AND hour( time ) >=22
 )
@@ -150,7 +148,7 @@ WHEN (
 hour( time ) <=19
 AND hour( time ) >=18
 )
-THEN replace( time, time, 'Acess' )
+THEN replace( time, time, 'Access' )
 ELSE 'Night'
 END ) AS DayPart
 FROM `spotleads`
