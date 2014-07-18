@@ -24,7 +24,7 @@ function gridController(server_url) {
             dataCellWithoutColour[1].push(data[3][i]);
         }
     }
-    console.log(dataCellWithoutColour);
+    //console.log(dataCellWithoutColour);
     var cellclass = function(row, columnfield, value) {
         //console.log(data[3][row]);
         if (showColourDataOnly) {
@@ -61,11 +61,15 @@ function gridController(server_url) {
         columnsResize: true,
         columns: data[0],
     });
-
+    var localizationobj = {};
+    localizationobj.currencysymbol = '&#8240';
+    localizationobj.currencysymbolposition = "after";
+     $("#jqxgrid").jqxGrid('localizestrings', localizationobj);
 
     //create data exporting UI
     $("#csvExport").jqxButton({
-        theme: 'ui-start'
+        theme: 'ui-start',
+        width:130
     });
     $("#csvExport").click(function() {
         $("#jqxgrid").jqxGrid('exportdata', 'csv', 'jqxGrid');
@@ -120,7 +124,8 @@ function gridController(server_url) {
 
     //show/hide column
     $("#applyFilter").jqxButton({
-        theme: 'ui-start'
+        theme: 'ui-start',
+        width:130
     });
     $("#applyFilter").val("Optimisation");
 
