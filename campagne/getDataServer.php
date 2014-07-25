@@ -163,9 +163,10 @@ $colourTree = buildColourTree($colourRows, "/", $colourTable, $cpviAVG);
 
 //get final colour table
 require_once ("getFinalColourTable.php");
-//array_pop($channelName);
+
+// //array_pop($channelName);
 $colourTree[0] = getFinalColourTable($channelName, $colourTree[0], $colourTable, $cpviAVG);
-//deal with total
+// //deal with total
 $colourTable[1]["total"] = "total";
 $res[] = $colourTable;
 

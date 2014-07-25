@@ -16,9 +16,6 @@
       		color:white;
       		background-color:black;
 	}
-
-
-
 	.orange {
 		color: black\9;
 		background-color: #FF925E\9;
@@ -52,3 +49,21 @@
 		color: black;
 		background-color: #827e7e;
 	}
+	.arrow-up {
+            position: relative;
+            top: -10px;
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-bottom: 7px solid white;
+        }
+        .arrow-down {
+            position: relative;
+            top: 10px;
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid white;
+        }

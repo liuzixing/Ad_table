@@ -1,11 +1,5 @@
 $(document).ready(function() {
     var data = [];
-    var getLocalization = function() {
-        var localizationobj = {};
-        localizationobj.currencySymbol = '£';
-        localizationobj.currencySymbolPosition = "before";
-        return localizationobj;
-    }
 
     //0 :columnName
     //1:dataFields
@@ -15,8 +9,9 @@ $(document).ready(function() {
     //5:length filter list source
     //6:version filter list source
     //7:sql request checker
-    $.ajax({
+    var x = $.ajax({
         type: 'POST',
+        timeout : 10000,
         dataType: 'json',
         data: {
             'requestType': 'ALL'
@@ -25,56 +20,24 @@ $(document).ready(function() {
         async: false,
         success: function(d) {
             data = d;
+            var cellClass = function(row, dataField, cellText, rowData) {
+                    var cellValue = rowData[dataField];
+                    if (cellValue === undefined) {
+                        return "nothing";
+                    }
+                    return data[4][rowData["id"]][dataField];
+                }
+                //update cell formatting even
+            for (var i = 1; i < data[0].length; i++) {
+                data[0][i]["cellClassName"] = cellClass;
+            }
+            console.log(data);
         },
+        failure: function(err) {console.log("Error");},
         cache: false
     });
-    console.log(data);
-    var cellClass = function(row, dataField, cellText, rowData) {
-            var cellValue = rowData[dataField];
-            if (cellValue === undefined) {
-                return "nothing";
-            }
-            return data[4][rowData["id"]][dataField];
-        }
-        //update cell formatting even
-    for (var i = 1; i < data[0].length; i++) {
-        data[0][i]["cellClassName"] = cellClass;
-    }
-        //fire animation
+    console.log(x);
 
-     // var cellsRendererFunction = function(row, dataField, cellValue, rowData, cellText) {
-     //    if(rowData["id"] == 1){
-     //        var letters = cellText.split('');
-     //        var res = "";
-     //        $.each(letters,function(el){
-     //            res= res + ('<span>'+this+'</span>');
-     //        });
-     //        return res;
-     //    }
-
-     // }
-     // data[0][data[0].length - 1]["cellsRenderer"] = cellsRendererFunction;
-     //  var step = 1;
-     // function nextShadow() {
-     //        $('.total span').each(function() {
-
-     //            y = parseFloat($(this).attr("y_pos"));
-     //            y += step + Math.random() * 3;
-     //            $(this).attr("y_pos", y);
-     //            shaking = Math.random();
-     //            shadow1 = "0px 0px " + (y % 5) + "px white";
-     //            shadow2 = shaking * 24 / y * Math.cos(y / 5) * 15 + "px -" + (shaking * 4 / y + (y % 17)) + "px " + (shaking + (y % 17)) + "px red";
-     //            shadow3 = shaking * 24 / y * Math.cos(y / 7) * 15 + "px -" + (shaking * 4 / y + (y % 31)) + "px " + (shaking + (y % 31)) + "px #993";
-     //            shadow4 = shaking * 24 / y * Math.cos(y / 13) * 15 + "px -" + (shaking * 4 / y + (y % 41)) + "px " + (shaking + (y % 41)) + "px yellow";
-     //            $(this).css("text-shadow", shadow2 + ", " + shadow1 + ", " + shadow4 + ", " + shadow3);
-     //        });
-     //    }
-     //    $(function() {
-     //        $('.total span').each(function() {
-     //            $(this).attr("y_pos", "0");
-     //        });
-     //        setInterval(nextShadow, 50);
-     //    });
 
     var source = {
         dataType: "json",
@@ -89,12 +52,12 @@ $(document).ready(function() {
     var dataAdapter = new $.jqx.dataAdapter(source, {
         loadComplete: function() {}
     });
+
     // create jqxTreeGrid.
     $("#treeGrid").jqxTreeGrid({
         source: dataAdapter,
-        localization: getLocalization(),
         selectionMode: 'none',
-        sortable: true,
+        sortable: false,
         pageable: true,
         filterable: true,
         enablehover: false,
@@ -117,8 +80,38 @@ $(document).ready(function() {
         }, {
             text: "Channel ",
             name: "Channel",
-            align: "center"
+            align: "center",
+
         }]
+    });
+    setChannelGroupToArrowDownStyle();
+
+    //handle the columngroup collapse or not
+    var collapsed = false;
+
+    function columnGroupController() {
+        $("#treeGrid").jqxTreeGrid('beginUpdate');
+        if (collapsed) {
+            $("#columnfilterbox").jqxListBox('checkAll');
+            collapsed = false;
+        } else {
+            collapsed = true;
+            $("#columnfilterbox").jqxListBox('uncheckAll');
+            $("#columnfilterbox").jqxListBox('checkItem', "total");
+        }
+        $("#treeGrid").jqxTreeGrid('endUpdate');
+        if (collapsed) {
+            setChannelGroupToArrowUpStyle();
+        } else {
+            setChannelGroupToArrowDownStyle();
+
+        }
+        $("#treeGrid .jqx-grid-columngroup-header:eq(1)").click(function() {
+            columnGroupController();
+        });
+    }
+    $("#treeGrid .jqx-grid-columngroup-header:eq(1)").click(function() {
+        columnGroupController();
     });
     //create format filter
     $("#applyFilter").jqxButton({
@@ -239,22 +232,22 @@ $(document).ready(function() {
                 for (var i = 0; i < data[3].length; i++) {
                     $("#treeGrid").jqxTreeGrid('showColumn', data[3][i]["value"]);
                 }
+
             } else {
                 $("#columnfilterbox").jqxListBox('uncheckAll');
                 for (var i = 0; i < data[3].length; i++) {
                     $("#treeGrid").jqxTreeGrid('hideColumn', data[3][i]["value"]);
                 }
+
             }
             handleColumnFilterBoxCheckChange = true;
         }
-
         $("#treeGrid").jqxTreeGrid('endUpdate');
-        $(function() {
-            $('.total span').each(function() {
-                $(this).attr("y_pos", "0");
-            });
-            setInterval(nextShadow, 50);
+        $("#treeGrid .jqx-grid-columngroup-header:eq(1)").click(function() {
+            columnGroupController();
         });
+
+
     });
     $("#applyFilter").click(function() {
         var lengthList = {},
@@ -271,8 +264,8 @@ $(document).ready(function() {
                 versionList[verisonItems[i].label] = verisonItems[i].label;
             }
         }
-        console.log(lengthList);
-        if(lengthItems.length > 0 && verisonItems.length > 0){
+        //console.log(lengthList);
+        if (lengthItems.length > 0 && verisonItems.length > 0) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -288,9 +281,9 @@ $(document).ready(function() {
                 },
                 cache: false
             });
-        console.log(data);
+            //console.log(data);
             source.localData = data[2];
-        }else{
+        } else {
             source.localData = null;
         }
         dataAdapter = new $.jqx.dataAdapter(source, {
@@ -303,3 +296,11 @@ $(document).ready(function() {
     });
 
 });
+
+function setChannelGroupToArrowDownStyle() {
+    $("#treeGrid .jqx-grid-columngroup-header:eq(1)").html("<div style='overflow: hidden; text-overflow: ellipsis; text-align: center; margin-left: 4px; margin-right: 4px; margin-bottom: 8px; margin-top: 8px;''><span class='arrow-down'></span><span style='text-overflow: ellipsis; cursor: default;'>" + $("#treeGrid .jqx-grid-columngroup-header:eq(1)").text() + "</span></div>");
+}
+
+function setChannelGroupToArrowUpStyle() {
+    $("#treeGrid .jqx-grid-columngroup-header:eq(1)").html("<div style='overflow: hidden; text-overflow: ellipsis; text-align: center; margin-left: 4px; margin-right: 4px; margin-bottom: 8px; margin-top: 8px;''><span class='arrow-up'></span><span style='text-overflow: ellipsis; cursor: default;'>" + $("#treeGrid .jqx-grid-columngroup-header:eq(1)").text() + "</span></div>");
+}

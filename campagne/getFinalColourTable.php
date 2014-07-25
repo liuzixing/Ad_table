@@ -34,6 +34,7 @@ function getFinalColourTable($channelName,$t,&$colourTable,$cpviAVG){
 		for ($i = 0; $i < count($child);$i++){
 
 			if (array_key_exists($cn,$t) && array_key_exists($cn,$child[$i])){
+
 				$t[$cn]["total"] += $child[$i][$cn]["total"];
 				$t[$cn]["positif"] += $child[$i][$cn]["positif"];
 				$t[$cn]["budgetnet"] += $child[$i][$cn]["budgetnet"];
