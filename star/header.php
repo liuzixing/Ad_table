@@ -5,29 +5,29 @@
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="">Leadsmonitor</a>
+      <a class="navbar-brand" href="javascript: void(0)">Leadsmonitor</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li >
-          <a href="">Dash Board</a>
-        </li>
-        <li class="active">
-          <a href="">Campagne</a>
+          <a href="../Dashboard">Dashboard</a>
         </li>
         <li >
-          <a href="">Performance</a>
+          <a href="../Campagne">Campagne</a>
+        </li>
+        <li >
+          <a href="../Performance">Performance</a>
         </li>
         <li>
-          <a href="">Concurrence</a>
+          <a href="../Concurrence">Concurrence</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="">FR/EN</a>
+          <a href="javascript: void(0)">FR/EN</a>
         </li>
         <li>
-          <a href="">Login</a>
+          <a href="javascript: void(0)">Login</a>
         </li>
       </ul>
     </div>
