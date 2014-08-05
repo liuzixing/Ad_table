@@ -30,9 +30,15 @@
                 <div>
                     <div style="margin-top: 10px;">
                         <div id='datepicker1' style="float:left"></div>
-                        <div id='datepicker2' style="float:right"></div>
                     </div>
-                    <div id='xaxisselector' style="margin-top: 30px;"></div>
+                    <div class="Comparaison-setter" style="margin-top: 45px;">
+                            <div class="Comparaison-label" style="float:left;weight:40%;vertical-align:middle;font-size:15px ;height:25px;line-height:25px; text-align:center">Comparaison</div>
+                            <div id="Comparaison" style="float:right"></div>
+                    </div>
+                    <div style="margin-top: 80px;">
+                        <div id='datepicker2' style="float:left"></div>
+                    </div>
+                    <div id='xaxisselector' style="margin-top: 115px;"></div>
                     <div id='yaxisselector' style="margin-top: 10px;"></div>
                     <div id='regroupement' style="margin-top: 10px;"></div>
                     <div style="margin-top: 10px;">
@@ -58,28 +64,11 @@
         </div>
         <div>
             <div id="splitter">
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="graphArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Graph</li>
-                            <li></li>
-                        </ul>
-                        <div  id="chart" >
-                        </div>
-                        <div></div>
-                    </div>
+                <div  id="chart" >
                 </div>
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="tableArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Table</li>
-                            <li></li>
-                        </ul>
-                        <div id="jqxgrid" >
-                            <!-- <div id="jqxgrid"></div> -->
-                        </div>
-                        <div></div>
-                    </div>
+                <div style="width:100%;height:100%">
+                <div id="jqxgrid">
+                </div>
                 </div>
             </div>
         </div>

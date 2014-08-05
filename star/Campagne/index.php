@@ -31,16 +31,14 @@
                     <!--  options components-->
                     <div style="margin-top: 10px;">
                         <div id='datepicker1' style="float:left"></div>
-                        <div id='datepicker2' style="float:right"></div>
                     </div>
-                    <div id='valueselector1' style="margin-top: 10px;"></div>
+                    <div id='valueselector1' style="margin-top: 45px;"></div>
                     <div id='valueselector2' style="margin-top: 10px;"></div>
                     <div id='valueselector3' style="margin-top: 10px;"></div>
                     <div style="margin-top: 10px;">
                             <input  type="button" id="btn_default" value="default" />
                             <input style="float:right" type="button" id="btn_validez" value="validez" />
                     </div>
-
                 </div>
                 <div>
                 <!--  filters components-->
@@ -56,28 +54,11 @@
         </div>
         <div>
             <div id="splitter">
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="graphArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Graph</li>
-                            <li></li>
-                        </ul>
-                        <div  id="chart" >
-                        </div>
-                        <div></div>
-                    </div>
+                <div  id="chart" >
                 </div>
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="tableArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Table</li>
-                            <li></li>
-                        </ul>
-                        <div id="jqxgrid" >
-                            <!-- <div id="jqxgrid"></div> -->
-                        </div>
-                        <div></div>
-                    </div>
+                <div style="width:100%;height:100%">
+                <div id="jqxgrid">
+                </div>
                 </div>
             </div>
         </div>

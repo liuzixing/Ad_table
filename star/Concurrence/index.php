@@ -30,9 +30,8 @@
                 <div>
                     <div style="margin-top: 10px;">
                         <div id='datepicker1' style="float:left"></div>
-                        <div id='datepicker2' style="float:right"></div>
                     </div>
-                    <div id='concurrenceselector' style="margin-top: 20px;"></div>
+                    <div id='concurrenceselector' style="margin-top: 45px;"></div>
                     <div id='channelselector' style="margin-top: 10px;"></div>
                     <div style="margin-top: 10px;">
                             <input  type="button" id="btn_default" value="default" />
@@ -53,28 +52,11 @@
         </div>
         <div>
             <div id="splitter">
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="graphArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Graph</li>
-                            <li></li>
-                        </ul>
-                        <div  id="chart" >
-                        </div>
-                        <div></div>
-                    </div>
+                <div  id="chart" >
                 </div>
-                <div>
-                    <div class="jqx-hideborder jqx-hidescrollbars" id="tableArea">
-                        <ul>
-                            <li style="margin-left: 30px;">Table</li>
-                            <li></li>
-                        </ul>
-                        <div id="jqxgrid" >
-                            <!-- <div id="jqxgrid"></div> -->
-                        </div>
-                        <div></div>
-                    </div>
+                <div style="width:100%;height:100%">
+                <div id="jqxgrid">
+                </div>
                 </div>
             </div>
         </div>

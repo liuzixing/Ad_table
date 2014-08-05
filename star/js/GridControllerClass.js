@@ -21,12 +21,12 @@ function GridController() {
         });
         $("#jqxgrid").jqxGrid({
             source: _self._dataAdapter,
-            height: "100%",
             width: "100%",
-            sortable: true,
-            filterable: true,
+            height:"100%",
+            sortable: false,
+            filterable: false,
             theme: 'bootstrap',
-            columnsResize: true,
+            columnsResize: false,
             columns: _self._data[0],
         });
         var localizationobj = {};

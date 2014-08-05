@@ -1,40 +1,7 @@
 function PerformanceController() {
     var globaltheme = 'bootstrap';
-    $('#splitContainer').jqxSplitter({
-        height: 800,
-        theme: globaltheme,
-        width: "100%",
-        orientation: 'vertical',
-        panels: [{
-            collapsible: false,
-            size: '20%'
-        }, {
-            size: '80%'
-        }]
-    });
-    $('#splitter').jqxSplitter({
-        width: '100%',
-        theme: globaltheme,
-        orientation: 'horizontal',
-        panels: [{
-            size: "50%"
-        }]
-    });
-    $("#settingArea").jqxTabs({
-        theme: globaltheme,
-        height: '100%',
-        width: '100%'
-    });
-    $("#graphArea").jqxTabs({
-        theme: globaltheme,
-        height: '100%',
-        width: '100%'
-    });
-    $("#tableArea").jqxTabs({
-        theme: globaltheme,
-        height: '100%',
-        width: '100%'
-    });
+    var layout = new LayoutController();
+    layout.createLayout();
     var source = [
         "Budget net",
         "Total affichage sur Google",
@@ -54,45 +21,89 @@ function PerformanceController() {
         "KPI personnalisé client",
         "Nombre total de ventes",
     ];
-    // Create a jqxDropDownList
-    var dropdownlistsetting = {
-        theme: globaltheme,
-        source: source,
-        width: '98%',
-        height: '25'
-    };
 
     $("#datepicker1").jqxDateTimeInput({
-        width: '45%',
-        height: '25px'
+        theme: globaltheme,
+        width: '98%',
+        height: '25px',
+        selectionMode: 'range'
+    });
+    $('#Comparaison').jqxSwitchButton({
+        theme: globaltheme,
+        height: 25,
+        width: '40%',
+        checked: false
+    });
+    $('#Comparaison').on('checked', function(event) {
+        $("#datepicker2").jqxDateTimeInput({
+            disabled: true
+        });
+    });
+    $('#Comparaison').on('unchecked', function(event) {
+        $("#datepicker2").jqxDateTimeInput({
+            disabled: false
+        });
     });
     $("#datepicker2").jqxDateTimeInput({
-        width: '45%',
-        rtl: true,
-        height: '25px'
+        theme: globaltheme,
+        width: '98%',
+        height: '25px',
+        disabled: true,
+        selectionMode: 'range'
     });
+    var xaxisSelectorSource = [
+        "Taux de recherche",
+        "Coût par recherche",
+        "Coût de visite immédiate ",
+        "Coût de visite campagne ",
+        "Coût par visite",
+        "Coût par lead",
+        "CPO campagne",
+        "Taux de nouveaux visiteurs",
+        "Taux de rebond"
+    ];
     $("#xaxisselector").jqxDropDownList({
         theme: globaltheme,
-        source: source,
+        source: xaxisSelectorSource,
         placeHolder: "Abscisses (Taux)",
         width: '98%',
         height: '25'
     });
+    var yaxisSelectorSource = [
+        "Budget net",
+        "Nombre total de spots",
+        "Nombre total de vues ",
+        "Nombre total d’affichage sur Google ",
+        "Nombre total de clic vers le site client",
+        "Nombre total de visites immédiates",
+        "Nombre total de visiteurs immédiats",
+        "Nombre total de visites campagne",
+        "Nombre total de leads campagne",
+        "Nombre total de commandes campagne"
+    ];
     $("#yaxisselector").jqxDropDownList({
         theme: globaltheme,
-        source: source,
+        source: yaxisSelectorSource,
         placeHolder: "Ordonnées (Volume)",
         width: '98%',
         height: '25'
     });
+    var regroupmentSource = [
+        "Chaîne(s) > Daypart (chaine) + DaypartMM(chaine) > Ecran (chaine Daypart)",
+        "ChaineDayofweek >Daypart +MM (chaineDayoftheweek) > Ecran",
+        "Chainedaytype > Daypart + MM (chainedaytype)> Ecran",
+        "Daypart +DaypartMM > Ecran (daypart)",
+        "Dayoftheweek > Daypart+DaypartMM > Ecran (Dayoftheweekdaypart)",
+        "Chaineecranweekday + chaineweekday"
+    ];
     $("#regroupement").jqxDropDownList({
         theme: globaltheme,
-        source: source,
+        source: regroupmentSource,
         placeHolder: "Regroupement",
         width: '98%',
         height: '25'
     });
-    // $("#listbox").jqxListBox({theme: globaltheme,width: '98%', source: source, checkboxes: true, height: 250});
+    //filters components
     $("#Chaîne").jqxDropDownList({
         theme: globaltheme,
         source: source,
@@ -142,11 +153,11 @@ function PerformanceController() {
         height: '25'
     });
     $('#Optimisation').jqxSwitchButton({
+        theme: globaltheme,
         height: 25,
         width: '40%',
         checked: false
     });
-
     $("#btn_default").jqxButton({
         theme: globaltheme,
         width: "40%"

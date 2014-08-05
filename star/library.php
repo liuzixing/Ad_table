@@ -32,3 +32,4 @@
 <script type="text/javascript" src="../external_library/jqwidgets/jqxtooltip.js"></script>
 <script type="text/javascript" src="../external_library/jqwidgets/jqxchart.core.js"></script>
 <script type="text/javascript" src="../external_library/jqwidgets/jqxdatatable.js"></script>
+<script type="text/javascript" src="../js/LayoutController.js"></script>

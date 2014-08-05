@@ -132,13 +132,14 @@ class gridCellDataGenerator{
     }
     function getNewColumnsWithNewFormat(){
         $res = array();
+        //"width"       => 100/count($this->dataField)."%",
         foreach ($this->dataField as $key=>$val) {
             $res[] = array(
                 "text"        => $key,
                 "columnGroup" => "Option",
                 "align"       => "center",
                 "datafield"   => $key,
-                "width"       => 100/count($this->dataField)."%",
+                "width"       => 250,
                 "cellsAlign"  => 'center',
                 "cellsformat" => $val["format"]
             );

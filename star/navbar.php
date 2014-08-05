@@ -26,19 +26,9 @@
         <li>
           <a href="javascript: void(0)">FR/EN</a>
         </li>
-        <!-- <li>
+        <li>
           <a href="javascript: void(0)">Déconnexion</a>
-        </li> -->
-        <li class="dropdown" id="menuLogin">
-            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
-            <div class="dropdown-menu" style="padding:17px;">
-              <form class="form" id="formLogin">
-                <input name="username" id="username" type="text" placeholder="Username">
-                <input name="password" id="password" type="password" placeholder="Password"><br>
-                <button type="button" id="btnLogin" class="btn">Login</button>
-              </form>
-            </div>
-          </li>
+        </li>
       </ul>
     </div>
     <!--/.nav-collapse --> </div>

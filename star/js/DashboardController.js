@@ -61,7 +61,6 @@ function DashboardController() {
                               var img = '<img width=160 height=120 style="display: block;" src="' + imgurl + '"/>';
                               image += img;
                               image += "</div>";
-
                               var info = "<div style='margin: 5px; margin-left: 20px; margin-bottom: 3px;'>";
                               info += "<div style='font-size: 20px'>Price: " + laptop.price + "€</div>";
                               info += "</div>";
