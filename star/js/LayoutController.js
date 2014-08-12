@@ -4,32 +4,48 @@ function LayoutController() {
     this.createLayout = function() {
         $('#splitContainer').jqxSplitter({
             height: 800,
-            theme: self.globaltheme,
             width: "100%",
             orientation: 'vertical',
             panels: [{
-                collapsible: false,
-                size: '20%'
+                size: '250'
             }, {
-                size: '80%'
             }]
         });
         $('#splitter').jqxSplitter({
             width: '100%',
             height: '100%',
-            theme: self.globaltheme,
             orientation: 'horizontal',
             panels: [{
-                collapsible: false,
-                size: "50%"
+
+                size: "60%"
             }, {
-                size: "50%"
+                size: "40%"
             }]
         });
-        $("#settingArea").jqxTabs({
-            theme: self.globaltheme,
-            height: '100%',
+        $("#clientlogo").jqxExpander({
+            theme: "mymedia",
+            showArrow: false,
+            width: '100%',
+        });
+        $("#options").jqxExpander({
+            theme: "mymedia",
+            showArrow: false,
+            width: '100%',
+        });
+        $("#filters").jqxExpander({
+            theme: "mymedia",
+            showArrow: false,
             width: '100%'
         });
+        $("#validation").jqxExpander({
+            theme: "mymedia",
+            showArrow: false,
+            width: '100%'
+        });
+        // $("#settingArea").jqxTabs({
+        //     theme: self.globaltheme,
+        //     height: '100%',
+        //     width: '100%'
+        // });
     }
 }

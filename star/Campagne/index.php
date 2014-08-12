@@ -11,64 +11,80 @@
     <title id='Description'>Leadsmonitor</title>
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/navbar/navbar.css" rel="stylesheet">
-</head>
+    <!-- Custom styles for this template -->
+    <!--   <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet">--></head>
 <body id='Campagne'>
-    <div class="container">
-      <!-- Static navbar -->
-      <?php include '../header.php';?>
+    <div class="container-fluid">
+        <!-- Static navbar -->
+        <?php include '../header.php';?>
 
-      <!-- Main component for a primary marketing message or call to action -->
-  <div id="splitContainer">
-        <div>
-            <div class="jqx-hideborder jqx-hidescrollbars" id="settingArea">
-                <ul>
-                    <li style="margin-left: 30px;">Options</li>
-                    <li>Filters</li>
-                </ul>
-                <div>
-                    <!--  options components-->
-                    <div style="margin-top: 10px;">
-                        <div id='datepicker1' style="float:left"></div>
-                    </div>
-                    <div id='valueselector1' style="margin-top: 45px;"></div>
-                    <div id='valueselector2' style="margin-top: 10px;"></div>
-                    <div id='valueselector3' style="margin-top: 10px;"></div>
-                    <div style="margin-top: 10px;">
-                            <input  type="button" id="btn_default" value="default" />
-                            <input style="float:right" type="button" id="btn_validez" value="validez" />
+        <!-- Main component for a primary marketing message or call to action -->
+        <div id="splitContainer">
+            <div>
+            <div id='clientlogo' >
+                    <div style="width:100%;height:50px;font-size:12px"><img src="../img/ajax-loader2.gif"  class="img-circle"/>www.mymedia.com</div>
+                    <div>
                     </div>
                 </div>
-                <div>
-                <!--  filters components-->
-                    <div id='Chaîne' style="margin-top: 10px;"></div>
-                    <div id='Version' style="margin-top: 10px;"></div>
-                    <div id='Format' style="margin-top: 10px;"></div>
-                    <div class="Optimisation-setter" style="margin-top: 10px;">
-                            <div class="Optimisation-label" style="float:left;weight:40%;font-size:20px">Optimisation</div>
-                            <div id="Optimisation" style="float:right"></div>
+                <div id='options' >
+                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>CHOIS DES DONNÉES</div>
+                    <div>
+                        <div style="margin-top: 10px;">
+                            <div id='datepicker1' style="float:left;margin-left:5%;"></div>
+                        </div>
+                        <div id='valueselector1' style="margin-top: 45px;margin-left:5%;"></div>
+                        <div id='valueselector2' style="margin-top: 10px;margin-left:5%;"></div>
+                        <div id='valueselector3' style="margin-top: 10px;margin-left:5%;margin-bottom:10px;"></div>
+
+                    </div>
+                </div>
+                <div id='filters' style="">
+                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>FILTRES</div>
+                    <div>
+                        <div id='Chaîne' style="margin-top: 10px;margin-left:5%;"></div>
+                        <div id='Version' style="margin-top: 10px;margin-left:5%;"></div>
+                        <div id='Format' style="margin-top: 10px;margin-left:5%;margin-bottom: 10px;"></div>
+
+                    </div>
+                </div>
+                <div id='validation' style="">
+                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>VALIDATION</div>
+                    <div >
+                        <button class="button" style ="margin-left:5%;margin-bottom:10px;width:90%;">Valider</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="splitter">
+                    <div>
+                        <div>
+                            <button class="button">Ajouter un commentaire</button>
+                            <div id="chart" sytle="height:100%"></div>
+                        </div>
+                        <!-- <div style="width:100%;height:90%">
+
+                        </div> -->
+                    </div>
+
+                    <div style="width:100%;height:100%">
+                        <div>
+                            <button class="button">Exporter</button>
+                        </div>
+                        <div style="margin: 15px 15px 15px 15px;height:75%">
+                            <div id="jqxgrid" ></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            <div id="splitter">
-                <div  id="chart" >
-                </div>
-                <div style="width:100%;height:100%">
-                <div id="jqxgrid">
-                </div>
-                </div>
-            </div>
-        </div>
+
     </div>
-
-    </div> <!-- /container -->
+    <!-- /container -->
     <!-- /print the libraries -->
     <?php include '../library.php';?>
     <script type="text/javascript">
         $(document).ready(function () {
+
             $.getScript("../js/CampagneController.js", function() {
                         CampagneController();
                 });

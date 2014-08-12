@@ -46,7 +46,7 @@ function TimeSeriesController(){
                                 unitInterval: 10,
                                 displayValueAxis: false,
                                 displayGridLines: false,
-                                showGridLines: false
+                                showGridLines: true
                             },
                             series: [
                                     { dataField: 'Population', displayText: 'Population' }

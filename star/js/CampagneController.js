@@ -26,7 +26,7 @@ function CampagneController() {
 
     $("#datepicker1").jqxDateTimeInput({
         theme:globaltheme,
-        width: '98%',
+        width: '90%',
         height: '25px',
         selectionMode: 'range'
     });
@@ -34,21 +34,21 @@ function CampagneController() {
         theme: globaltheme,
         source: source,
         placeHolder: "1ère valeur à afficher",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#valueselector2").jqxDropDownList({
         theme: globaltheme,
         source: source,
         placeHolder: "2ème valeur à afficher",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#valueselector3").jqxDropDownList({
         theme: globaltheme,
         source: source,
         placeHolder: "3ème valeur à afficher",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
 
@@ -57,7 +57,7 @@ function CampagneController() {
         source: source,
         placeHolder: "Chaîne",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Version").jqxDropDownList({
@@ -65,7 +65,7 @@ function CampagneController() {
         source: source,
         placeHolder: "Version pub / créa",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Format").jqxDropDownList({
@@ -73,24 +73,11 @@ function CampagneController() {
         source: source,
         placeHolder: "Format",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
-    $('#Optimisation').jqxSwitchButton({
-        theme:globaltheme,
-        height: 25,
-        width: '40%',
-        checked: false
-    });
 
-    $("#btn_default").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
-    $("#btn_validez").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
+
     $.getScript("../js/GridControllerClass.js", function() {
         var grid = new GridController();
         grid.initialGrid();

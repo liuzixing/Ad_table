@@ -75,7 +75,5 @@ function DashboardController() {
                   }
             ]
         });
-    $.getScript("../js/RealTimeController.js", function() {
-        RealTimeController();
-    });
+
 }

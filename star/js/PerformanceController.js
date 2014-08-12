@@ -24,7 +24,7 @@ function PerformanceController() {
 
     $("#datepicker1").jqxDateTimeInput({
         theme: globaltheme,
-        width: '98%',
+        width: '90%',
         height: '25px',
         selectionMode: 'range'
     });
@@ -46,7 +46,7 @@ function PerformanceController() {
     });
     $("#datepicker2").jqxDateTimeInput({
         theme: globaltheme,
-        width: '98%',
+        width: '90%',
         height: '25px',
         disabled: true,
         selectionMode: 'range'
@@ -66,7 +66,7 @@ function PerformanceController() {
         theme: globaltheme,
         source: xaxisSelectorSource,
         placeHolder: "Abscisses (Taux)",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     var yaxisSelectorSource = [
@@ -85,7 +85,7 @@ function PerformanceController() {
         theme: globaltheme,
         source: yaxisSelectorSource,
         placeHolder: "Ordonnées (Volume)",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     var regroupmentSource = [
@@ -100,7 +100,7 @@ function PerformanceController() {
         theme: globaltheme,
         source: regroupmentSource,
         placeHolder: "Regroupement",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     //filters components
@@ -109,7 +109,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "Chaîne",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Version").jqxDropDownList({
@@ -117,7 +117,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "Version pub / créa",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Format").jqxDropDownList({
@@ -125,7 +125,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "Format",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Catégorie").jqxDropDownList({
@@ -133,7 +133,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "Catégorie",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#MMDaypart").jqxDropDownList({
@@ -141,7 +141,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "MMDaypart",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Dayofweek").jqxDropDownList({
@@ -149,7 +149,7 @@ function PerformanceController() {
         source: source,
         placeHolder: "Dayofweek",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $('#Optimisation').jqxSwitchButton({
@@ -158,14 +158,14 @@ function PerformanceController() {
         width: '40%',
         checked: false
     });
-    $("#btn_default").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
-    $("#btn_validez").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
+    // $("#btn_default").jqxButton({
+    //     theme: globaltheme,
+    //     width: "40%"
+    // });
+    // $("#btn_validez").jqxButton({
+    //     theme: globaltheme,
+    //     width: "40%"
+    // });
     $.getScript("../js/GridControllerClass.js", function() {
         var grid = new GridController();
         grid.initialGrid();

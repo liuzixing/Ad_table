@@ -25,7 +25,7 @@ function ConcurrenceController() {
 
     $("#datepicker1").jqxDateTimeInput({
         theme:globaltheme,
-        width: '98%',
+        width: '90%',
         height: '25px',
         selectionMode: 'range'
     });
@@ -33,14 +33,14 @@ function ConcurrenceController() {
         theme: globaltheme,
         source: source,
         placeHolder: "Sélection des concurrents",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#channelselector").jqxDropDownList({
         theme: globaltheme,
         source: source,
         placeHolder: "Choix des chaines",
-        width: '98%',
+        width: '90%',
         height: '25'
     });
 
@@ -50,7 +50,7 @@ function ConcurrenceController() {
         source: source,
         placeHolder: "Version pub / créa",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $("#Format").jqxDropDownList({
@@ -58,7 +58,7 @@ function ConcurrenceController() {
         source: source,
         placeHolder: "Format",
         checkboxes: true,
-        width: '98%',
+        width: '90%',
         height: '25'
     });
     $('#Optimisation').jqxSwitchButton({
@@ -68,19 +68,20 @@ function ConcurrenceController() {
         checked: false
     });
 
-    $("#btn_default").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
-    $("#btn_validez").jqxButton({
-        theme: globaltheme,
-        width: "40%"
-    });
+    // $("#btn_default").jqxButton({
+    //     theme: globaltheme,
+    //     width: "40%"
+    // });
+    // $("#btn_validez").jqxButton({
+    //     theme: globaltheme,
+    //     width: "40%"
+    // });
     $.getScript("../js/GridControllerClass.js", function() {
         var grid = new GridController();
         grid.initialGrid();
     });
-    $.getScript("../js/RealTimeController.js", function() {
-        RealTimeController();
+    $.getScript("../js/bubbleControllerClass.js", function() {
+        var bubble = new BubbleController();
+        bubble.createBubbleChart();
     });
 }

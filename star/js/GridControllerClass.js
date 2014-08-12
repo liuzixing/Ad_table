@@ -22,10 +22,11 @@ function GridController() {
         $("#jqxgrid").jqxGrid({
             source: _self._dataAdapter,
             width: "100%",
+            showtoolbar: true,
             height:"100%",
             sortable: false,
             filterable: false,
-            theme: 'bootstrap',
+            theme: 'mymedia-table',
             columnsResize: false,
             columns: _self._data[0],
         });

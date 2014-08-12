@@ -139,7 +139,7 @@ class gridCellDataGenerator{
                 "columnGroup" => "Option",
                 "align"       => "center",
                 "datafield"   => $key,
-                "width"       => 250,
+                "width"       => 100/count($this->dataField)."%",
                 "cellsAlign"  => 'center',
                 "cellsformat" => $val["format"]
             );

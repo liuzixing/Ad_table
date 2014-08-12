@@ -39,3 +39,28 @@ background-color: #FF9D5C;
 color: black;
 background-color: #FF3333;
 }
+
+.button {
+    font-family: 'Segoe UI', 'Open Sans', Arial, sans-serif;
+    display: block;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-align: center;
+    padding: 5px;
+    margin: 15px 0px 0px 15px;
+    font-size: 15px;
+    text-transform: uppercase;
+    background: rgb(45, 204, 112);
+    color: #FFF;
+    border: 0px none;
+    outline: 0px none;
+}
+
+.button:hover {
+    background: #ED5E2F;
+}
+
+.button:active {
+    background: #F6A953;
+}
+​
