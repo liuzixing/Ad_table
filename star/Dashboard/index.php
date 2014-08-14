@@ -21,8 +21,7 @@
     <!-- Static navbar -->
 
     <!-- Main component for a primary marketing message or call to action -->
-    <div id='chart' style="width: 100%; height: 300px"></div>
-     <div id='selectorContainer' style="width:100%; height:100px;"></div>
+    <div id='chart' style="width: 100%; height: 500px"></div>
     <div id="datatable" style="margin-top:10px"></div>
   </div>
   <!-- /container -->
@@ -30,9 +29,9 @@
   <?php include '../library.php';?>
   <script type="text/javascript">
         $(document).ready(function () {
-            $.getScript("../js/DashboardController.js", function() {
-                        DashboardController();
-                });
+            // $.getScript("../js/DashboardController.js", function() {
+            //             DashboardController();
+            //     });
              realtimegraph = new RealTimeController();
             realtimegraph.InitialGraph();
         });

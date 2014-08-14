@@ -8,69 +8,81 @@
     <meta name="author" content="">
 <head>
     <link rel="icon" href="../img/leadsmonitor.png">
-    <title id='Description'>Leadsmonitor</title>
+    <title id='Description'>Campagne</title>
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <!--   <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet">--></head>
+    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet"></head>
 <body id='Campagne'>
+    <?php include '../header.php';?>
     <div class="container-fluid">
         <!-- Static navbar -->
-        <?php include '../header.php';?>
 
         <!-- Main component for a primary marketing message or call to action -->
         <div id="splitContainer">
             <div>
-            <div id='clientlogo' >
-                    <div style="width:100%;height:50px;font-size:12px"><img src="../img/ajax-loader2.gif"  class="img-circle"/>www.mymedia.com</div>
-                    <div>
+                <div id='clientlogo' >
+                    <div >
+                        <img src="../img/iron.jpg" class="clientCircle">
+                        <span class="client-website" >www.mymedia.com</span>
                     </div>
+                    <div></div>
                 </div>
                 <div id='options' >
-                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>CHOIS DES DONNÉES</div>
-                    <div>
-                        <div style="margin-top: 10px;">
-                            <div id='datepicker1' style="float:left;margin-left:5%;"></div>
-                        </div>
-                        <div id='valueselector1' style="margin-top: 45px;margin-left:5%;"></div>
-                        <div id='valueselector2' style="margin-top: 10px;margin-left:5%;"></div>
-                        <div id='valueselector3' style="margin-top: 10px;margin-left:5%;margin-bottom:10px;"></div>
-
-                    </div>
-                </div>
-                <div id='filters' style="">
-                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>FILTRES</div>
-                    <div>
-                        <div id='Chaîne' style="margin-top: 10px;margin-left:5%;"></div>
-                        <div id='Version' style="margin-top: 10px;margin-left:5%;"></div>
-                        <div id='Format' style="margin-top: 10px;margin-left:5%;margin-bottom: 10px;"></div>
-
-                    </div>
-                </div>
-                <div id='validation' style="">
-                    <div style="width:100%;height:30px;font-size:16px"><img src="../img/ajax-loader3.gif"  class="img-circle"/>VALIDATION</div>
                     <div >
-                        <button class="button" style ="margin-left:5%;margin-bottom:10px;width:90%;">Valider</button>
+                        <span class="numberCircle" >1</span>
+                        <span class="expander-header">Choix des données</span>
+                    </div>
+                    <div>
+                        <div class="periode-text">Période</div>
+                        <div id='datepicker1' class="datepicker"></div>
+                        <div class="chooser-text">Choix des données à afficher</div>
+                        <div class = "sidebar-dropdownlist" id='valueselector1' ></div>
+                        <div class = "sidebar-dropdownlist" id='valueselector2' ></div>
+                        <div class = "sidebar-dropdownlist bottom-sidebar-dropdownlist" id='valueselector3' ></div>
+
+                    </div>
+                </div>
+                <div id='filters' >
+                    <div>
+                        <span class="numberCircle" >2</span>
+                        <span class="expander-header">Filtres</span>
+                        <img src="../img/blank.png" id ="filterintroduction" class="sprite  sprite-question question-sprite" />
+                    </div>
+                    <div>
+                        <div id='Chaîne' class = "sidebar-dropdownlist" ></div>
+                        <div id='Version' class = "sidebar-dropdownlist" ></div>
+                        <div id='Format' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist" ></div>
+                    </div>
+                </div>
+                <div id='validation' >
+                    <div>
+                        <span class="numberCircle" >3</span>
+                        <span class="expander-header">Validation</span>
+                    </div>
+                    <div>
+                        <button class="button sidebar-button" >
+                            <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
+                            Valider
+                        </button>
                     </div>
                 </div>
             </div>
             <div>
                 <div id="splitter">
                     <div>
-                        <div>
-                            <button class="button">Ajouter un commentaire</button>
-                            <div id="chart" sytle="height:100%"></div>
-                        </div>
-                        <!-- <div style="width:100%;height:90%">
-
-                        </div> -->
+                        <button class="button ajouter-button" >
+                            <img src="../img/blank.png" class="sprite  sprite-plus_btn button-sprite"  />
+                            Ajouter un commentaire
+                        </button>
+                        <div id="chart" class="chart-container"></div>
                     </div>
-
-                    <div style="width:100%;height:100%">
+                    <div >
                         <div>
-                            <button class="button">Exporter</button>
+                            <button class="button exporter-button" class="exporter-button">
+                                <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
+                                Exporter
+                            </button>
                         </div>
-                        <div style="margin: 15px 15px 15px 15px;height:75%">
+                        <div class="table-container">
                             <div id="jqxgrid" ></div>
                         </div>
                     </div>
@@ -88,6 +100,7 @@
             $.getScript("../js/CampagneController.js", function() {
                         CampagneController();
                 });
+
         });
     </script>
 </body>

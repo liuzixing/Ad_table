@@ -8,65 +8,75 @@
     <meta name="author" content="">
 <head>
     <link rel="icon" href="../img/leadsmonitor.png">
-    <title id='Description'>Leadsmonitor</title>
+    <title id='Description'>Concurrence</title>
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-     <!--  <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <body id='Concurrence'>
+    <?php include '../header.php';?>
+
     <div class="container-fluid">
         <!-- Static navbar -->
-        <?php include '../header.php';?>
 
         <!-- Main component for a primary marketing message or call to action -->
         <div id="splitContainer">
             <div>
-            <div id='clientlogo' >
-                    <div style="width:100%;text-align: center;height:30px;font-size:12px">www.mymedia.com</div>
+                <div id='clientlogo' >
                     <div>
+                        <img src="../img/iron.jpg" class="clientCircle">
+                        <span class="client-website" >www.mymedia.com</span>
                     </div>
+                    <div></div>
                 </div>
                 <div id='options' >
-                    <div style="width:100%;text-align: center;height:30px;font-size:16px">Options</div>
+                    <div >
+                        <span class="numberCircle" >1</span>
+                        <span class="expander-header">Choix des données</span>
+                    </div>
                     <div>
-                        <div style="margin-top: 10px;">
-                            <div id='datepicker1' style="margin-left:5%;float:left"></div>
-                        </div>
-                        <div id='concurrenceselector' style="margin-top: 45px;margin-left:5%;"></div>
-                        <div id='channelselector' style="margin-top: 10px;margin-bottom:10px;margin-left:5%;"></div>
-                        <!-- <div style="margin-top: 10px;">
-                            <input  type="button" id="btn_default" value="default" />
-                            <input style="float:right" type="button" id="btn_validez" value="validez" />
-                        </div> -->
+                        <div class="periode-text">Période</div>
+                        <div id='datepicker1' class="datepicker"></div>
+                        <div class="chooser-text">Choix des données à afficher</div>
+                        <div id='concurrenceselector' class = "sidebar-dropdownlist"></div>
+                        <div id='channelselector' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist"></div>
+
                     </div>
                 </div>
                 <div id='filters'>
-                    <div style="width:100%;text-align: center;height:30px;font-size:16px">Filters</div>
                     <div>
-                        <div id='Version' style="margin-top: 10px;margin-left:5%;"></div>
-                        <div id='Format' style="margin-top: 10px;margin-left:5%;"></div>
-                        <div class="Optimisation-setter" style="margin-top: 10px;margin-left:5%;margin-bottom:50px;">
-                            <div class="Optimisation-label" style="float:left;weight:35%;font-size:17px">Optimisation</div>
-                            <div id="Optimisation" style="float:right;margin-right:5%;"></div>
-                        </div>
+                        <span class="numberCircle" >2</span>
+                        <span class="expander-header">Filtres</span>
+                    </div>
+                    <div>
+                        <div id='Version' class = "sidebar-dropdownlist" ></div>
+                        <div id='Format' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist" ></div>
+
                     </div>
                 </div>
-                <div id='validation' style="">
-                    <div style="width:100%;text-align: center;height:30px;font-size:16px">VALIDATION</div>
-                    <div >
-                        <button class="button" style ="margin-left:5%;margin-bottom:10px;width:90%;">Valider</button>
+                <div id='validation' >
+                    <div>
+                        <span class="numberCircle" >3</span>
+                        <span class="expander-header">Validation</span>
+                    </div>
+                    <div>
+                        <button class="button sidebar-button" >
+                            <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
+                            Valider
+                        </button>
                     </div>
                 </div>
             </div>
             <div>
                 <div id="splitter">
                     <div  id="chart" ></div>
-                    <div style="width:100%;height:100%">
+                    <div >
                         <div>
-                            <button class="button">Exporter</button>
+                            <button class="button exporter-button" class="exporter-button">
+                                <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
+                                Exporter
+                            </button>
                         </div>
-                        <div style="margin: 15px 15px 15px 15px;height:75%">
+                        <div class="table-container">
                             <div id="jqxgrid" ></div>
                         </div>
                     </div>

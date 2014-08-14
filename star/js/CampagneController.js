@@ -2,7 +2,6 @@ function CampagneController() {
     var globaltheme = 'bootstrap';
     var layout = new LayoutController();
     layout.createLayout();
-
     var source = [
         "Budget net",
         "Total affichage sur Google",
@@ -23,11 +22,15 @@ function CampagneController() {
         "Nombre total de ventes",
     ];
 
-
+    var today= new Date();
+    var sixmonthsago = new Date();
+    sixmonthsago.setDate(today.getDate() - 180);
     $("#datepicker1").jqxDateTimeInput({
         theme:globaltheme,
         width: '90%',
         height: '25px',
+        min: sixmonthsago,
+        max: today,
         selectionMode: 'range'
     });
     $("#valueselector1").jqxDropDownList({
@@ -77,13 +80,11 @@ function CampagneController() {
         height: '25'
     });
 
-
     $.getScript("../js/GridControllerClass.js", function() {
         var grid = new GridController();
         grid.initialGrid();
     });
-    $.getScript("../js/TimeSeriesController.js", function() {
-        var chart = new TimeSeriesController();
+    var chart = new TimeSeriesController();
         chart.createChart();
-    });
+
 }

@@ -2,9 +2,10 @@
      var _self = this;
      var _dataWithZero = [];
      //var data[];
-     var _source = {};
-     var _dataAdapter = {};
-     var _settings = {};
+     var _chart;
+     this._dataWithZero = [];
+     this._seriesOptions = [];
+     this._plotLinesOptions = [];
      this.createLoadingMessage = function() {
          $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
      }
@@ -13,45 +14,31 @@
      }
      this.attachLiveEvent = function() {
          $.ajax({
-             data: "idsite=8",
+             data: "client=Justfab",
              url: 'live_server.php',
              success: function(point) {
-                 console.log(point);
-                 //var pre = chart.series[0];
-                 //var real = _self._dataAdapter.records;
-                 var lastpoint = _self._dataWithZero[_self._dataWithZero.length - 1]["Date"];
-                 console.log(_self._dataAdapter);
-                 var atLeastUpdateOnePoint = false;
-                 for (var i = 0; i < point.length; i++) {
-                     if (point[i]["Date"] - lastpoint <= 0) {
-                         continue;
-                     }
-                     while (point[i]["Date"] - lastpoint > 1000) {
-                         lastpoint = lastpoint + 1000;
-                         _self._dataWithZero.push({
-                             "Date": lastpoint,
-                             "Visits": 0
-                         });
-                         atLeastUpdateOnePoint = true;
-                     }
-                     if (point[i]["Date"] - lastpoint === 1000) {
-                         lastpoint = lastpoint + 1000;
-                         _self._dataWithZero.push({
-                             "Date": point[i]["Date"],
-                             "Visits": point[i]["Visits"]
-                         });
-                         atLeastUpdateOnePoint = true;
-                     }
-                 }
-                 if (atLeastUpdateOnePoint === false) {
-                     _self._dataWithZero.push({
-                         "Date": lastpoint + 1000,
-                         "Visits": 0
-                     });
-                 }
-                 _self._dataAdapter.dataBind();
-                $('#chart').jqxChart('update');
-                 //$('#chart').jqxChart('refresh');
+                 var real = _self._chart.series[0];
+                var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length-1];
+                console.log(point);
+                var atLeastUpdateOnePoint = false;
+                 for (var i = 0 ;i < point.length;i++){
+                    if(point[i][0] - lastpoint <= 0){
+                        continue;
+                    }
+                    while(point[i][0] - lastpoint > 1000){
+                        lastpoint = lastpoint + 1000;
+                        _self._chart.series[0].addPoint([lastpoint,0], true, true);
+                        atLeastUpdateOnePoint = true;
+                    }
+                    if(point[i][0] - lastpoint === 1000 ){
+                        lastpoint = lastpoint + 1000;
+                        _self._chart.series[0].addPoint([point[i][0],point[i][1]], true, true);
+                        atLeastUpdateOnePoint = true;
+                    }
+                }
+                if(atLeastUpdateOnePoint === false){
+                    _self._chart.series[0].addPoint([lastpoint+1000,0], true, true);
+                }
                  // call it again after 1 second
                  setTimeout(_self.attachLiveEvent, 1000);
              },
@@ -60,137 +47,131 @@
                      setTimeout(_self.attachLiveEvent, 1000);
                  }
              },
-             cache: false
+             cache: true
          });
 
      }
      this.createGraph = function() {
-        _self._source = {
-             datatype: "json",
-             localdata:_self._dataWithZero,
-             datafields: [{
-                 name: 'Date',
-                 type: 'date'
-             }, {
-                 name: 'Visits',
-                 type: 'int'
-             }]
-         };
-         _self._dataAdapter = new $.jqx.dataAdapter(_self._source, {
-             autoBind: true});
-         _self._settings = {
-             title: "visit  / time",
-             description: "",
-             enableAnimations: true,
-             animationDuration: 1000,
-             enableAxisTextAnimation: true,
-             enableCrosshairs: true,
-            crosshairsDashStyle: '2,2',
-            crosshairsLineWidth: 2.0,
-            crosshairsColor: 'red',
-             showLegend: true,
-             padding: {
-                 left: 10,
-                 top: 5,
-                 right: 10,
-                 bottom: 5
-             },
-             titlePadding: {
-                 left: 90,
-                 top: 0,
-                 right: 0,
-                 bottom: 10
-             },
-             source: _self._dataAdapter,
-             xAxis: {
-                 dataField: 'Date',
-                 type: 'date',
-                 formatFunction: function(value) {
-                    //return"<img src='../img/ajax-loader.gif' alt='loading' />";
-                     return $.jqx.dataFormat.formatdate(value, 'T');
+         Highcharts.setOptions({
+             global: {
+                 useUTC: false,
+                 timezoneOffset: 2 * 60
+             }
+         });
+         _self._chart = new Highcharts.StockChart({
+        series: _self._seriesOptions,
+        chart: {
+            type: 'spline',
+            renderTo: 'chart',
+            defaultSeriesType: 'spline',
+            zoomType: 'xy',
+            //load update function here
+            events: {
+                load: _self.requestRealTimeData
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Real time tracking'
+        },
+        plotOptions: {
+            spline: {
+                //set how many points maximun
+                turboThreshold: 180000,
+                lineWidth: 2
+            }
+        },
+        rangeSelector: {
+            buttons: [{
+                count: 30,
+                type: 'minute',
+                text: '30M'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            maxZoom: 20 * 1000,
+            plotLines: _self._plotLinesOptions
+        },
+        yAxis: {
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Visits',
+                margin: 80
+            }
+        },
 
-                 },
-                 showTickMarks: true,
-                 axisSize: 'auto',
-                 tickMarksColor: '#888888',
-                 gridLinesColor: '#888888',
-                 valuesOnTicks: true,
-                 tickMarksInterval: 1,
-                 tickMarksColor: '#888888',
-                 unitInterval: 1,
-                 rangeSelector: {
-                     renderTo: $('#selectorContainer'),
-                     size: 120,
-                     padding: {
-                         left: 0,
-                         right: 0,
-                         top: 30,
-                         bottom: 0
-                     },
-                     backgroundColor: 'white',
-                     dataField: 'Visits',
-                     showGridLines: false,
-                     formatFunction: function(value) {
-                         return $.jqx.dataFormat.formatdate(value, 'T');
-                     }
-                 },
-             },
-             colorScheme: 'scheme05',
-             seriesGroups: [{
-                 type: 'spline',
-                 valueAxis: {
-                     columnsGapPercent: 10,
-                     seriesGapPercent: 0,
-                     //unitInterval: 2,
-
-                     displayValueAxis: true,
-                     description: 'Visits',
-                     axisSize: 'auto',
-                     tickMarksColor: '#888888'
-                 },
-                 series: [{
-                     dataField: 'Visits',
-                     displayText: 'visites'
-                 }]
-             }]
-         }; //end settings
-         console.log(_self._settings);
-         _self.destroyLoadingMessage();
-
-         $('#chart').jqxChart(_self._settings);
-         console.log($('#chart').jqxChart('getInstance'));
-         //
-         //_self.attachLiveEvent();
-
+    });
      }
      this.InitialGraph = function() {
          _self.createLoadingMessage();
          $.ajax({
-             data: "idsite=8",
+             data: "client=Justfab",
              url: 'server.php',
              async: true,
              success: function(data) {
-                 console.log(data);
-                 _self._dataWithZero =data;
-                 _self._dataWithZero = [];
-                 for (var i = 12300; i < data.length - 1; i++) {
-                     //console.log(data[i]);
-                     _self._dataWithZero.push(data[i]);
-                     var currentX = data[i]["Date"];
-                     while (data[i + 1]["Date"] - currentX > 1000) {
+
+                 //console.log(data);
+                 for (var i = 0; i < data[0].length - 1; i++) {
+                     _self._dataWithZero.push(data[0][i]);
+                     var currentX = data[0][i][0];
+                     while (data[0][i + 1][0] - currentX > 1000) {
                          currentX += 1000;
-                         _self._dataWithZero.push({
-                             "Date": currentX,
-                             "Visits": 0
-                         });
+                         _self._dataWithZero.push([currentX, 0]);
                      }
-                 }
-                 _self._dataWithZero.push(data[data.length - 1]);
-                 console.log(_self._dataWithZero);
+                 };
+                 _dataWithZero.push(data[0][data[0].length - 1]);
+
+                 _self._seriesOptions[0] = {
+                     name: "Visites",
+                     data: _self._dataWithZero,
+                     dataGrouping: {
+                         approximation: "sum",
+                         enabled: true,
+                     }
+                 };
+                 for (var i = 0; i < data[1].length; i++) {
+                _self._plotLinesOptions[i] = {
+                    color: 'red', // Color value
+                    dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                    value: data[1][i][0], // Value of where the line will appear
+                    label: {
+                        value: 10,
+                        text: data[1][i][1],
+                        align: 'right',
+                        staggerLines: 1,
+                        rotation: (90 * ((i * 2) + 1)),
+                        verticalAlign: "middle",
+                        x: 100,
+                        y: 80,
+                        style: {
+                            color: 'blue',
+                            //fontWeight: 'bold'
+                        },
+                        y: 0,
+                        x: 5
+
+                    },
+                    allowPointSelect: true,
+                    width: '2' // Width of the line
+
+                };
+                //console.log(data[i].text);
+            }
                  _self.destroyLoadingMessage();
                  _self.createGraph();
+                 _self.attachLiveEvent();
              },
-             cache: false,
+             cache: true,
          });
      }
  }

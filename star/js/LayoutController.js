@@ -3,49 +3,45 @@ function LayoutController() {
     var self = this;
     this.createLayout = function() {
         $('#splitContainer').jqxSplitter({
-            height: 800,
+            height: 1000,
             width: "100%",
             orientation: 'vertical',
+            theme: "layout-custom",
             panels: [{
-                size: '250'
-            }, {
-            }]
+                size: '13%'
+            }, {}]
         });
         $('#splitter').jqxSplitter({
             width: '100%',
             height: '100%',
+            theme: "layout-custom",
             orientation: 'horizontal',
             panels: [{
 
-                size: "60%"
+                size: "50%"
             }, {
-                size: "40%"
+                size: "50%"
             }]
         });
         $("#clientlogo").jqxExpander({
-            theme: "mymedia",
+            theme: "expander-custom",
             showArrow: false,
             width: '100%',
         });
         $("#options").jqxExpander({
-            theme: "mymedia",
+            theme: "expander-custom",
             showArrow: false,
             width: '100%',
         });
         $("#filters").jqxExpander({
-            theme: "mymedia",
+            theme: "expander-custom",
             showArrow: false,
             width: '100%'
         });
         $("#validation").jqxExpander({
-            theme: "mymedia",
+            theme: "expander-custom",
             showArrow: false,
             width: '100%'
         });
-        // $("#settingArea").jqxTabs({
-        //     theme: self.globaltheme,
-        //     height: '100%',
-        //     width: '100%'
-        // });
     }
 }

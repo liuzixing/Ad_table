@@ -61,21 +61,8 @@ function ConcurrenceController() {
         width: '90%',
         height: '25'
     });
-    $('#Optimisation').jqxSwitchButton({
-        theme:globaltheme,
-        height: 25,
-        width: '40%',
-        checked: false
-    });
 
-    // $("#btn_default").jqxButton({
-    //     theme: globaltheme,
-    //     width: "40%"
-    // });
-    // $("#btn_validez").jqxButton({
-    //     theme: globaltheme,
-    //     width: "40%"
-    // });
+
     $.getScript("../js/GridControllerClass.js", function() {
         var grid = new GridController();
         grid.initialGrid();

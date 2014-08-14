@@ -50,7 +50,7 @@ function GridController() {
             async: true,
             success: function(d) {
                 _self._data = d;
-                console.log(_self._data);
+                //console.log(_self._data);
                 //create data cell without colour
                 for (var i = 0; i < _self._data[2].length; i++) {
                     if (_self._data[3][i] != "") {
@@ -58,7 +58,7 @@ function GridController() {
                         _self._dataCellOnlyWithColour[1].push(_self._data[3][i]);
                     }
                 }
-                console.log(_self._dataCellOnlyWithColour);
+                //console.log(_self._dataCellOnlyWithColour);
                 var cellclass = function(row, columnfield, value) {
                     if (_self._showColourDataOnly) {
                         return _self._dataCellOnlyWithColour[1][row];
