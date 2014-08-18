@@ -2,25 +2,15 @@ function PerformanceController() {
     var globaltheme = 'bootstrap';
     var layout = new LayoutController();
     layout.createLayout();
-    var source = [
-        "Budget net",
-        "Total affichage sur Google",
-        "Coût par recherche",
-        "CTR",
-        "Nombre total de visites immédiates",
-        "Coût de la visite immédiate",
-        "Nombre total de visites du site",
-        "Nombre total de visite campagne ",
-        "Coût de la visite campagne",
-        "% de nouveaux visiteurs immédiats",
-        "Nombre total de leads immédiats",
-        "Coût au lead immédiat",
-        "Nombre total de ventes immédiates",
-        "CPA",
-        "CPO",
-        "KPI personnalisé client",
-        "Nombre total de ventes",
-    ];
+    var source = ["empty",
+"empty",
+"empty",
+"empty",
+"empty",
+"empty",
+"empty",
+"empty",]
+;
 
     $("#datepicker1").jqxDateTimeInput({
         theme: globaltheme,
@@ -51,16 +41,15 @@ function PerformanceController() {
         disabled: true,
         selectionMode: 'range'
     });
-    var xaxisSelectorSource = [
-        "Taux de recherche",
-        "Coût par recherche",
-        "Coût de visite immédiate ",
-        "Coût de visite campagne ",
-        "Coût par visite",
-        "Coût par lead",
-        "CPO campagne",
-        "Taux de nouveaux visiteurs",
-        "Taux de rebond"
+    var xaxisSelectorSource = ["GRPRef",
+        "GRPcible",
+        "TTRi",
+        "CPM",
+        "Coût de visite immédiate",
+        "CPLi (Coût par lead immediat)",
+        "CPOi (Cost per order instant)",
+        "% Nouveaux visiteurs i",
+        "% Bounce rate (v3)"
     ];
     $("#xaxisselector").jqxDropDownList({
         theme: globaltheme,
@@ -69,17 +58,12 @@ function PerformanceController() {
         width: '90%',
         height: '25'
     });
-    var yaxisSelectorSource = [
+    var yaxisSelectorSource = ["Total nombre de spots",
+        "Total de contacts",
+        "Budget brut",
         "Budget net",
-        "Nombre total de spots",
-        "Nombre total de vues ",
-        "Nombre total d’affichage sur Google ",
-        "Nombre total de clic vers le site client",
-        "Nombre total de visites immédiates",
-        "Nombre total de visiteurs immédiats",
-        "Nombre total de visites campagne",
-        "Nombre total de leads campagne",
-        "Nombre total de commandes campagne"
+        "Total de visites immédiates",
+        "Total leads immediats",
     ];
     $("#yaxisselector").jqxDropDownList({
         theme: globaltheme,
@@ -88,13 +72,14 @@ function PerformanceController() {
         width: '90%',
         height: '25'
     });
-    var regroupmentSource = [
-        "Chaîne(s) > Daypart (chaine) + DaypartMM(chaine) > Ecran (chaine Daypart)",
+    var regroupmentSource = ["Format",
+        "Création",
+        "Dayoftheweek > Daypart+DaypartMM > Ecran (Dayoftheweekdaypart)",
+        "Daypart +DaypartMM > Ecran (daypart)",
+        "Chaîne(s) > Daypart (chaine) + DaypartMM(chaine) > Ecran (chaine)",
         "ChaineDayofweek >Daypart +MM (chaineDayoftheweek) > Ecran",
         "Chainedaytype > Daypart + MM (chainedaytype)> Ecran",
-        "Daypart +DaypartMM > Ecran (daypart)",
-        "Dayoftheweek > Daypart+DaypartMM > Ecran (Dayoftheweekdaypart)",
-        "Chaineecranweekday + chaineweekday"
+        "Chaineecrandayoftheweek + chainedayoftheweek",
     ];
     $("#regroupement").jqxDropDownList({
         theme: globaltheme,

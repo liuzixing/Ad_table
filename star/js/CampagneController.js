@@ -2,31 +2,29 @@ function CampagneController() {
     var globaltheme = 'bootstrap';
     var layout = new LayoutController();
     layout.createLayout();
-    var source = [
-        "Budget net",
-        "Total affichage sur Google",
-        "Coût par recherche",
-        "CTR",
-        "Nombre total de visites immédiates",
-        "Coût de la visite immédiate",
-        "Nombre total de visites du site",
-        "Nombre total de visite campagne ",
-        "Coût de la visite campagne",
-        "% de nouveaux visiteurs immédiats",
-        "Nombre total de leads immédiats",
-        "Coût au lead immédiat",
-        "Nombre total de ventes immédiates",
-        "CPA",
-        "CPO",
+    var source = ["Budget net",
+        "Ecran / spot",
+        "Chaînes",
+        "Contact",
+        "Affichage Recherche Google",
+        "Visites immédiates",
+        "CPVI",
+        "% nouveaux visiteurs immédiats",
+        "Visites campagne",
+        "CPVc",
+        "Visites du site",
         "KPI personnalisé client",
-        "Nombre total de ventes",
+        "Clic sur Google",
+        "CTR",
+        "Leads immédiats",
+        "Ventes immédiates",
     ];
 
-    var today= new Date();
+    var today = new Date();
     var sixmonthsago = new Date();
     sixmonthsago.setDate(today.getDate() - 180);
     $("#datepicker1").jqxDateTimeInput({
-        theme:globaltheme,
+        theme: globaltheme,
         width: '90%',
         height: '25px',
         min: sixmonthsago,
@@ -85,6 +83,6 @@ function CampagneController() {
         grid.initialGrid();
     });
     var chart = new TimeSeriesController();
-        chart.createChart();
+    chart.createChart();
 
 }

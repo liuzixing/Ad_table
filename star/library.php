@@ -12,7 +12,6 @@
 <!-- <link rel="stylesheet" href="../external_library/x_navbar_ct/css/ct-navbar.css" type="text/css" /> -->
 <!-- <link rel="stylesheet" href="../external_library/x_navbar_ct/css/pe-icon-7-stroke.css" type="text/css" /> -->
 <link href="http://fonts.googleapis.com/css?family=Headland+One%7COpen+Sans:400,300&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="../colourConf.css" type="text/css" />
 <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../external_library/scripts/demos.js"></script>
 <script type="text/javascript" src="../external_library/jqwidgets/jqxcore.js"></script>

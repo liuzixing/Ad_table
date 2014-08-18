@@ -1,43 +1,43 @@
 /*settings for the colour level begin*/
 .levelOne {
-color: black\9;
-background-color: #D6FFAD\9;
+color: white\9;
+background-color: #2dcc70\9;
 }
 .levelTwo {
-color: black\9;
-background-color: #E5FFCA\9;
+color: white\9;
+background-color: #fce700\9;
 }
 .levelThree {
-color: black\9;
-background-color: #F7FFEF\9;
+color: white\9;
+background-color: #ff9900\9;
 }
 .levelFour {
-color: black\9;
-background-color: #FF9D5C\9;
+color: white\9;
+background-color: #e84c3d\9;
 }
 .levelFive {
-color: black\9;
+color: white\9;
 background-color: #FF3333\9;
 }
 
 .levelOne:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelOne:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
-color: black;
-background-color: #D6FFAD;
+color: white;
+background-color: #2dcc70;
 }
 .levelTwo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelTwo:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
-color: black;
-background-color: #E5FFCA;
+color: white;
+background-color: #fce700;
 }
 .levelThree:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelThree:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
-color: black;
-background-color: #F7FFEF;
+color: white;
+background-color: #ff9900;
 }
 .levelFour:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelFour:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
-color: black;
-background-color: #FF9D5C;
+color: white;
+background-color: #e84c3d;
 }
 .levelFive:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected), .jqx-widget .levelFive:not(.jqx-grid-cell-hover):not(.jqx-grid-cell-selected) {
-color: black;
+color: white;
 background-color: #FF3333;
 }
 
@@ -290,6 +290,24 @@ a.tooltip span b {
     margin-top:10px;
     margin-bottom:10px;
 }
+.channelCircle{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    display:inline-block;
+    border-radius: 50px;
+    line-height: 100px;
+    margin-bottom:5px;
+    background-color: white;
+}
+.innerchannelCircle{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    display:inline-block;
+    border-radius: 5px;
+    background-color: white;
+}
 .circle-image{
     display: inline-block;
     height: 64px;
@@ -303,7 +321,17 @@ a.tooltip span b {
     font-size:3em;
 }
 /*number circle style end*/
-
+/*dashboard selector style begin*/
+.dashboardselector{
+    width:300px;
+    height:92px;
+    background-color: #F0F0F0;
+}
+#clientselector{
+    display:inline-block;
+    margin-left:10px;
+}
+/*dashboard selector style end*/
 /*side bar text  style begin*/
 .client-website{
     font-size:14px;
@@ -343,8 +371,59 @@ a.tooltip span b {
     margin: 15px 15px 15px 15px;
     height:75%;
 }
+/*table container style end*/
 
+/*tile style begin*/
+.tile {
+  width: 100%;
+  height:160px;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 26px;
+  margin-top: 21px;
+  font-size:16px;
+  text-align: center;
+  font-family:OpenSans-Regular;
+}
+.tile .title {
+  margin-top: 0px;
+  font-size:21px;
+  font-family:OpenSans-Bold;
+}
+.money {
+  font-size:21px;
+  font-family:OpenSans-Bold;
+}
+.tile.darkblue, .tile.blue {
+  color: #fff;
+}
+.tile.darkblue {
+  background: #2a80b9;
+}
+.tile.darkblue:hover {
+  background: #21638f;
+}
+.tile.blue {
+  background: #28b1e5;
+}
+.tile.blue:hover {
+  background: #1893c2;
+}
+/*tile style end*/
 
+/*dashboardsubtitle style begin*/
+.dashboardsubtitle{
+    font-size:21px;
+    font-family:OpenSans-Semibold;
+    color:#23466E;
+    font-variant : small-caps;
+    background: #F0F0F0;
+    height:56px;
+    margin-top: 40px;
+    line-height: 56px;
+}
+/*dashboardsubtitle style end*/
 /*load font begin*/
 @font-face {
     font-family: OpenSans-Bold;

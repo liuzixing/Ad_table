@@ -10,7 +10,7 @@
     <link rel="icon" href="../img/leadsmonitor.png">
     <title id='Description'>Leadsmonitor</title>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <!-- <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet">--></head>
 <body id='Performance'>
