@@ -29,8 +29,6 @@
 
     <!-- Main component for a primary marketing message or call to action -->
     <div id='chart' style="width: 100%; height: 500px"></div>
-    <!-- <div id="datatable" style="margin-top:10px"></div> -->
-
 
 <div class="row dashboardsubtitle">
     <div class="col-md-2">Dernier jour : 18/08/2014

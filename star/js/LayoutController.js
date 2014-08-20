@@ -3,12 +3,12 @@ function LayoutController() {
     var self = this;
     this.createLayout = function() {
         $('#splitContainer').jqxSplitter({
-            height: 1000,
+            height: 5000,
             width: "100%",
             orientation: 'vertical',
             theme: "layout-custom",
             panels: [{
-                size: '13%'
+                size: '15%'
             }, {}]
         });
         $('#splitter').jqxSplitter({
@@ -18,9 +18,8 @@ function LayoutController() {
             orientation: 'horizontal',
             panels: [{
 
-                size: "50%"
+                size: "600px"
             }, {
-                size: "50%"
             }]
         });
         $("#clientlogo").jqxExpander({

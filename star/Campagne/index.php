@@ -59,7 +59,7 @@
                         <span class="expander-header">Validation</span>
                     </div>
                     <div>
-                        <button class="button sidebar-button" >
+                        <button class="button sidebar-button" id="Valider">
                             <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
                             Valider
                         </button>
@@ -77,13 +77,13 @@
                     </div>
                     <div >
                         <div>
-                            <button class="button exporter-button" class="exporter-button">
+                            <button id="csvExport" class="button exporter-button" class="exporter-button">
                                 <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
                                 Exporter
                             </button>
                         </div>
                         <div class="table-container">
-                            <div id="jqxgrid" ></div>
+                            <div id="treeGrid" ></div>
                         </div>
                     </div>
                 </div>

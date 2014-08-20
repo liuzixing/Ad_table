@@ -4,8 +4,9 @@
 <link rel="stylesheet" href="../external_library/jqwidgets/styles/jqx.web.css" type="text/css" />
 <link rel="stylesheet" href="../external_library/flag/flags.css" type="text/css" />
 <link rel="stylesheet" href="../css/expander-custom.css" type="text/css" />
-<link rel="stylesheet" href="../css/jqx-table-custom.css" type="text/css" />
+<link rel="stylesheet" href="../external_library/jqwidgets/styles/jqx-table-custom.css" type="text/css" />
 <link rel="stylesheet" href="../css/layout-custom.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
 <!-- <link rel="stylesheet" href="../css/sprites.css" type="text/css" /> -->
 <!-- <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
@@ -44,9 +45,12 @@
 <script type="text/javascript" src="../external_library/jqwidgets/jqxchart.rangeselector.js"></script>
 <script type="text/javascript" src="../external_library/jqwidgets/jqxdatatable.js"></script>
 <script type="text/javascript" src="../external_library/jqwidgets/jqxexpander.js"></script>
+<script type="text/javascript" src="../external_library/jqwidgets/jqxtreegrid.js"></script>
+
  <script src="http://code.highcharts.com/stock/highstock.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <!-- <script type="text/javascript" src="../external_library/x_navbar_ct/js/ct-navbar.js"></script> -->
 <script type="text/javascript" src="../js/RealTimeController.js"></script>
 <script type="text/javascript" src="../js/LayoutController.js"></script>
 <script type="text/javascript" src="../js/TimeSeriesController.js"></script>
+<script type="text/javascript" src="../js/TreeGridController.js"></script>
