@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="FR">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,8 +37,7 @@
                         <div class="periode-text">Période</div>
                         <div id='datepicker1' class="datepicker"></div>
                         <div class="chooser-text">Choix des données à afficher</div>
-                        <div id='concurrenceselector' class = "sidebar-dropdownlist"></div>
-                        <div id='channelselector' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist"></div>
+                        <div id='concurrenceselector' class = "sidebar-dropdownlist  bottom-sidebar-dropdownlist"></div>
 
                     </div>
                 </div>
@@ -48,7 +47,8 @@
                         <span class="expander-header">Filtres</span>
                     </div>
                     <div>
-                        <div id='Version' class = "sidebar-dropdownlist" ></div>
+                        <div id='Chaîne' class = "sidebar-dropdownlist"></div>
+                        <div id='MMDayPart' class = "sidebar-dropdownlist" ></div>
                         <div id='Format' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist" ></div>
 
                     </div>
@@ -59,7 +59,7 @@
                         <span class="expander-header">Validation</span>
                     </div>
                     <div>
-                        <button class="button sidebar-button" >
+                        <button class="button sidebar-button" id = "Valider">
                             <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
                             Valider
                         </button>
@@ -71,13 +71,13 @@
                     <div  id="chart" ></div>
                     <div >
                         <div>
-                            <button class="button exporter-button" class="exporter-button">
+                            <button class="button exporter-button" id="csvExport">
                                 <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
                                 Exporter
                             </button>
                         </div>
                         <div class="table-container">
-                            <div id="jqxgrid" ></div>
+                            <div id="treeGrid" ></div>
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,13 @@
         </div>
 
     </div>
+ <br>
     <!-- /container -->
     <!-- /print the libraries -->
     <?php include '../library.php';?>
     <script type="text/javascript">
         $(document).ready(function () {
-            $.getScript("../js/ConcurrenceController.js", function() {
-                        ConcurrenceController();
-                });
+                ConcurrenceController();
         });
     </script>
 </body>

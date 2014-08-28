@@ -18,27 +18,27 @@
              url: 'live_server.php',
              success: function(point) {
                  var real = _self._chart.series[0];
-                var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length-1];
-                console.log(point);
-                var atLeastUpdateOnePoint = false;
-                 for (var i = 0 ;i < point.length;i++){
-                    if(point[i][0] - lastpoint <= 0){
-                        continue;
-                    }
-                    while(point[i][0] - lastpoint > 1000){
-                        lastpoint = lastpoint + 1000;
-                        _self._chart.series[0].addPoint([lastpoint,0], true, true);
-                        atLeastUpdateOnePoint = true;
-                    }
-                    if(point[i][0] - lastpoint === 1000 ){
-                        lastpoint = lastpoint + 1000;
-                        _self._chart.series[0].addPoint([point[i][0],point[i][1]], true, true);
-                        atLeastUpdateOnePoint = true;
-                    }
-                }
-                if(atLeastUpdateOnePoint === false){
-                    _self._chart.series[0].addPoint([lastpoint+1000,0], true, true);
-                }
+                 var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length - 1];
+                 console.log(point);
+                 var atLeastUpdateOnePoint = false;
+                 for (var i = 0; i < point.length; i++) {
+                     if (point[i][0] - lastpoint <= 0) {
+                         continue;
+                     }
+                     while (point[i][0] - lastpoint > 1000) {
+                         lastpoint = lastpoint + 1000;
+                         _self._chart.series[0].addPoint([lastpoint, 0], true, true);
+                         atLeastUpdateOnePoint = true;
+                     }
+                     if (point[i][0] - lastpoint === 1000) {
+                         lastpoint = lastpoint + 1000;
+                         _self._chart.series[0].addPoint([point[i][0], point[i][1]], true, true);
+                         atLeastUpdateOnePoint = true;
+                     }
+                 }
+                 if (atLeastUpdateOnePoint === false) {
+                     _self._chart.series[0].addPoint([lastpoint + 1000, 0], true, true);
+                 }
                  // call it again after 1 second
                  setTimeout(_self.attachLiveEvent, 1000);
              },
@@ -59,58 +59,66 @@
              }
          });
          _self._chart = new Highcharts.StockChart({
-        series: _self._seriesOptions,
-        chart: {
-            type: 'spline',
-            renderTo: 'chart',
-            defaultSeriesType: 'spline',
-            zoomType: 'xy',
-            //load update function here
-            events: {
-                load: _self.requestRealTimeData
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: 'Real time tracking'
-        },
-        plotOptions: {
-            spline: {
-                //set how many points maximun
-                turboThreshold: 180000,
-                lineWidth: 2
-            }
-        },
-        rangeSelector: {
-            buttons: [{
-                count: 30,
-                type: 'minute',
-                text: '30M'
-            }, {
-                type: 'all',
-                text: 'All'
-            }],
-            inputEnabled: false,
-            selected: 0
-        },
-        xAxis: {
-            type: 'datetime',
-            tickPixelInterval: 150,
-            maxZoom: 20 * 1000,
-            plotLines: _self._plotLinesOptions
-        },
-        yAxis: {
-            minPadding: 0.2,
-            maxPadding: 0.2,
-            title: {
-                text: 'Visits',
-                margin: 80
-            }
-        },
+             series: _self._seriesOptions,
+             chart: {
+                 type: 'spline',
+                 renderTo: 'chart',
+                 defaultSeriesType: 'spline',
+                 zoomType: 'xy',
+                 //load update function here
+                 events: {
+                     load: _self.requestRealTimeData
+                 }
+             },
+             credits: {
+                 enabled: false
+             },
+             // title: {
+             //     text: 'Real time tracking'
+             // },
+             plotOptions: {
+                 spline: {
+                     //set how many points maximun
+                     turboThreshold: 180000,
+                     lineWidth: 2
+                 }
+             },
+             rangeSelector: {
+                 buttons: [{
+                     count: 30,
+                     type: 'minute',
+                     text: '30M'
+                 }, {
+                     type: 'all',
+                     text: 'All'
+                 }],
+                 inputEnabled: false,
+                 selected: 0
+             },
+             xAxis: {
+                 type: 'datetime',
+                 tickPixelInterval: 150,
+                 maxZoom: 20 * 1000,
+                 plotLines: _self._plotLinesOptions,
+                 y: -50,
 
-    });
+             },
+             yAxis: {
+                 minPadding: 0.2,
+                 gridLineWidth: 0,
+                 maxPadding: 0.2,
+                 labels: {
+                     align: 'right',
+                     x: -10
+                 },
+                 offset: 50,
+                 title: {
+                     text: 'Visits',
+                     //margin: 80
+                 }
+             },
+
+         });
      }
      this.InitialGraph = function() {
          _self.createLoadingMessage();
@@ -140,33 +148,33 @@
                      }
                  };
                  for (var i = 0; i < data[1].length; i++) {
-                _self._plotLinesOptions[i] = {
-                    color: 'red', // Color value
-                    dashStyle: 'longdashdot', // Style of the plot line. Default to solid
-                    value: data[1][i][0], // Value of where the line will appear
-                    label: {
-                        value: 10,
-                        text: data[1][i][1],
-                        align: 'right',
-                        staggerLines: 1,
-                        rotation: (90 * ((i * 2) + 1)),
-                        verticalAlign: "middle",
-                        x: 100,
-                        y: 80,
-                        style: {
-                            color: 'blue',
-                            //fontWeight: 'bold'
-                        },
-                        y: 0,
-                        x: 5
+                     _self._plotLinesOptions[i] = {
+                         color: 'red', // Color value
+                         dashStyle: 'longdashdot', // Style of the plot line. Default to solid
+                         value: data[1][i][0], // Value of where the line will appear
+                         label: {
+                             value: 10,
+                             text: data[1][i][1],
+                             align: 'right',
+                             staggerLines: 1,
+                             rotation: (90 * ((i * 2) + 1)),
+                             verticalAlign: "middle",
+                             x: 100,
+                             y: 80,
+                             style: {
+                                 color: 'blue',
+                                 //fontWeight: 'bold'
+                             },
+                             y: 0,
+                             x: 5
 
-                    },
-                    allowPointSelect: true,
-                    width: '2' // Width of the line
+                         },
+                         allowPointSelect: true,
+                         width: '2' // Width of the line
 
-                };
-                //console.log(data[i].text);
-            }
+                     };
+                     //console.log(data[i].text);
+                 }
                  _self.destroyLoadingMessage();
                  _self.createGraph();
                  _self.attachLiveEvent();
