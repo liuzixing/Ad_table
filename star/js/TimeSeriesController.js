@@ -5,7 +5,6 @@ function TimeSeriesController() {
   var dataAdapter = {};
   this.createLoadingMessage = function() {
     $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
-    console.log("loading");
   }
   this.destroyLoadingMessage = function() {
     $("#chart").empty();
@@ -32,16 +31,18 @@ function TimeSeriesController() {
     };
     var chart_type = self.getChartType();
     console.log(chart_type);
-      self.source = {
-        datatype: "json",
-        datafields: self.data[0],
-        localData: self.data[2],
-      };
-     self.dataAdapter = new $.jqx.dataAdapter(self.source, {
+    self.source = {
+      datatype: "json",
+      datafields: self.data[0],
+      localData: self.data[2],
+    };
+    self.dataAdapter = new $.jqx.dataAdapter(self.source, {
       loadError: function(xhr, status, error) {
         alert('Error loading "' + self.source.url + '" : ' + error);
       }
     });
+    var minDate = new Date(self.data[2][0]["date"]);
+    var maxDate = new Date(self.data[2][self.data[2].length - 1]["date"]);
     // prepare jqxChart settings
     self.settings = {
       title: "",
@@ -65,32 +66,35 @@ function TimeSeriesController() {
       xAxis: {
         dataField: 'date',
         showTickMarks: true,
-        //baseUnit: 'day',
+        baseUnit: 'day',
         tickMarksInterval: 5,
         tickMarksColor: '#888888',
-        type: "basic",
-        unitInterval: 0,
+        type: "date",
         valuesOnTicks: true,
-
-        //baseUnit: 'day',
+        minValue: minDate,
+        maxValue: maxDate,
         showGridLines: false,
 
-        // gridLinesInterval: 2,
+        // gridLinesInterval: 2,,
         // gridLinesColor: '#888888',
         // axisSize: 'auto',
         // rangeSelector: {
-        //             // Uncomment the line below to render the selector in a separate container
-        //             //renderTo: $('#selectorContainer'),
-        //             size: 120,
-        //             padding: { /*left: 0, right: 0,*/top: 30, bottom: 0 },
-        //             minValue: new Date(2014, 5, 27),
-        //             backgroundColor: 'white',
-        //             dataField: 'date',
-        //             showGridLines: false,
-        //             // formatFunction: function (value) {
-        //             //     return months[value.getMonth()] + '\'' + value.getFullYear().toString().substring(2);
-        //             // }
-        //         }
+        // //  renderTo: $('#selectorContainer'),
+        //   size: 120,
+        //   padding: { /*left: 0, right: 0,*/
+        //     top: 30,
+        //     bottom: 0
+        //   },
+        //   minValue: minDate,
+        //   maxValue: maxDate,
+        //   backgroundColor: 'white',
+        //   dataField: 'date',
+        //   baseUnit: 'month',
+        //   showGridLines: false,
+        //   formatFunction: function(value) {
+        //     return value.getMonth()+"-"+value.getFullYear().toString().substring(2);
+        //   }
+        // },
       },
       colorScheme: 'scheme13',
       seriesGroups: [{

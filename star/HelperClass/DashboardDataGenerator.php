@@ -3,8 +3,8 @@ class DashboardDataGenerator {
     static function getRealTimeInitialData($client) {
         $now   = date('Y-m-d H:i:s', time());
         $today = date('Y-m-d', time());
-        $yesterday =   date('Y-m-d ', mktime(0, 0, 0, date("m"), date("d") - 1   ,   date("Y")));
-        return self::getRealTimeData($client,$yesterday,$now);
+        // $yesterday =   date('Y-m-d ', mktime(0, 0, 0, date("m"), date("d") - 1   ,   date("Y")));
+        return self::getRealTimeData($client,$today,$now);
     }
     static function getLiveData($client) {
         $now            = date('Y-m-d H:i:s', time());

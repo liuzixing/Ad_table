@@ -5,8 +5,6 @@ function TreeGridController() {
   //2:cpvi data
   //3:column filter list source
   //4:colour table
-  //5:length filter list source
-  //6:version filter list source
 
   var self = this;
   var source = {};
@@ -24,7 +22,6 @@ function TreeGridController() {
   }
 
   this.createTreeGrid = function() {
-     // console.log(self.data);
     self.source = {
       datatype: "json",
       datafields: self.data[1],
@@ -37,12 +34,12 @@ function TreeGridController() {
     self.dataAdapter = new $.jqx.dataAdapter(self.source, {
       loadComplete: function() {}
     });
-    //console.log(self.source);
     self.destroyLoadingMessage();
     // create jqxTreeGrid.
     $("#treeGrid").jqxTreeGrid({
       source: self.dataAdapter,
       selectionMode: 'none',
+      pagerPosition: "top",
       sortable: false,
       columnsHeight: 50,
       pageable: true,
@@ -50,12 +47,16 @@ function TreeGridController() {
       enablehover: true,
       altRows: true,
       autoRowHeight: true,
+      exportSettings: {
+           columnsHeader: true,
+           collapsedRecords: true,
+           hiddenColumns: true
+       },
       theme: 'mymedia-table',
-      pageSize: 15,
-      // pagerPosition: 'top',
+      pageSize: 50,
       columnsResize: true,
       ready: function() {
-        //$("#treeGrid").jqxTreeGrid('expandRow', '3321');
+        $("#treeGrid").jqxTreeGrid('expandRow', self.data[2][0]["id"]);
       },
       columns: self.data[0],
       columnGroups: self.data[3]
@@ -78,7 +79,6 @@ function TreeGridController() {
     }
     $("#treeGrid").jqxTreeGrid('endUpdate');
     self.attachColumnGroupClickEvent();
-
   }
 
   this.attachColumnGroupClickEvent = function() {
@@ -101,7 +101,6 @@ function TreeGridController() {
     $("#treeGrid .jqx-grid-columngroup-header:eq(" + self.collapseSetting[4]["group"] + ")").click(function() {
       self.groupEcranObserver(4);
     });
-
   }
 
   this.createExportButton = function() {
@@ -119,42 +118,29 @@ function TreeGridController() {
     $("#treeGrid").empty();
   }
   this.updateTreeGrid = function(requestData, client_url) {
+    console.log(requestData);
     $("#treeGrid").jqxTreeGrid('destroy');
     self.data = null;
     self.source = null;
     self.dataAdapter = null;
-
     $('.table-container').empty();
     $('.table-container').html("<div id='treeGrid'></div>");
-    //self.data = d.slice(0);
+    self.createLoadingMessage();
     $.ajax({
       type: 'POST',
       dataType: 'json',
+      scriptCharset: "utf-8",
       data: requestData,
       url: client_url,
       async: true,
       success: function(d) {
-        self.data = d;
-        //$("#treeGrid").jqxTreeGrid('clear');
         console.log("valider");
         console.log(d);
+        self.data = d;
         self.createTreeGrid();
       },
       cache: true
     });
-    //self.data = d;
-    // self.source.localData = self.data[2];
-    // self.dataAdapter = new $.jqx.dataAdapter(self.source, {
-    //   loadComplete: function() {}
-    // });
-    // // update data in  jqxTreeGrid.
-    // $("#treeGrid").jqxTreeGrid('beginUpdate');
-    // $("#treeGrid").jqxTreeGrid('updateBoundData');
-    // $("#treeGrid").jqxTreeGrid('endUpdate');
-    // self.attachColumnGroupClickEvent();
-
-    //$("#treeGrid").jqxTreeGrid('destroy');
-
   }
   this.initialTreeGrid = function(client_url, collapseSetting) {
     self.collapseSetting = collapseSetting;
@@ -164,12 +150,13 @@ function TreeGridController() {
       type: 'GET',
       timeout: 20000,
       dataType: 'json',
+      scriptCharset: "utf-8",
       url: client_url,
       async: true,
       success: function(d) {
-
         self.data =d;
-        //console.log(d);
+        console.log("data for inital treegrid");
+        console.log(d);
         self.createTreeGrid();
       },
       failure: function(err) {

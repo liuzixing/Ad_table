@@ -1,6 +1,7 @@
 function CampagneController() {
   var globaltheme = 'bootstrap';
   var client_name = "Balsamik";
+  var codeCleaner = new jqxHelperClass();
   var layout = new LayoutController();
   layout.createLayout();
   var source = ["Budget net",
@@ -127,74 +128,25 @@ var collapseSetting  = [{
     }]
   var grid = new TreeGridController();
   grid.initialTreeGrid('http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php?client='+client_name,collapseSetting);
+var chart = new ZoomableTimeSeries();
+     chart.initialChart("http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php?client="+client_name);
 
-  var chart = new TimeSeriesController();
-  chart.initialChart('http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne_graph_default.php?client='+client_name);
   $("#Valider").click(function() {
-    var tableData = {
-      "client": "Balsamik",
-      "period": {
-        "from": "",
-        "to": ""
-      },
+    var requestData = {
+      "client": client_name,
+      "period": codeCleaner.getDateTimeInputRange("datepicker1"),
+      "value1": codeCleaner.getDropDownListItem("valueselector1"),
+      "value2": codeCleaner.getDropDownListItem("valueselector2"),
+      "value3": codeCleaner.getDropDownListItem("valueselector3"),
       "filter": {
-        "chaines": [],
-        "format": [],
-        "version": []
+        "chaines": codeCleaner.getDropDownListItems("Chaîne"),
+        "format": codeCleaner.getDropDownListItems("Format"),
+        "version": codeCleaner.getDropDownListItems("Version")
       }
     };
-    var graphData = {
-      "client": client_name,
-      "period": {
-        "from": "",
-        "to": ""
-      },
-      "value1": "",
-      "value2": "",
-      "value3": ""
-    };
-    var channel = $("#Chaîne").jqxDropDownList('getCheckedItems');
-    var version = $("#Version").jqxDropDownList('getCheckedItems');
-    var format = $("#Format").jqxDropDownList('getCheckedItems');
-    for (var i = 0; i < channel.length; i++) {
-      tableData["filter"]["chaines"].push(channel[i].label);
-    };
-    for (var i = 0; i < format.length; i++) {
-      tableData["filter"]["format"].push(format[i].label);
-    };
-    for (var i = 0; i < version.length; i++) {
-      tableData["filter"]["version"].push(version[i].label);
-    };
-    var selection = $("#datepicker1").jqxDateTimeInput('getRange');
-    if (selection.from != null) {
-      tableData["period"]["from"] = selection.from.toLocaleDateString();
-      tableData["period"]["to"] = selection.to.toLocaleDateString();
-      graphData["period"]["from"] = selection.from.toLocaleDateString();
-      graphData["period"]["to"] = selection.to.toLocaleDateString();
-    }
-    console.log(tableData);
-
-    var value1 = $("#valueselector1").jqxDropDownList('getSelectedItem');
-    var value2 = $("#valueselector2").jqxDropDownList('getSelectedItem');
-    var value3 = $("#valueselector3").jqxDropDownList('getSelectedItem');
-    graphData["value1"] = value1.label;
-    graphData["value2"] = value2.label;
-    graphData["value3"] = value3.label;
-    grid.updateTreeGrid(tableData,'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php');
-    //console.log(graphData);
-
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      data: graphData,
-      url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne_graph_default.php',
-      async: true,
-      success: function(d) {
-        chart.updateChart(d);
-        console.log(d);
-      },
-      cache: false
-    });
+    console.log(requestData);
+    grid.updateTreeGrid(requestData,'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php');
+    chart.updateChart(requestData,"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php");
   });
 
 }

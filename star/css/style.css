@@ -285,9 +285,10 @@ background-color: #FF3333;
 
 /*chart container style begin */
 .chart-container{
-    margin-left:15px;
-    margin-right:15px;
+/*    margin-left:15px;
+    margin-right:15px;*/
     height:85%;
+    width:100%;
 }
 /*chart container style end*/
 

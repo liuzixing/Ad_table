@@ -18,9 +18,9 @@ function LayoutController() {
             orientation: 'horizontal',
             panels: [{
 
-                size: "50%"
+                size: "45%"
             }, {
-                size: "50%"
+                size: "55%"
             }]
         });
         $("#clientlogo").jqxExpander({

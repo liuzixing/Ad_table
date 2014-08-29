@@ -1,78 +1,87 @@
-function ZoomableTimeSeries(){
-    var source =
-            {
-                datatype: "csv",
-                datafields: [
-                    { name: 'Date' },
-                    { name: 'Open' },
-                    { name: 'High' },
-                    { name: 'Low' },
-                    { name: 'Close' },
-                    { name: 'Volume' },
-                    { name: 'AdjClose' }
-                    ],
-                url: 'TSLA_stockprice.csv'
-            };
-            var dataAdapter = new $.jqx.dataAdapter(source, { async: false, autoBind: true, loadError: function (xhr, status, error) { alert('Error loading "' + source.url + '" : ' + error); } });
-            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            var toolTipCustomFormatFn = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
-                var dataItem = dataAdapter.records[itemIndex];
-                return '<DIV style="text-align:left"><b>Date: ' +
-                        categoryValue.getDate() + '-' + months[categoryValue.getMonth()] + '-' + categoryValue.getFullYear() +
-                        '</b><br />Open price: $' + dataItem.Open +
-                        '</b><br />Close price: $' + dataItem.Close +
-                        '</b><br />Daily volume: ' + dataItem.Volume +
-                         '</DIV>';
-            };
-            // prepare jqxChart settings
-            var settings = {
-                title: "Tesla Motors Stock Price",
-                description: "(June 2010 - March 2014)",
-                enableAnimations: true,
-                animationDuration: 1500,
-                enableCrosshairs: true,
-                padding: { left: 5, top: 5, right: 30, bottom: 5 },
-                source: dataAdapter,
-                xAxis:
-                    {
-                        dataField: 'Date',
-                        minValue: new Date(2012, 0, 1),
-                        maxValue: new Date(2013, 11, 31),
-                        formatFunction: function (value) {
-                            return value.getDate() + '-' + months[value.getMonth()] + '\'' + value.getFullYear().toString().substring(2);
-                        },
-                        type: 'date',
-                        baseUnit: 'day',
-                        rangeSelector: {
-                            // Uncomment the line below to render the selector in a separate container
-                            //renderTo: $('#selectorContainer'),
-                            size: 120,
-                            padding: { /*left: 0, right: 0,*/top: 30, bottom: 0 },
-                            minValue: new Date(2010, 5, 1),
-                            backgroundColor: 'white',
-                            dataField: 'Close',
-                            baseUnit: 'month',
-                            showGridLines: false,
-                            formatFunction: function (value) {
-                                return months[value.getMonth()] + '\'' + value.getFullYear().toString().substring(2);
-                            }
-                        }
-                    },
-                colorScheme: 'scheme01',
-                seriesGroups:
-                    [
-                        {
-                            type: 'line',
-                            toolTipFormatFunction: toolTipCustomFormatFn,
-                            valueAxis:
-                            {
-                                description: 'Price per share [USD]<br><br>'
-                            },
-                            series: [
-                                { dataField: 'Close', displayText: 'Close Price', lineWidth: 1, lineWidthSelected: 1 }
-                            ]
-                        }
-                    ]
-            };
-            $('#chartContainer').jqxChart(settings);
+function ZoomableTimeSeries() {
+    var self = this;
+    var chart;
+    var seriesOptions = [];
+    this.createLoadingMessage = function() {
+        $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
+    }
+    this.destroyLoadingMessage = function() {
+        $("#chart").empty();
+    }
+    // create the chart when all data is loaded
+    this.createChart = function() {
+        self.destroyLoadingMessage();
+        self.chart = new Highcharts.StockChart({
+            chart: {
+                type: 'spline',
+                renderTo: 'chart',
+                defaultSeriesType: 'spline',
+                zoomType: 'xy',
+                //load update function here
+                events: {
+                    //load: _self.requestRealTimeData
+                }
+            },
+            rangeSelector: {
+                inputEnabled: false,
+
+            },
+            yAxis: {
+
+            },
+            plotOptions: {
+                spline: {
+                    lineWidth: 2
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                maxZoom: 20 * 1000,
+                y: -50,
+            },
+            tooltip: {
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+                valueDecimals: 2
+            },
+            series: self.seriesOptions
+        });
+        console.log(self.chart);
+    };
+    this.updateChart = function(graphData, client_url) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: graphData,
+            url: client_url,
+            async: true,
+            success: function(d) {
+                console.log("update chart");
+                 console.log(d);
+                 console.log( self.chart);
+                 self.seriesOptions = d;
+                 self.createChart();
+            },
+            cache: false
+        });
+    }
+    this.initialChart = function(client_url) {
+        self.createLoadingMessage();
+        $.ajax({
+            type: 'GET',
+            timeout: 10000,
+            dataType: 'json',
+            url: client_url,
+            async: true,
+            success: function(d) {
+                console.log(d);
+                self.seriesOptions = d;
+                self.createChart();
+            },
+            failure: function(err) {
+                console.log("Error");
+            },
+            cache: true
+        });
+    }
 }
