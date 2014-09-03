@@ -1,9 +1,9 @@
 function DashboardController() {
   var source = ["Adopteunmer.com",
-    "Adopteunmer.com",
-    "Adopteunmer.com",
-    "Adopteunmer.com",
-    "Adopteunmer.com",
+    "abc.com",
+    "cde.com",
+    "xde.com",
+    "asx.com",
   ];
   $("#clientselector").jqxDropDownList({
     theme: "bootstrap",
@@ -25,7 +25,7 @@ function DashboardController() {
     console.log("ere");
     window.location = "../Campagne";
   });
-
+//Balsamik
   $.ajax({
     type: 'GET',
     timeout: 10000,
@@ -51,7 +51,7 @@ function DashboardController() {
     type: 'GET',
     timeout: 10000,
     dataType: 'json',
-    url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/vague.php?client=showroomprive',
+    url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/vague.php?client=Balsamik',
     async: true,
     success: function(data) {
       console.log("vague");
@@ -71,8 +71,8 @@ function DashboardController() {
         value: dashboard_info["CAMPAGNE"]["time_progress"]
       });
 
-      if (dashboard_info["CAMPAGNE"]["progress"] == "over") {
-        dashboard_info["CAMPAGNE"]["progress"] = "cours";
+      if (dashboard_info["CAMPAGNE"]["progress"] != "over") {
+        dashboard_info["CAMPAGNE"]["progress"] = "en cours";
       } else {
         dashboard_info["CAMPAGNE"]["progress"] = "terminée";
       }
@@ -98,6 +98,7 @@ function DashboardController() {
       //last day cells begin
       if (dashboard_info["LASTDAY"] == null) {
         $("#last_day_table").fadeOut();
+        $("#last_day_title").fadeOut();
       } else {
         for (key in dashboard_info["LASTDAY"]) {
           $("#LASTDAY_" + key).html(dashboard_info["LASTDAY"][key]);

@@ -14,6 +14,10 @@
   -->
   <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../external_library/jqwidgets/styles/jqx.office.css" type="text/css" />
+  <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
+    <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
+    <script type="text/javascript" src="../js/LoginChecker.js"></script>
+    <script>LoginChecker();</script>
 
   <!-- <link rel="stylesheet" href="../colourConf.css" type="text/css" />
   -->
@@ -33,7 +37,7 @@
     <!-- Main component for a primary marketing message or call to action -->
     <div id='chart' style="width: 100%; height: 500px"></div>
 
-    <div class="row dashboardsubtitle">
+    <div class="row dashboardsubtitle" id="last_day_title">
       <div class="col-md-2">
         Dernier jour :
         <span id ="LASTDAY_date">null</span>
@@ -106,8 +110,8 @@
     <!-- end row -->
 
     <div class="row dashboardsubtitle">
-      <div class="col-sm-4">
-        Campagne en
+      <div class="col-sm-6">
+        Campagne
         <span id ="CAMPAGNE_progress"></span>
         : du
         <span id="CAMPAGNE_date_start"></span>
@@ -254,6 +258,7 @@
 <?php include '../library.php';?>
 <script type="text/javascript">
         $(document).ready(function () {
+            LoginChecker();
             DashboardController();
             realtimegraph = new RealTimeController();
             realtimegraph.InitialGraph();

@@ -50,6 +50,7 @@ function CampagneController() {
   $.ajax({
     type: 'GET',
     timeout: 10000,
+    scriptCharset: "utf-8",
     dataType: 'json',
     url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_filtre_default.php?client='+client_name,
     async: true,
@@ -146,7 +147,7 @@ var chart = new ZoomableTimeSeries();
     };
     console.log(requestData);
     grid.updateTreeGrid(requestData,'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php');
-    chart.updateChart(requestData,"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php");
+    chart.updateCampagne(requestData,"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php");
   });
 
 }

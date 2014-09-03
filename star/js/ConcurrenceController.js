@@ -1,6 +1,6 @@
 function ConcurrenceController() {
   var globaltheme = 'bootstrap';
-  var client_name = "EDarling";
+  var client_name = "Balsamik";
   var codeCleaner = new jqxHelperClass();
   var layout = new LayoutController();
   layout.createLayout();
@@ -8,11 +8,13 @@ function ConcurrenceController() {
     theme: globaltheme,
     width: '90%',
     height: '25px',
-    selectionMode: 'range'
+    selectionMode: 'range',
+    formatString: "dd/MM/yyyy"
   });
   $.ajax({
     type: 'GET',
     timeout: 10000,
+    scriptCharset: "utf-8",
     dataType: 'json',
     url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence_filters.php?client=' + client_name,
     async: true,
@@ -78,8 +80,9 @@ function ConcurrenceController() {
   var grid = new TreeGridController();
   grid.initialTreeGrid('http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence.php?client=' + client_name, []);
 
-  // var chart = new ZoomableTimeSeries();
-  //  chart.initialChart("http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php?client="+client_name);
+  var chart = new ZoomableTimeSeries();
+   chart.initialChart("http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence_graphe.php?client="+client_name);
+   //http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence_graphe.php?client=Balsamik
 
   $("#Valider").click(function() {
     var requestData = {
@@ -94,6 +97,6 @@ function ConcurrenceController() {
     };
     console.log(requestData);
     grid.updateTreeGrid(requestData, 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence.php');
-    //chart.updateChart(requestData,"");
+    chart.updateChart(requestData,"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_concurrence_graphe.php");
   });
 }

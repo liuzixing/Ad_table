@@ -53,9 +53,9 @@
         </li>
         <li <?php if (basename($_SERVER["REQUEST_URI"]) == "Administration") echo 'class="active"'; ?>
           >
-          <a href=""   style="line-height:30px">
+          <a href="../Administration"   style="line-height:30px">
             <div sytle="text-align: center ;">
-            <div style="line-height:10px;height:10px"></div>
+              <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Administration") echo 'class="sprite sprite-param-active"'; else echo 'class="sprite sprite-param"' ?>
               />
               <div  style="font-size:14px;font-family:OpenSans-Semibold;">Administration</div>
@@ -64,44 +64,43 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li style="width:80px">
+        <!-- <li style="width:80px">
           <span >
-            <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;color:#2DFF70;">FR
-              <!-- <img src="../img/blank.png" class="flag flag-fr" /> -->
+            <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;color:#2DFF70;">
+              FR
+
             </a>
             /
             <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;">
-            EN
-              <!-- <img src="../img/blank.png" class="flag flag-gb" /> -->
+              EN
             </a>
           </span>
-        </li>
+        </li> -->
         <li>
           <img src="../img/adopting-a-cat.jpg" class="agenceCircle">
-          <!-- <span class="agenceCircle" style="margin-top:20px">A</span> -->
-        </li>
-        <li style="width:180px;" class="dropdown" >
-          <a href="#" style="line-height:75px" data-toggle="dropdown" class="dropdown-toggle">Nomdelagence <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu" style="line-height:20px">
-            <li>
-              <a href="#">Action</a>
-            </li>
-            <li>
-              <a href="#">Another action</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a href="#">Settings</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!--/.nav-collapse --> </div>
-  <!--/.container-fluid -->
+          <!-- <span class="agenceCircle" style="margin-top:20px">A</span>
+        -->
+      </li>
+      <li style="margin-left:20px;margin-right:20px"  >
+        <p id="username"></p>
+      </li>
+      <li id = "logout">
+        <a  href = "../login/index.html"style="line-height:75px;font-size:14px;font-family:OpenSans-Regular;" onclick="redicet()">déconnection</a>
+      </li>
+    </ul>
+  </div>
+  <!--/.nav-collapse -->
+</div>
+<!--/.container-fluid -->
 </div>
 <div style="background-color: #305277;height:6px;"></div>
+<script>
+$("#username").html(getCookie("mymedia_username"));
+  function redicet(){
+    setCookie("mymedia_username", "", 0);
+    setCookie("mymedia_token","", 0);
+  }
+</script>
 <style type="text/css">
 .navbar-default {
   background-color: #f0f0f0;

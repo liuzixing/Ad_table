@@ -53,7 +53,7 @@ function TreeGridController() {
            hiddenColumns: true
        },
       theme: 'mymedia-table',
-      pageSize: 50,
+      pageSize: 35,
       columnsResize: true,
       ready: function() {
         $("#treeGrid").jqxTreeGrid('expandRow', self.data[2][0]["id"]);

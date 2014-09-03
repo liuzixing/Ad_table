@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Login Form</title>
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+
+<body>
+
+  <span href="#" class="button" id="toggle-login">Log in</span>
+
+<div id="login">
+  <div id="triangle"></div>
+  <h1>Log in  <img id="loading" src="../img/login2.gif" style="visibility:hidden"></h1>
+  <form id="loginForm" onsubmit="return valider();">
+    <input type="email" id="uName" placeholder="Email" />
+    <input type="password" id="passKey" placeholder="Password" />
+    <input type="submit"  id="submit" value="Log in" />
+  </form>
+
+</div>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script type="text/javascript" src="../js/cookies_helper_function.js"></script>
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>

@@ -11,7 +11,10 @@
     <title id='Description'>Concurrence</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
+    <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
+    <script type="text/javascript" src="../js/LoginChecker.js"></script>
+    <script>LoginChecker();</script>
 <body id='Concurrence'>
     <?php include '../header.php';?>
 
@@ -91,7 +94,7 @@
     <?php include '../library.php';?>
     <script type="text/javascript">
         $(document).ready(function () {
-                ConcurrenceController();
+            ConcurrenceController();
         });
     </script>
 </body>

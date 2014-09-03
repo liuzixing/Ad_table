@@ -10,7 +10,13 @@
     <link rel="icon" href="../img/leadsmonitor.png">
     <title id='Description'>Campagne</title>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet"></head>
+    <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
+    <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
+    <script type="text/javascript" src="../js/LoginChecker.js"></script>
+    <script>//LoginChecker();</script>
+    <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
 <body id='Campagne'>
     <?php include '../header.php';?>
     <div class="container-fluid">
@@ -94,13 +100,11 @@
     <!-- /container -->
     <!-- /print the libraries -->
     <?php include '../library.php';?>
+
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $.getScript("../js/CampagneController.js", function() {
-                        CampagneController();
-                });
-
+            LoginChecker();
+            CampagneController();
         });
     </script>
 </body>

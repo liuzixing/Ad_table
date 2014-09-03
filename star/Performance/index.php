@@ -13,6 +13,10 @@
 
     <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
+    <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
+    <script type="text/javascript" src="../js/LoginChecker.js"></script>
+    <script>LoginChecker();</script>
 
     <!-- Custom styles for this template -->
     <!-- <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet">--></head>

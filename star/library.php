@@ -10,13 +10,15 @@
 <script type="text/javascript" src="../external_library/jqwidgets/jqxchart.rangeselector.js"></script>
 <script src="http://code.highcharts.com/stock/highstock.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
+<script type="text/javascript" src="../js/LoginChecker.js"></script>
 <script type="text/javascript" src="../js/jqxHelperClass.js"></script>
 <script type="text/javascript" src="../js/RealTimeController.js"></script>
 <script type="text/javascript" src="../js/LayoutController.js"></script>
 <script type="text/javascript" src="../js/TimeSeriesController.js"></script>
 <script type="text/javascript" src="../js/TreeGridController.js"></script>
 <script type="text/javascript" src="../js/GridControllerClass.js"></script>
-<script type="text/javascript" src="../js/bubbleControllerClass.js"></script>
+<script type="text/javascript" src="../js/BubbleControllerClass.js"></script>
 <script type="text/javascript" src="../js/ZoomableTimeSeries.js"></script>
 <script type="text/javascript" src="../js/DashboardController.js"></script>
 <script type="text/javascript" src="../js/ConcurrenceController.js"></script>

@@ -15,13 +15,26 @@ function jqxHelperClass() {
     this.getDropDownListItem = function(id) {
         return $("#" + id).jqxDropDownList('getSelectedItem').label;
     }
-
+    this.getDateFormat = function(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth() + 1; //Months are zero based
+        var curr_year = d.getFullYear();
+        if (curr_date < 10) {
+            curr_date = "0" + curr_date;
+        }
+        if (curr_month < 10) {
+            curr_month = "0" + curr_month;
+        }
+        return curr_date + "/" + curr_month + "/" + curr_year;
+    }
     this.getDateTimeInputRange = function(id) {
         var selection = $("#" + id).jqxDateTimeInput('getRange');
         if (selection != null) {
+            //var d = selection.from;
+            //console.log();
             return {
-                "from": selection.from.toLocaleDateString(),
-                "to": selection.to.toLocaleDateString()
+                "from": self.getDateFormat(selection.from),
+                "to": self.getDateFormat(selection.to)
             };
         } else {
             return {};
