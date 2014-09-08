@@ -2,7 +2,6 @@ function LoginChecker() {
     var token = getCookie("mymedia_token");
     var user = getCookie("mymedia_username");
     if (token) {
-        //console.log(token);
         var requestData = {
             "token": token,
             "tag": "valider"
@@ -13,19 +12,19 @@ function LoginChecker() {
             dataType: 'json',
             scriptCharset: "utf-8",
             data: requestData,
-            url: "../server.php",
+            url: "../login_server.php",
             async: false,
             success: function(d) {
                 if (d["success"] == 1) {
                     console.log("session success");
                 } else {
-                    window.location = "../login/index.html";
+                    window.location = "../";
                     console.log(d["session error"]);
                 }
             },
             cache: true
         });
     } else {
-        window.location = "../login/index.html";
+        window.location = "../";
     }
 }

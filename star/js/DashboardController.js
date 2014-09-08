@@ -1,43 +1,82 @@
 function DashboardController() {
-  var source = ["Adopteunmer.com",
-    "abc.com",
-    "cde.com",
-    "xde.com",
-    "asx.com",
-  ];
-  $("#clientselector").jqxDropDownList({
-    theme: "bootstrap",
-    source: source,
-    placeHolder: "Adopteunmer.com",
-    width: '200',
-    height: '25'
-  });
+  //var client_name = "Balsamik";
+  var client_name = getCookie("mymedia_client_name");
+  realtimegraph = new RealTimeController();
+  var performance_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/dashboard_perf.php";
+  var dashboard_info_url = "http://tyco.mymedia.fr/api/dashboard.php";
+  var source = [client_name];
+  var default_date;
+ $(".clientCircle").attr("src","../img/"+getCookie("mymedia_client_name")+".png");
+  realtimegraph.InitialGraph(client_name);
 
+  if (source.length > 1) {
+    $("#clientselector").jqxDropDownList({
+      theme: "bootstrap",
+      source: source,
+      width: '200',
+      height: '25'
+    });
+    $("#clientselector").jqxDropDownList('selectIndex', 0);
+  } else {
+    $("#clientselector").html(client_name);
+  }
   $(".link_to_Performance").click(function() {
-    console.log("ere");
     window.location = "../Performance";
   });
   $(".link_to_Concurrence").click(function() {
-    console.log("ere");
     window.location = "../Concurrence";
   });
-  $(".link_to_Campagne").click(function() {
-    console.log("ere");
+  $(".link_to_Concurrence_oneday").click(function() {
+    setCookie("default_date", default_date, 1);
+    window.location = "../Concurrence";
+  });
+  $(".link_to_Campagne_with_Contact").click(function() {
+    setCookie("default_value_1", "Budget net", 1);
+    setCookie("default_value_2", "Contact", 1);
+    setCookie("default_value_3", "Visites immediates", 1);
     window.location = "../Campagne";
   });
-//Balsamik
+  $(".link_to_Campagne_with_Contact_oneday").click(function() {
+    setCookie("default_value_1", "Budget net", 1);
+    setCookie("default_value_2", "Contact", 1);
+    setCookie("default_value_3", "Visites immediates", 1);
+    setCookie("default_date", default_date, 1);
+    console.log(default_date);
+    window.location = "../Campagne";
+  });
+  $(".link_to_Campagne_with_CPVc").click(function() {
+    setCookie("default_value_1", "Budget net", 1);
+    setCookie("default_value_2", "CPVc", 1);
+    setCookie("default_value_3", "Visites immediates", 1);
+    window.location = "../Campagne";
+  });
+  $(".link_to_Campagne_with_CPVc_oneday").click(function() {
+    setCookie("default_value_1", "Budget net", 1);
+    setCookie("default_value_2", "CPVc", 1);
+    setCookie("default_value_3", "Visites immediates", 1);
+    setCookie("default_date", default_date, 1);
+    console.log(default_date);
+    window.location = "../Campagne";
+  });
+  $(".link_to_Campagne").click(function() {
+    //setCookie("default_date", default_date, 1);
+    window.location = "../Campagne";
+  });
+  $(".link_to_Campagne_oneday").click(function() {
+    setCookie("default_date", default_date, 1);
+    window.location = "../Campagne";
+  });
   $.ajax({
     type: 'GET',
     timeout: 10000,
     dataType: 'json',
-    url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/dashboard_perf.php?client=Balsamik',
+    url: performance_url + '?client=' + client_name,
     async: true,
     success: function(data) {
       for (var i = 0; i < data.length; i++) {
         for (key in data[i]) {
           $(".money:eq(" + i + ")").html((Math.round(data[i][key] * 100) / 100) + "€");
           $(".innerchannelCircle:eq(" + (i) + ")").attr("src", "../img/channel-logos/" + key + ".png");
-          //console.log(data[i]);
         }
       };
     },
@@ -46,39 +85,45 @@ function DashboardController() {
     },
     cache: true
   });
-  //showroomprive
+  var c_days,total_days;
   $.ajax({
     type: 'GET',
     timeout: 10000,
     dataType: 'json',
-    url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/vague.php?client=Balsamik',
+    url: dashboard_info_url + '?client=' + client_name,
     async: true,
     success: function(data) {
-      console.log("vague");
-
       //second row begin
       var dashboard_info = data["dashboard_info"];
+      c_days = dashboard_info["CAMPAGNE"]["c_days"];
+      total_days = dashboard_info["CAMPAGNE"]["total_days"];
       //progress bar
       var renderText = function(text) {
-        return "<span class='jqx-rc-all' style='color: white; font-style: italic;'>" + text + "</span>";
+        return "<span class='jqx-rc-all' style='color: white;font-weight: bold;font-size:16px'>" + c_days + "/" + total_days + " jours</span>";
       }
       $("#jqxProgressBar").jqxProgressBar({
         width: 250,
         height: 30,
         showText: true,
-        theme: "bootstrap",
+        theme: "propressbar-custom",
         renderText: renderText,
         value: dashboard_info["CAMPAGNE"]["time_progress"]
       });
 
+      var codeCleaner = new jqxHelperClass();
       if (dashboard_info["CAMPAGNE"]["progress"] != "over") {
         dashboard_info["CAMPAGNE"]["progress"] = "en cours";
       } else {
         dashboard_info["CAMPAGNE"]["progress"] = "terminée";
       }
-      dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] = dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] + "% consommé BUDGET NET";
+      dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] = Math.round(dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] * 100) / 100 + "%";
       for (key in dashboard_info["CAMPAGNE"]) {
-        $("#CAMPAGNE_" + key).html(dashboard_info["CAMPAGNE"][key]);
+        if (key != "date_start" && key != "date_end") {
+            $("#CAMPAGNE_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["CAMPAGNE"][key], " "));
+          } else {
+            $("#CAMPAGNE_" + key).html(dashboard_info["CAMPAGNE"][key]);
+          }
+        // $("#CAMPAGNE_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["CAMPAGNE"][key], " "));
       }
       var concurrence = data["concurrent"];
       $("#campagne_nbconcurrent").html(concurrence["campagne"]["nbconcurrent"]);
@@ -89,10 +134,14 @@ function DashboardController() {
       var performance = data["channel_performance"];
       for (var i = 0; i < performance.length; i++) {
         for (key in performance[i]) {
-          $(".money:eq(" + i + ")").html((Math.round(performance[i][key] * 100) / 100) + "€");
+          $(".money:eq(" + i + ")").html((Math.round(performance[i][key] * 100) / 100) + "€ CPVi");
           $(".innerchannelCircle:eq(" + (i) + ")").attr("src", "../img/channel-logos/" + key + ".png");
         }
       };
+      console.log(performance.length);
+      for (var i = performance.length; i < 6; i++) {
+        $(".money:eq(" + performance.length + ")").parent().empty();
+      }
       //channel ranking cells end
 
       //last day cells begin
@@ -101,10 +150,16 @@ function DashboardController() {
         $("#last_day_title").fadeOut();
       } else {
         for (key in dashboard_info["LASTDAY"]) {
-          $("#LASTDAY_" + key).html(dashboard_info["LASTDAY"][key]);
+          if (key != "date") {
+            $("#LASTDAY_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["LASTDAY"][key], " "));
+          } else {
+            $("#LASTDAY_" + key).html(dashboard_info["LASTDAY"][key]);
+          }
         }
+        default_date = dashboard_info["LASTDAY"]["date"];
         $("#Lastday_nbconcurrent").html(concurrence["Lastday"]["nbconcurrent"]);
         $("#Lastday_nbspot").html(concurrence["Lastday"]["nbspot"]);
+
       }
       console.log(data);
     },
@@ -113,5 +168,4 @@ function DashboardController() {
     },
     cache: true
   });
-
 }

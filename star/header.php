@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../css/sprites.css" type="text/css" />
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
 <div class="navbar navbar-default navbar-static-top" role="navigation">
   <div class="container-fluid">
 
@@ -14,8 +15,8 @@
               <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Dashboard") echo 'class="sprite sprite-home-active"'; else echo 'class="sprite sprite-home"' ?>
               />
-              <div style="font-size:14px;font-family:OpenSans-Semibold;">Dashboard</div>
-            </div>
+              <div >Dashboard</div>
+              <!-- style="font-size:14px;font-family:OpenSans-Semibold;" --> </div>
           </a>
         </li>
         <li <?php if (basename($_SERVER["REQUEST_URI"]) == "Campagne") echo 'class="active"'; ?>
@@ -25,7 +26,7 @@
               <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Campagne") echo 'class="sprite sprite-campagne-active"'; else echo 'class="sprite sprite-campagne"' ?>
               />
-              <div  style="font-size:14px;font-family:OpenSans-Semibold;">Campagne</div>
+              <div  >Campagne</div>
             </div>
           </a>
         </li>
@@ -36,7 +37,7 @@
               <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Performance") echo 'class="sprite sprite-performance-active"'; else echo 'class="sprite sprite-performance"' ?>
               />
-              <div  style="font-size:14px;font-family:OpenSans-Semibold;">Performance</div>
+              <div >Performance</div>
             </div>
           </a>
         </li>
@@ -47,7 +48,7 @@
               <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Concurrence") echo 'class="sprite sprite-concurrents-active"'; else echo 'class="sprite sprite-concurrents"' ?>
               />
-              <div  style="font-size:14px;font-family:OpenSans-Semibold;">Concurrence</div>
+              <div >Concurrence</div>
             </div>
           </a>
         </li>
@@ -58,42 +59,50 @@
               <div style="line-height:10px;height:10px"></div>
               <img src="../img/blank.png" style="display: block;margin-left: auto;margin-right: auto;" <?php if (basename($_SERVER["REQUEST_URI"]) == "Administration") echo 'class="sprite sprite-param-active"'; else echo 'class="sprite sprite-param"' ?>
               />
-              <div  style="font-size:14px;font-family:OpenSans-Semibold;">Administration</div>
+              <div  >Administration</div>
             </div>
           </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!-- <li style="width:80px">
-          <span >
-            <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;color:#2DFF70;">
-              FR
-
-            </a>
-            /
-            <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;">
-              EN
-            </a>
-          </span>
-        </li> -->
-        <li>
-          <img src="../img/adopting-a-cat.jpg" class="agenceCircle">
-          <!-- <span class="agenceCircle" style="margin-top:20px">A</span>
-        -->
+        <span >
+          <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;color:#2DFF70;">FR</a>
+          /
+          <a href="javascript: void(0)" style="font-size:14px;font-family:OpenSans-Regular;">EN</a>
+        </span>
       </li>
-      <li style="margin-left:20px;margin-right:20px"  >
-        <p id="username"></p>
+      -->
+      <li>
+        <img src="../img/logo-my-media_2es.jpg" class="agenceCircle"></li>
+      <!-- <li class="username-wrapper" style="line-height:105px;">
+      <p id="username" ></p>
+    </li>
+    -->
+    <li style="line-height:115px">
+      <li class="dropdown" style="margin-right:30px;margin-left:30px">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 0px;">
+          <span id="username"></span>
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" sytle="background-color:#28B1E5" >
+          <li style="height:20px;">
+            <a href=".." style="height:20px;line-height:20px" onclick="redicet()">Déconnexion</a>
+          </li>
+        </ul>
       </li>
-      <li id = "logout">
-        <a  href = "../login/index.html"style="line-height:75px;font-size:14px;font-family:OpenSans-Regular;" onclick="redicet()">déconnection</a>
-      </li>
-    </ul>
-  </div>
-  <!--/.nav-collapse -->
+    </li>
+    <!-- <li id = "logout">
+    <a  href = "../login/index.html" style="line-height:75px;font-size:17px;font-family:"Open Sans";font-weight: 500;" onclick="redicet()">Déconnexion</a>
+  </li>
+  -->
+</ul>
+</div>
+<!--/.nav-collapse -->
 </div>
 <!--/.container-fluid -->
 </div>
-<div style="background-color: #305277;height:6px;"></div>
+<div class="speratebar"></div>
 <script>
 $("#username").html(getCookie("mymedia_username"));
   function redicet(){
@@ -101,75 +110,3 @@ $("#username").html(getCookie("mymedia_username"));
     setCookie("mymedia_token","", 0);
   }
 </script>
-<style type="text/css">
-.navbar-default {
-  background-color: #f0f0f0;
-  border-color: #28b1e5;
-}
-.navbar-default .navbar-brand {
-  color: #23466E;
-}
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-text {
-  color: #23466E;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #23466E;
-}
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-  color: #ffffff;
-}
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #ffffff;
-  background-color: #28b1e5;
-}
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #ffffff;
-  background-color: #28b1e5;
-}
-.navbar-default .navbar-toggle {
-  border-color: #28b1e5;
-}
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-  background-color: #28b1e5;
-}
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #23466E;
-}
-.navbar-default .navbar-collapse,
-.navbar-default .navbar-form {
-  border-color: #23466E;
-}
-.navbar-default .navbar-link {
-  color: #23466E;
-}
-.navbar-default .navbar-link:hover {
-  color: #ffffff;
-}
-
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #4e6479;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: #ffffff;
-  }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #ffffff;
-    background-color: #28b1e5;
-  }
-}
-  .navbar-nav, .navbar-nav li, .navbar-nav li a {
-  height: 100px;
-     line-height: 100px;
-
-}
-.navbar-brand {
-        padding: 0;
-}
-.navbar {
-    margin-bottom: 0 !important;
-}
-</style>

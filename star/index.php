@@ -1,33 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html>
 <head>
-    <link rel="icon" href="leadsmonitor.png">
-    <title id='Description'>Leadsmonitor</title>
-    <!-- Bootstrap core CSS -->
-    <script type="text/javascript" src="external_library/scripts/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="external_library/jqwidgets/jqx-all.js"></script>
-    <script type="text/javascript" src="js/TimeSeriesController.js"></script>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
 
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="css/loginstyle.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="css/sprites.css" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
 </head>
-<body id='Campagne'>
-    <div class="container">
-        <div id="chart"></div>
-        <!-- Static navbar --> </div>
-    <!-- /container -->
-    <!-- /print the libraries -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var chart = new TimeSeriesController();
-  chart.initialChart('http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne_graph_default.php?client='+'Balsamik');
-        });
-    </script>
+<body>
+
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript: void(0)">
+        <img src="img/leadsmonitor-logo.png"></a>
+    </div>
+    <!--/.container-fluid --> </div>
+  <div class="speratebar"></div>
+  <div id="login">
+    <div id="triangle"></div>
+    <h1>
+      <p>Connexion</p>
+    </h1>
+
+    <form id="loginForm" onsubmit="return valider();">
+      <input type="email" id="uName" placeholder="Email" />
+      <input type="password" id="passKey" placeholder="Password" />
+      <input type="submit"  id="submit" value="Valider" />
+    </form>
+    <div id="message_container"></div>
+  </div>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script type="text/javascript" src="js/cookies_helper_function.js"></script>
+  <script src="js/LoginController.js"></script>
+  <script>
+$("#username").html(getCookie("mymedia_username"));
+  function redicet(){
+    setCookie("mymedia_username", "", 0);
+    setCookie("mymedia_token","", 0);
+  }
+</script>
 </body>
 </html>

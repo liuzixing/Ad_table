@@ -30,7 +30,6 @@ function jqxHelperClass() {
     this.getDateTimeInputRange = function(id) {
         var selection = $("#" + id).jqxDateTimeInput('getRange');
         if (selection != null) {
-            //var d = selection.from;
             //console.log();
             return {
                 "from": self.getDateFormat(selection.from),
@@ -39,6 +38,24 @@ function jqxHelperClass() {
         } else {
             return {};
         }
+    }
+    this.getDateTimeInput = function(id) {
+        var selection = $("#" + id).jqxDateTimeInput('getRange');
+        if (selection != null) {
+            return {
+                "from": self.getDateFormat(selection.from),
+                "to": self.getDateFormat(selection.to)
+            };
+        } else {
+            return {};
+        }
+    }
+    this.getSeperatedNumber = function(number, splitter) {
+        var res = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, splitter);
+        // if (res[res.length - 1 ] == " "){
+        //     res = res.substring(0, res.length - 1);
+        // }
+        return res;
     }
 
     // this.initialDropDownList = function(id, placeHolder, checkboxed,) {

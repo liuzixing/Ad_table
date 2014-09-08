@@ -1,10 +1,13 @@
 function PerformanceController() {
   var globaltheme = 'bootstrap';
-  var client_name = "Balsamik";
+  var client_name = getCookie("mymedia_client_name");
   var codeCleaner = new jqxHelperClass();
   var layout = new LayoutController();
+  var filter_url = "http://tyco.mymedia.fr/api/api_performance_filters.php";
+  var graph_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php";
+  var table_url = "http://tyco.mymedia.fr/api/api_performance_table.php";
   layout.createLayout();
-
+  $('.client-website').html(client_name);
   $("#Comparaison").change(function() {
     if ($(this).is(":checked")) {
       $("#datepicker2").jqxDateTimeInput({
@@ -27,8 +30,7 @@ function PerformanceController() {
     "GRPcible",
     "TTRi",
     "CPM",
-    "CPVI",
-    // "Cout de visite immediate",
+    "CPVi",
     "CPLi (Cout par lead immediat)",
     "CPOi (Cost per order instant)",
     "% Nouveaux visiteurs i",
@@ -71,18 +73,16 @@ function PerformanceController() {
     width: '90%',
     height: '25'
   });
-
-  $("#xaxisselector").jqxDropDownList('selectItem', 'CPVI');
+  $("#xaxisselector").jqxDropDownList('selectItem', 'CPVi');
   $("#yaxisselector").jqxDropDownList('selectItem', 'Budget net');
   $("#regroupement").jqxDropDownList('selectItem', 'Chaine(s) > DayPart (Chaine) + MMDayPart(Chaine) > Ecran (Chaine)');
   //filters components
-
   $.ajax({
     type: 'GET',
     timeout: 10000,
     scriptCharset: "utf-8",
     dataType: 'json',
-    url: 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_filter_default.php?client=' + client_name,
+    url: filter_url+'?client=' + client_name,
     async: true,
     success: function(d) {
       //console.log(d);
@@ -140,8 +140,15 @@ function PerformanceController() {
       $("#Format").jqxDropDownList('checkAll');
       $("#MMDaypart").jqxDropDownList('checkAll');
       $("#Dayofweek").jqxDropDownList('checkAll');
-      //datepick settings
 
+      $("#Chaîne").jqxDropDownList('setContent', 'Chaîne(s)');
+      $("#Version").jqxDropDownList('setContent', 'Version(s) pub / créa');
+      $("#Catégorie").jqxDropDownList('setContent', 'Catégorie(s) d’émission');
+      $("#Format").jqxDropDownList('setContent', 'Format(s)');
+      $("#MMDaypart").jqxDropDownList('setContent', 'Daypart/MM');
+      $("#Dayofweek").jqxDropDownList('setContent', 'Dayofweek/typeofday');
+
+      //datepick settings
       $("#datepicker1").jqxDateTimeInput({
         theme: globaltheme,
         width: '90%',
@@ -160,7 +167,7 @@ function PerformanceController() {
   });
 
   var grid = new TreeGridController();
-  grid.initialTreeGrid("http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_table.php?client=" + client_name, []);
+  grid.initialTreeGrid(table_url + "?client=" + client_name, []);
   var chart = new BubbleController();
   chart.initialChart(client_name);
   $("#previous").click(function(e) {
@@ -189,7 +196,7 @@ function PerformanceController() {
       requestData["period2"] = codeCleaner.getDateTimeInputRange("datepicker2");
     }
     // console.log(requestData);
-    grid.updateTreeGrid(requestData, 'http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_table.php');
+    grid.updateTreeGrid(requestData, table_url);
     chart.updateChart(requestData, codeCleaner.getDropDownListItem("regroupement"), client_name);
   });
 }

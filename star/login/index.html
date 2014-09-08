@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-
   <meta charset="UTF-8">
-
   <title>Login Form</title>
 
-    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="css/loginstyle.css" media="screen" type="text/css" />
+  <link rel="stylesheet" href="../css/sprites.css" type="text/css" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
 </head>
-
 <body>
 
-  <span href="#" class="button" id="toggle-login">Log in</span>
+  <div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="javascript: void(0)">
+        <img src="../img/leadsmonitor-logo.png"></a>
+    </div>
+    <!--/.container-fluid --> </div>
+  <div class="speratebar"></div>
+  <div id="login">
+    <div id="triangle"></div>
+    <h1>
+      <p>Connexion</p>
+    </h1>
 
-<div id="login">
-  <div id="triangle"></div>
-  <h1>Log in  <img id="loading" src="../img/login2.gif" style="visibility:hidden"></h1>
-  <form id="loginForm" onsubmit="return valider();">
-    <input type="email" id="uName" placeholder="Email" />
-    <input type="password" id="passKey" placeholder="Password" />
-    <input type="submit"  id="submit" value="Log in" />
-  </form>
+    <form id="loginForm" onsubmit="return valider();">
+      <input type="email" id="uName" placeholder="Email" />
+      <input type="password" id="passKey" placeholder="Password" />
+      <input type="submit"  id="submit" value="Valider" />
+    </form>
+    <div id="message_container"></div>
+  </div>
+  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 
-</div>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
   <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
   <script type="text/javascript" src="../js/cookies_helper_function.js"></script>
-  <script src="js/index.js"></script>
-
+  <script src="js/loginController.js"></script>
+  <script>
+$("#username").html(getCookie("mymedia_username"));
+  function redicet(){
+    setCookie("mymedia_username", "", 0);
+    setCookie("mymedia_token","", 0);
+  }
+</script>
 </body>
-
 </html>

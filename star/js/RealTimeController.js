@@ -1,8 +1,8 @@
  function RealTimeController() {
      var _self = this;
      var _dataWithZero = [];
-     //var data[];
      var _chart;
+     var client_name;
      this._dataWithZero = [];
      this._seriesOptions = [];
      this._plotLinesOptions = [];
@@ -14,12 +14,11 @@
      }
      this.attachLiveEvent = function() {
          $.ajax({
-             data: "client=Justfab",
-             url: 'live_server.php',
+             url: 'live_server.php?client=' + self.client_name,
+             type: 'GET',
              success: function(point) {
                  var real = _self._chart.series[0];
                  var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length - 1];
-                 console.log(point);
                  var atLeastUpdateOnePoint = false;
                  for (var i = 0; i < point.length; i++) {
                      if (point[i][0] - lastpoint <= 0) {
@@ -30,7 +29,7 @@
                          _self._chart.series[0].addPoint([lastpoint, 0], true, true);
                          atLeastUpdateOnePoint = true;
                      }
-                     if (point[i][0] - lastpoint === 1000) {
+                     if (point[i][0] - lastpoint == 1000) {
                          lastpoint = lastpoint + 1000;
                          _self._chart.series[0].addPoint([point[i][0], point[i][1]], true, true);
                          atLeastUpdateOnePoint = true;
@@ -39,11 +38,12 @@
                  if (atLeastUpdateOnePoint === false) {
                      _self._chart.series[0].addPoint([lastpoint + 1000, 0], true, true);
                  }
-                 // call it again after 1 second
+                 //call it again after 1 second
                  setTimeout(_self.attachLiveEvent, 1000);
              },
              statusCode: {
                  502: function() {
+                     console.log("502");
                      setTimeout(_self.attachLiveEvent, 1000);
                  }
              },
@@ -62,29 +62,34 @@
              series: _self._seriesOptions,
              chart: {
                  type: 'spline',
+                 //animation: Highcharts.svg,
                  renderTo: 'chart',
                  defaultSeriesType: 'spline',
                  zoomType: 'xy',
-                 //load update function here
                  events: {
-                     load: _self.requestRealTimeData
+                     load: _self.attachLiveEvent
                  }
              },
              credits: {
                  enabled: false
              },
-             // title: {
-             //     text: 'Real time tracking'
-             // },
              plotOptions: {
                  spline: {
                      //set how many points maximun
-                     turboThreshold: 180000,
+                     turboThreshold: 100000,
                      lineWidth: 2
                  }
              },
              rangeSelector: {
                  buttons: [{
+                     count: 1,
+                     type: 'minute',
+                     text: 'Live'
+                 }, {
+                     count: 5,
+                     type: 'minute',
+                     text: '5M'
+                 },{
                      count: 30,
                      type: 'minute',
                      text: '30M'
@@ -93,15 +98,14 @@
                      text: 'All'
                  }],
                  inputEnabled: false,
-                 selected: 0
+                 selected: 1
              },
              xAxis: {
                  type: 'datetime',
-                 tickPixelInterval: 150,
+                 tickPixelInterval: 100,
                  maxZoom: 20 * 1000,
                  plotLines: _self._plotLinesOptions,
                  y: -50,
-
              },
              yAxis: {
                  minPadding: 0.2,
@@ -114,21 +118,21 @@
                  offset: 50,
                  title: {
                      text: 'Visits',
-                     //margin: 80
                  }
              },
 
          });
      }
-     this.InitialGraph = function() {
+     this.InitialGraph = function(client) {
          _self.createLoadingMessage();
+         self.client_name = client;
+         console.log(self.client_name);
          $.ajax({
-             data: "client=Justfab",
-             url: 'server.php',
+             type: 'GET',
+             url: 'server.php?client=' + self.client_name,
              async: true,
              success: function(data) {
-
-                 //console.log(data);
+                 console.log(data);
                  for (var i = 0; i < data[0].length - 1; i++) {
                      _self._dataWithZero.push(data[0][i]);
                      var currentX = data[0][i][0];
@@ -137,8 +141,20 @@
                          _self._dataWithZero.push([currentX, 0]);
                      }
                  };
-                 _dataWithZero.push(data[0][data[0].length - 1]);
-
+                 _self._dataWithZero.push(data[0][data[0].length - 1]);
+                 //console.log(_self._dataWithZero);
+                 // for (var i = 1; i <  data[0].length; i++) {
+                 //    if (data[0][i][0] < data[0][i-1][0]) {
+                 //        console.log("data - false"+i+"-");
+                 //        //console.log()
+                 //    }
+                 // }
+                 // for (var i = 1; i <  _self._dataWithZero.length; i++) {
+                 //    if (_self._dataWithZero[i][0] < _self._dataWithZero[i-1][0]) {
+                 //        console.log("false"+i+"-");
+                 //        //console.log()
+                 //    }
+                 // }
                  _self._seriesOptions[0] = {
                      name: "Visites",
                      data: _self._dataWithZero,
@@ -163,21 +179,17 @@
                              y: 80,
                              style: {
                                  color: 'blue',
-                                 //fontWeight: 'bold'
                              },
                              y: 0,
                              x: 5
-
                          },
                          allowPointSelect: true,
                          width: '2' // Width of the line
-
                      };
-                     //console.log(data[i].text);
                  }
                  _self.destroyLoadingMessage();
                  _self.createGraph();
-                 _self.attachLiveEvent();
+                 //_self.attachLiveEvent();
              },
              cache: true,
          });

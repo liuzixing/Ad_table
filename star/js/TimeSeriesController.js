@@ -74,27 +74,6 @@ function TimeSeriesController() {
         minValue: minDate,
         maxValue: maxDate,
         showGridLines: false,
-
-        // gridLinesInterval: 2,,
-        // gridLinesColor: '#888888',
-        // axisSize: 'auto',
-        // rangeSelector: {
-        // //  renderTo: $('#selectorContainer'),
-        //   size: 120,
-        //   padding: { /*left: 0, right: 0,*/
-        //     top: 30,
-        //     bottom: 0
-        //   },
-        //   minValue: minDate,
-        //   maxValue: maxDate,
-        //   backgroundColor: 'white',
-        //   dataField: 'date',
-        //   baseUnit: 'month',
-        //   showGridLines: false,
-        //   formatFunction: function(value) {
-        //     return value.getMonth()+"-"+value.getFullYear().toString().substring(2);
-        //   }
-        // },
       },
       colorScheme: 'scheme13',
       seriesGroups: [{

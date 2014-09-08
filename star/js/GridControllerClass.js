@@ -18,7 +18,6 @@ function GridController() {
       localData: _self._data[2],
       id: "id"
     };
-
     _self._dataAdapter = new $.jqx.dataAdapter(_self._source, {
       loadComplete: function() {}
     });

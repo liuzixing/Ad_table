@@ -3,7 +3,7 @@ function LayoutController() {
     var self = this;
     this.createLayout = function() {
         $('#splitContainer').jqxSplitter({
-            height: 1200,
+            height: 8000,
             width: "100%",
             orientation: 'vertical',
             theme: "layout-custom",
@@ -17,16 +17,10 @@ function LayoutController() {
             theme: "layout-custom",
             orientation: 'horizontal',
             panels: [{
-
-                size: "45%"
+                size: "500px"
             }, {
-                size: "55%"
+                // size: "55%"
             }]
-        });
-        $("#clientlogo").jqxExpander({
-            theme: "expander-custom",
-            showArrow: false,
-            width: '100%',
         });
         $("#options").jqxExpander({
             theme: "expander-custom",
@@ -43,5 +37,6 @@ function LayoutController() {
             showArrow: false,
             width: '100%'
         });
+        $(".clientCircle").attr("src","../img/"+getCookie("mymedia_client_name")+".png");
     }
 }

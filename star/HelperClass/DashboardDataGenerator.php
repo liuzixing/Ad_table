@@ -11,9 +11,16 @@ class DashboardDataGenerator {
         $someSecondsAgo = date('Y-m-d H:i:s', time() - 100);
        return self::getRealTimeData($client,$someSecondsAgo,$now);
     }
-    static function getPlotLineData($theBrandId){
+    static function getPlotLineData($client){
+
         $now   = new DateTime();
         $theSQLDate = $now->format('Y-m-d');
+        require_once('/home/www/mymedia_fr/lib/dblib.php');
+                if (!($con = db_connect_leadsv2_return())) die('DB Err');
+              //  $SQLstring = "SELECT * FROM Compte WHERE IDcompte = '$username'";
+            $result = mysql_query("SELECT tvtyBrandID FROM `Produit` WHERE produit_name = '$client'") or die(mysql_error());
+            $result = mysql_fetch_array($result);
+            $theBrandId = $result["tvtyBrandID"];
         $detections_url   = 'https://api.tvty.tv/ws/ads/detections/fr?partner=54e2baa8b1619e0c88ef418cee21f85f40b3deb4&brand=' . $theBrandId . '&start=' . $theSQLDate . '&end=' . $theSQLDate . '&tz=Europe/paris';
         $detections_text  = file_get_contents($detections_url);
         $detections_text  = str_replace("\x00", "", $detections_text);
@@ -46,7 +53,7 @@ class DashboardDataGenerator {
             echo "No ID found";
         $sqlrequest = "SELECT CONVERT_TZ(`datetime`, '+00:00', '+2:00') as datetime, nbvisit as visits
                 FROM `realtime_" . $idsite . "`
-                WHERE  CONVERT_TZ(`datetime`, '+00:00', '+2:00') BETWEEN '" . $from . "' AND '" . $to . "'";
+                WHERE  CONVERT_TZ(`datetime`, '+00:00', '+2:00') BETWEEN '" . $from . "' AND '" . $to . "' ORDER BY datetime";
         $result = mysql_query($sqlrequest) or die(mysql_error());
         $rows = array();
         while ($row = mysql_fetch_assoc($result)) {

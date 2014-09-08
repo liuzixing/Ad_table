@@ -40,7 +40,7 @@ function TreeGridController() {
       source: self.dataAdapter,
       selectionMode: 'none',
       pagerPosition: "top",
-      sortable: false,
+      sortable: true,
       columnsHeight: 50,
       pageable: true,
       width: "100%",
@@ -53,7 +53,7 @@ function TreeGridController() {
            hiddenColumns: true
        },
       theme: 'mymedia-table',
-      pageSize: 35,
+      pageSize: 100,
       columnsResize: true,
       ready: function() {
         $("#treeGrid").jqxTreeGrid('expandRow', self.data[2][0]["id"]);
@@ -63,6 +63,7 @@ function TreeGridController() {
     });
     console.log("creating treeGrid");
     self.attachColumnGroupClickEvent();
+    self.closeColumn();
   }
   this.groupEcranObserver = function(index) {
     $("#treeGrid").jqxTreeGrid('beginUpdate');
@@ -80,7 +81,16 @@ function TreeGridController() {
     $("#treeGrid").jqxTreeGrid('endUpdate');
     self.attachColumnGroupClickEvent();
   }
-
+  this.closeColumn = function(){
+    if(self.collapseSetting.length == 0){
+       return;
+    }
+     // self.groupEcranObserver(0);
+     // self.groupEcranObserver(1);
+     // self.groupEcranObserver(2);
+     // self.groupEcranObserver(3);
+     // self.groupEcranObserver(4);
+  }
   this.attachColumnGroupClickEvent = function() {
     if(self.collapseSetting.length == 0){
        return;

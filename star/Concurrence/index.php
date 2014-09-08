@@ -9,6 +9,7 @@
 <head>
     <link rel="icon" href="../img/leadsmonitor.png">
     <title id='Description'>Concurrence</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300' rel='stylesheet' type='text/css'>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="../external_library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
@@ -25,11 +26,8 @@
         <div id="splitContainer">
             <div>
                 <div id='clientlogo' >
-                    <div>
-                        <img src="../img/iron.jpg" class="clientCircle">
-                        <span class="client-website" >www.mymedia.com</span>
-                    </div>
-                    <div></div>
+                        <img class="clientCircle">
+                        <span class="client-website" ></span>
                 </div>
                 <div id='options' >
                     <div >

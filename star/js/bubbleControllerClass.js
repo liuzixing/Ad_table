@@ -5,25 +5,21 @@ function BubbleController() {
   var dataAdapter = {};
   var zoomLevel = 0;
   var regroupement = [];
-  this.client_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_data.php";
+  this.client_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php";
   var client_name = "";
   // prepare jqxChart settings
 
   this.createLoadingMessage = function() {
     $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
-
   }
   this.destroyLoadingMessage = function() {
     $("#chart").empty();
-
   }
   this.clearPreviousTooltips = function() {
     $(".jqx-chart-tooltip-text").parent().remove();
-
   }
   // setup the chart
   this.createChart = function() {
-
     function myEventHandler(e) {
       if (self.zoomLevel >= self.regroupement.length - 1) {
         return;
@@ -64,7 +60,7 @@ function BubbleController() {
       for (key in dataItem) {
         htmlString = htmlString + '<b>' + key + ': </b>' + dataItem[key] + "<br>";
       }
-      htmlString = htmlString + '</DIV>';
+      htmlString = htmlString + '</div>';
       return htmlString;
     };
     var keys = Object.keys(self.data[self.zoomLevel][0]);
@@ -107,12 +103,6 @@ function BubbleController() {
       toolTipShowDelay: 500,
       enableAnimations: true,
       showLegend: true,
-      padding: {
-        left: 5,
-        top: 5,
-        right: 5,
-        bottom: 5
-      },
       titlePadding: {
         left: 90,
         top: 0,
@@ -128,7 +118,7 @@ function BubbleController() {
         useGradient: false,
         valueAxis: {
           logarithmicScale: true,
-          logarithmicScaleBase: 12,
+          logarithmicScaleBase: 17,
           showGridLines: false,
         },
         series: series_setting
@@ -154,7 +144,6 @@ function BubbleController() {
         self.data.push(d[0]);
         self.regroupement = d[1]["regroupement"].split(" > ");
         self.zoomLevel = 0;
-
         self.createChart();
       },
       failure: function(err) {
@@ -176,7 +165,6 @@ function BubbleController() {
       success: function(d) {
         console.log("updateChart");
         console.log(d);
-        //self.destroyLoadingMessage();
         //releasing memory
         self.data = null;
         self.data = [];
@@ -200,7 +188,6 @@ function BubbleController() {
       success: function(d) {
         console.log("zoom return data");
         console.log(d);
-        //self.destroyLoadingMessage();
         self.zoomLevel++;
         if (d.length > 0) {
           self.data[self.zoomLevel] = null;

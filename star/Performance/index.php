@@ -19,7 +19,7 @@
     <script>LoginChecker();</script>
 
     <!-- Custom styles for this template -->
-    <!-- <link href="../external_library/bootstrap/css/bootstrap-custom.css" rel="stylesheet">--></head>
+</head>
 <body id='Performance'>
     <?php include '../header.php';?>
     <div class="container-fluid">
@@ -29,11 +29,8 @@
         <div id="splitContainer">
             <div>
                 <div id='clientlogo' >
-                    <div>
-                        <img src="../img/iron.jpg" class="clientCircle">
-                        <span class="client-website" >www.mymedia.com</span>
-                    </div>
-                    <div></div>
+                    <img class="clientCircle">
+                    <span class="client-website" ></span>
                 </div>
                 <div id='options'>
                     <div >
@@ -44,9 +41,9 @@
                         <div class="periode-text">Période</div>
                         <div id='datepicker1' class="datepicker"></div>
                         <!-- not refactor yet -->
-                        <div  style="margin-top: 18px;margin-left:5%;">
-                            <div class="Comparaison-label" style="height:34px;vertical-align: middle;display:table-cell;text-align: center;line-height: 22px;float:left;weight:35%;font-size:12px;font-family: OpenSans-Light;">Comparaison</div>
-                            <div style="margin-left:100px">
+                        <div  class="onoffswitch-outside-wrapper">
+                            <div class="onoffswitch-text" >Comparaison</div>
+                            <div class="onoffswitch-inside-wrapper">
                                 <div class="onoffswitch">
                                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Comparaison" unchecked>
                                     <label class="onoffswitch-label" for="Comparaison">
@@ -56,90 +53,81 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="Comparaison-setter" style="margin-top: 10px;margin-left:5%;">
-                        <div class="Comparaison-label" style="float:left;weight:35%;vertical-align:middle;font-size:17px ;height:25px;line-height:25px; text-align:center">Comparaison</div>
-                        <div id="Comparaison" style="float:right;margin-right:5%;"></div>
+                        <div class="second-datepicker-wrapper">
+                            <div id='datepicker2' class="datepicker"></div>
+                        </div>
+                        <div class="chooser-text">Choix des données à afficher</div>
+                        <div id='xaxisselector' class = "sidebar-dropdownlist"></div>
+                        <div id='yaxisselector' class = "sidebar-dropdownlist"></div>
+                        <div id='regroupement' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist"></div>
                     </div>
-                    -->
-                    <div style="margin-top: 28px;">
-                        <div id='datepicker2' style=";margin-left:5%;"></div>
+                </div>
+                <div id='filters' >
+                    <div>
+                        <span class="numberCircle" >2</span>
+                        <span class="expander-header">Filtres</span>
                     </div>
-                    <!-- end -->
+                    <div>
+                        <div id='Chaîne' class = "sidebar-dropdownlist"></div>
+                        <div id='Version' class = "sidebar-dropdownlist"></div>
+                        <div id='Format' class = "sidebar-dropdownlist"></div>
+                        <div id='Catégorie' class = "sidebar-dropdownlist"></div>
+                        <div id='MMDaypart' class = "sidebar-dropdownlist"></div>
+                        <div id='Dayofweek' class = "sidebar-dropdownlist  bottom-sidebar-dropdownlist"></div>
 
-                    <div id='xaxisselector' class = "sidebar-dropdownlist"></div>
-                    <div id='yaxisselector' class = "sidebar-dropdownlist"></div>
-                    <div id='regroupement' class = "sidebar-dropdownlist bottom-sidebar-dropdownlist"></div>
-                </div>
-            </div>
-            <div id='filters' >
-                <div>
-                    <span class="numberCircle" >2</span>
-                    <span class="expander-header">Filtres</span>
-                </div>
-                <div>
-                    <div id='Chaîne' class = "sidebar-dropdownlist"></div>
-                    <div id='Version' class = "sidebar-dropdownlist"></div>
-                    <div id='Format' class = "sidebar-dropdownlist"></div>
-                    <div id='Catégorie' class = "sidebar-dropdownlist"></div>
-                    <div id='MMDaypart' class = "sidebar-dropdownlist"></div>
-                    <div id='Dayofweek' class = "sidebar-dropdownlist  bottom-sidebar-dropdownlist"></div>
-
-                    <div  style="margin-top: 18px;margin-bottom:18px;margin-left:5%;">
-                        <div class="Optimisation-label" style="height:34px;vertical-align: middle;display:table-cell;text-align: center;line-height: 22px;float:left;weight:35%;font-size:12px;font-family: OpenSans-Light;">Optimisation</div>
-                        <div style="margin-left:100px">
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Optimisation" checked>
-                                <label class="onoffswitch-label" for="Optimisation">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
+                        <div  class="onoffswitch-outside-wrapper">
+                            <div class="onoffswitch-text">Optimisation</div>
+                            <div class="onoffswitch-inside-wrapper">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="Optimisation" checked>
+                                    <label class="onoffswitch-label" for="Optimisation">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-            <div id='validation'>
-                <div>
-                    <span class="numberCircle" >3</span>
-                    <span class="expander-header">Validation</span>
-                </div>
-                <div>
-                    <button class="button sidebar-button"  id="Valider">
-                        <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
-                        Valider
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div id="splitter">
-            <div>
-            <img src="../img/blank.png" id="previous" class="sprite  sprite-previous">
-            <div  id="chart" style="width:100%;height:95%"></div></div>
-                <div >
+                <div id='validation'>
                     <div>
-                        <button class="button exporter-button" class="exporter-button" id = "csvExport">
-                            <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
-                            Exporter
+                        <span class="numberCircle" >3</span>
+                        <span class="expander-header">Validation</span>
+                    </div>
+                    <div>
+                        <button class="button sidebar-button"  id="Valider">
+                            <img src="../img/blank.png" class="sprite  sprite-check_btn button-sprite" />
+                            Valider
                         </button>
                     </div>
-                    <div class="table-container">
-                        <div id="treeGrid" ></div>
+                </div>
+            </div>
+            <div>
+                <div id="splitter">
+                    <div>
+                        <img src="../img/blank.png" id="previous" class="sprite  sprite-previous">
+                        <div  id="chart" class="chart-container-performance"></div>
+                    </div>
+                    <div >
+                        <div>
+                            <button class="button exporter-button" class="exporter-button" id = "csvExport">
+                                <img src="../img/blank.png" class="sprite  sprite-exporter button-sprite"  />
+                                Exporter
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <div id="treeGrid" ></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /container -->
-<!-- /print the libraries -->
-<?php include '../library.php';?>
-<script type="text/javascript">
+    <!-- /container -->
+    <?php include '../library.php';?>
+    <script type="text/javascript">
         $(document).ready(function () {
-            $.getScript("../js/PerformanceController.js", function() {
-                        PerformanceController();
-                });
+                PerformanceController();
         });
     </script>
 </body>
