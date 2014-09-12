@@ -1,21 +1,22 @@
 function DashboardController() {
-  //var client_name = "Balsamik";
-  var client_name = getCookie("mymedia_client_name");
-  realtimegraph = new RealTimeController();
-  var performance_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/dashboard_perf.php";
-  var dashboard_info_url = "http://tyco.mymedia.fr/api/dashboard.php";
-  var source = [client_name];
-  var default_date;
- $(".clientCircle").attr("src","../img/"+getCookie("mymedia_client_name")+".png");
+  var client_name = getCookie("mymedia_client_name"),
+    realtimegraph = new RealTimeController(),
+    dashboard_info_url = "http://tyco.mymedia.fr/api/dashboard.php",
+    source = [client_name],
+    default_date, codeCleaner = new jqxHelperClass();
+
   realtimegraph.InitialGraph(client_name);
 
+  $(".clientCircle").attr("src", "../img/" + getCookie("mymedia_client_name") + ".png");
+
   if (source.length > 1) {
-    $("#clientselector").jqxDropDownList({
-      theme: "bootstrap",
-      source: source,
-      width: '200',
-      height: '25'
-    });
+    codeCleaner.initialSideBarDropDownList("clientselector", source, false);
+    // $("#clientselector").jqxDropDownList({
+    //   theme: "bootstrap",
+    //   source: source,
+    //   width: '200',
+    //   height: '25'
+    // });
     $("#clientselector").jqxDropDownList('selectIndex', 0);
   } else {
     $("#clientselector").html(client_name);
@@ -66,26 +67,10 @@ function DashboardController() {
     setCookie("default_date", default_date, 1);
     window.location = "../Campagne";
   });
-  $.ajax({
-    type: 'GET',
-    timeout: 10000,
-    dataType: 'json',
-    url: performance_url + '?client=' + client_name,
-    async: true,
-    success: function(data) {
-      for (var i = 0; i < data.length; i++) {
-        for (key in data[i]) {
-          $(".money:eq(" + i + ")").html((Math.round(data[i][key] * 100) / 100) + "€");
-          $(".innerchannelCircle:eq(" + (i) + ")").attr("src", "../img/channel-logos/" + key + ".png");
-        }
-      };
-    },
-    failure: function(err) {
-      console.log("Error");
-    },
-    cache: true
-  });
-  var c_days,total_days;
+
+
+  //get cells data
+  var c_days, total_days;
   $.ajax({
     type: 'GET',
     timeout: 10000,
@@ -93,11 +78,11 @@ function DashboardController() {
     url: dashboard_info_url + '?client=' + client_name,
     async: true,
     success: function(data) {
-      //second row begin
+      //campagne cell begin
       var dashboard_info = data["dashboard_info"];
       c_days = dashboard_info["CAMPAGNE"]["c_days"];
       total_days = dashboard_info["CAMPAGNE"]["total_days"];
-      //progress bar
+            //progress bar
       var renderText = function(text) {
         return "<span class='jqx-rc-all' style='color: white;font-weight: bold;font-size:16px'>" + c_days + "/" + total_days + " jours</span>";
       }
@@ -109,26 +94,31 @@ function DashboardController() {
         renderText: renderText,
         value: dashboard_info["CAMPAGNE"]["time_progress"]
       });
+            //progress bar end
 
-      var codeCleaner = new jqxHelperClass();
+            //change english key to french key
       if (dashboard_info["CAMPAGNE"]["progress"] != "over") {
         dashboard_info["CAMPAGNE"]["progress"] = "en cours";
       } else {
         dashboard_info["CAMPAGNE"]["progress"] = "terminée";
       }
       dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] = Math.round(dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] * 100) / 100 + "%";
+            //change english key to french key end
+
+            //process every number seperated by space
       for (key in dashboard_info["CAMPAGNE"]) {
         if (key != "date_start" && key != "date_end") {
-            $("#CAMPAGNE_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["CAMPAGNE"][key], " "));
-          } else {
-            $("#CAMPAGNE_" + key).html(dashboard_info["CAMPAGNE"][key]);
-          }
-        // $("#CAMPAGNE_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["CAMPAGNE"][key], " "));
+          $("#CAMPAGNE_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["CAMPAGNE"][key], " "));
+        } else {
+          $("#CAMPAGNE_" + key).html(dashboard_info["CAMPAGNE"][key]);
+        }
       }
+            //process end
+
       var concurrence = data["concurrent"];
       $("#campagne_nbconcurrent").html(concurrence["campagne"]["nbconcurrent"]);
       $("#campagne_nbspot").html(concurrence["campagne"]["nbspot"]);
-      //second row end
+      //campagne cell end
 
       //channel ranking cells begin
       var performance = data["channel_performance"];
@@ -138,7 +128,7 @@ function DashboardController() {
           $(".innerchannelCircle:eq(" + (i) + ")").attr("src", "../img/channel-logos/" + key + ".png");
         }
       };
-      console.log(performance.length);
+        //deal with the missing ranking channel
       for (var i = performance.length; i < 6; i++) {
         $(".money:eq(" + performance.length + ")").parent().empty();
       }
@@ -161,6 +151,7 @@ function DashboardController() {
         $("#Lastday_nbspot").html(concurrence["Lastday"]["nbspot"]);
 
       }
+      //last day cells end
       console.log(data);
     },
     failure: function(err) {

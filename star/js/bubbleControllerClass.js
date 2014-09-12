@@ -1,13 +1,15 @@
 function BubbleController() {
-  var self = this;
+  var self = this,
+    source = {},
+    dataAdapter = {},
+    zoomLevel = 0,
+    regroupement = [],
+    client_name = "";
   this.data = [];
-  var source = {};
-  var dataAdapter = {};
-  var zoomLevel = 0;
-  var regroupement = [];
   this.client_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php";
-  var client_name = "";
-  // prepare jqxChart settings
+   //"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_data.php";
+
+  //prepare jqxChart settings
 
   this.createLoadingMessage = function() {
     $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
@@ -47,6 +49,7 @@ function BubbleController() {
       if (requestData["comparaison"] == true) {
         requestData["period2"] = codeCleaner.getDateTimeInputRange("datepicker2");
       }
+
       requestData["bubble"] = [Object.keys(self.data[self.zoomLevel][e.elementIndex])[0], self.data[self.zoomLevel][e.elementIndex][Object.keys(self.data[self.zoomLevel][e.elementIndex])[0]]];
       console.log("sending request to zoom");
       console.log(requestData);
@@ -57,6 +60,8 @@ function BubbleController() {
     var toolTipCustomFormatFn = function(value, itemIndex, serie, group, categoryValue, categoryAxis) {
       var dataItem = self.data[self.zoomLevel][itemIndex];
       var htmlString = "<div>";
+      console.log(serie);
+      console.log(dataItem);
       for (key in dataItem) {
         htmlString = htmlString + '<b>' + key + ': </b>' + dataItem[key] + "<br>";
       }
@@ -64,6 +69,7 @@ function BubbleController() {
       return htmlString;
     };
     var keys = Object.keys(self.data[self.zoomLevel][0]);
+    //console.log(keys);
     var xAxis_setting = {
       dataField: keys[1],
       valuesOnTicks: false,
@@ -71,22 +77,25 @@ function BubbleController() {
     };
     var series_setting = [];
     if (keys.length > 3) {
+      //console.log(keys);
+      //when you have two series
       series_setting = [{
-        dataField: keys[1],
-        radiusDataField: keys[3],
-        minRadius: 24,
-        maxRadius: 25,
-        click: myEventHandler,
-        displayText: 'first period'
-      }, {
-        dataField: keys[2],
+        dataField: keys[4],
         radiusDataField: keys[0],
         minRadius: 24,
         maxRadius: 25,
         click: myEventHandler,
-        displayText: 'second period'
+        displayText: 'Référence'
+      }, {
+        dataField: keys[3],
+        radiusDataField: keys[0],
+        minRadius: 24,
+        maxRadius: 25,
+        click: myEventHandler,
+        displayText: 'Comparaison'
       }];
     } else {
+      //when you have one series
       series_setting = [{
         logarithmicScale: true,
         dataField: keys[2],
@@ -94,11 +103,11 @@ function BubbleController() {
         minRadius: 24,
         maxRadius: 25,
         click: myEventHandler,
-        displayText: 'first period'
+        displayText: 'Reference'
       }];
     }
     self.settings = {
-      title: "Bubble Graph",
+      title: self.regroupement[self.zoomLevel],
       description: "",
       toolTipShowDelay: 500,
       enableAnimations: true,

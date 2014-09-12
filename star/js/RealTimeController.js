@@ -17,27 +17,42 @@
              url: 'live_server.php?client=' + self.client_name,
              type: 'GET',
              success: function(point) {
-                 var real = _self._chart.series[0];
+                 //var start = new Date().getTime();
                  var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length - 1];
-                 var atLeastUpdateOnePoint = false;
+                 // var atLeastUpdateOnePoint = false;
+                 //var count_add_points = 0;
+                 //console.log(point.length);
                  for (var i = 0; i < point.length; i++) {
                      if (point[i][0] - lastpoint <= 0) {
                          continue;
                      }
                      while (point[i][0] - lastpoint > 1000) {
                          lastpoint = lastpoint + 1000;
-                         _self._chart.series[0].addPoint([lastpoint, 0], true, true);
-                         atLeastUpdateOnePoint = true;
+                         _self._chart.series[0].addPoint([lastpoint, 0], false, true);
+                         //count_add_points++;
+                         //atLeastUpdateOnePoint = true;
                      }
                      if (point[i][0] - lastpoint == 1000) {
                          lastpoint = lastpoint + 1000;
-                         _self._chart.series[0].addPoint([point[i][0], point[i][1]], true, true);
-                         atLeastUpdateOnePoint = true;
+                         if (i == point.length - 1) {
+                             _self._chart.series[0].addPoint([point[i][0], point[i][1]], true, true);
+                         } else {
+                             _self._chart.series[0].addPoint([point[i][0], point[i][1]], false, true);
+                         }
+                         //count_add_points++;
+                         //atLeastUpdateOnePoint = true;
                      }
                  }
-                 if (atLeastUpdateOnePoint === false) {
-                     _self._chart.series[0].addPoint([lastpoint + 1000, 0], true, true);
-                 }
+                 point = null;
+                 lastpoint = null;
+                 // if (atLeastUpdateOnePoint === false) {
+                 //     _self._chart.series[0].addPoint([lastpoint + 1000, 0], true, true);
+                 //     count_add_points++;
+                 // }
+                 // var end = new Date().getTime();
+                 // var time = end - start;
+                 // console.log('Execution time: ' + time);
+                 // console.log('add points: ' + count_add_points);
                  //call it again after 1 second
                  setTimeout(_self.attachLiveEvent, 1000);
              },
@@ -89,7 +104,7 @@
                      count: 5,
                      type: 'minute',
                      text: '5M'
-                 },{
+                 }, {
                      count: 30,
                      type: 'minute',
                      text: '30M'
@@ -133,6 +148,7 @@
              async: true,
              success: function(data) {
                  console.log(data);
+
                  for (var i = 0; i < data[0].length - 1; i++) {
                      _self._dataWithZero.push(data[0][i]);
                      var currentX = data[0][i][0];
@@ -189,6 +205,7 @@
                  }
                  _self.destroyLoadingMessage();
                  _self.createGraph();
+                 data = null;
                  //_self.attachLiveEvent();
              },
              cache: true,

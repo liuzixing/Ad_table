@@ -1,16 +1,18 @@
 function CampagneController() {
-  var globaltheme = 'bootstrap';
-  var client_name = getCookie("mymedia_client_name");
-  var codeCleaner = new jqxHelperClass();
-  var layout = new LayoutController();
-  var grid = new TreeGridController();
-  var chart = new ZoomableTimeSeries();
-  var comment_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/Campagne_comments.php";
-  var filter_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_filtre_default.php";
-  var graph_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php";
-  var table_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php";
+  var
+    client_name = getCookie("mymedia_client_name"),
+    codeCleaner = new jqxHelperClass(),
+    layout = new LayoutController(),
+    grid = new TreeGridController(),
+    chart = new ZoomableTimeSeries(),
+    comment_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/Campagne_comments.php",
+    filter_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_filtre_default.php",
+    graph_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php",
+    table_url = "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/api_campagne.php";
   layout.createLayout();
+
   $('.client-website').html(client_name);
+  //initial comment windows componenets
   $("#jqxwindow").jqxWindow({
     height: 300,
     width: 500,
@@ -31,6 +33,10 @@ function CampagneController() {
       "date": $('#commentdatepicker').jqxDateTimeInput('getDate').getTime(),
       "comment": $("#commentinput").val()
     }
+    var current_date = codeCleaner.getDateTimeInputRange("datepicker1");
+    if (current_date.from == current_date.to) {
+      chart.updateEvent($('#commentdatepicker').jqxDateTimeInput('getDate').getTime(), $("#commentinput").val());
+    }
     console.log(requestData);
     $.ajax({
       type: 'POST',
@@ -39,27 +45,7 @@ function CampagneController() {
       data: requestData,
       url: comment_url,
       async: true,
-      success: function(d) {
-        var requestData = {
-          "client": client_name,
-          "period": codeCleaner.getDateTimeInputRange("datepicker1"),
-          "value1": codeCleaner.getDropDownListItem("valueselector1"),
-          "value2": codeCleaner.getDropDownListItem("valueselector2"),
-          "value3": codeCleaner.getDropDownListItem("valueselector3"),
-          "filter": {
-            "chaines": codeCleaner.getDropDownListItems("Chaîne"),
-            "format": codeCleaner.getDropDownListItems("Format"),
-            "version": codeCleaner.getDropDownListItems("Version")
-          }
-        };
-        console.log(requestData);
-        //chart.updateCampagne(requestData, "http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/hc_graph.php");
-        chart.updateEvent();
-        // console.log("valider");
-        // console.log(d);
-        //self.data = d;
-        //self.createTreeGrid();
-      },
+      success: function() {},
       cache: true
     });
 
@@ -67,11 +53,14 @@ function CampagneController() {
   });
 
   $("#commentdatepicker").jqxDateTimeInput({
-    theme: globaltheme,
-    formatString: 'F',
-    width: '250px',
+    theme: "bootstrap",
+    formatString: "dd-MM-yyyy HH:mm:ss",
+    // formatString: 'F',
+    width: '300px',
     height: '25px'
   });
+
+  //initial selectors
   var source = ["Budget net",
     "Ecran / spot",
     "Chaines",
@@ -89,29 +78,9 @@ function CampagneController() {
     "Leads immediats",
     "Ventes immediates",
   ];
-
-
-  $("#valueselector1").jqxDropDownList({
-    theme: globaltheme,
-    source: source,
-    placeHolder: "1ère valeur à afficher",
-    width: '90%',
-    height: '25'
-  });
-  $("#valueselector2").jqxDropDownList({
-    theme: globaltheme,
-    source: source,
-    placeHolder: "2ème valeur à afficher",
-    width: '90%',
-    height: '25'
-  });
-  $("#valueselector3").jqxDropDownList({
-    theme: globaltheme,
-    source: source,
-    placeHolder: "3ème valeur à afficher",
-    width: '90%',
-    height: '25'
-  });
+  codeCleaner.initialSideBarDropDownList("valueselector1", source, false);
+  codeCleaner.initialSideBarDropDownList("valueselector2", source, false);
+  codeCleaner.initialSideBarDropDownList("valueselector3", source, false);
   if (getCookie("default_value_1")) {
     $("#valueselector1").jqxDropDownList('selectItem', getCookie("default_value_1"));
     $("#valueselector2").jqxDropDownList('selectItem', getCookie("default_value_2"));
@@ -121,6 +90,7 @@ function CampagneController() {
     $("#valueselector2").jqxDropDownList('selectItem', 'Visites immediates');
     $("#valueselector3").jqxDropDownList('selectItem', 'Budget net');
   }
+  //get filter data
   $.ajax({
     type: 'GET',
     timeout: 10000,
@@ -130,55 +100,26 @@ function CampagneController() {
     async: true,
     success: function(d) {
       //console.log(d);
-      $("#Chaîne").jqxDropDownList({
-        theme: globaltheme,
-        source: d["channel"],
-        placeHolder: "Chaîne",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Version").jqxDropDownList({
-        theme: globaltheme,
-        source: d["version"],
-        placeHolder: "Version pub / créa",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Format").jqxDropDownList({
-        theme: globaltheme,
-        source: d["format"],
-        placeHolder: "Format",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Chaîne").jqxDropDownList('checkAll');
-      $("#Version").jqxDropDownList('checkAll');
-      $("#Format").jqxDropDownList('checkAll');
+      codeCleaner.initialSideBarDropDownList("Chaîne", d["channel"], true);
+      codeCleaner.initialSideBarDropDownList("Version", d["version"], true);
+      codeCleaner.initialSideBarDropDownList("Format", d["format"], true);
       $("#Chaîne").jqxDropDownList('setContent', 'Chaîne(s)');
       $("#Version").jqxDropDownList('setContent', 'Création(s)');
       $("#Format").jqxDropDownList('setContent', 'Format(s)');
       //datepick settings
-      var today = new Date();
-      var sixmonthsago = new Date();
+      var today = new Date(),
+        sixmonthsago = new Date();
       sixmonthsago.setDate(today.getDate() - 180);
-      $("#datepicker1").jqxDateTimeInput({
-        theme: globaltheme,
-        width: '90%',
-        height: '25px',
-        min: sixmonthsago,
-        max: today,
-        selectionMode: 'range'
-      });
+      codeCleaner.initialSideBarRangeDatePicker("datepicker1", false, sixmonthsago, today);
       console.log(getCookie("default_date"));
       if (getCookie("default_date")) {
         $("#datepicker1").jqxDateTimeInput('setRange', getCookie("default_date"), getCookie("default_date"));
+        $('#commentdatepicker ').jqxDateTimeInput('setDate', getCookie("default_date"));
         setCookie("default_date", "", 0);
       } else {
-        var from = new Date(d["period"]["from"]);
-        var to = new Date(d["period"]["to"]);
+        var from = new Date(d["period"]["from"]),
+          to = new Date(d["period"]["to"]);
+        $('#commentdatepicker ').jqxDateTimeInput('setDate', to);
         $("#datepicker1").jqxDateTimeInput('setRange', from, to);
       }
     },
@@ -187,7 +128,7 @@ function CampagneController() {
     },
     cache: true
   });
-
+//collapseSetting only for the campagne
   var collapseSetting = [{
     collapsed: false,
     group: 1,
@@ -210,8 +151,6 @@ function CampagneController() {
     columns: ["CTR"]
   }]
 
-  grid.initialTreeGrid(table_url+'?client=' + client_name, collapseSetting);
-
   if (getCookie("default_value_1") || getCookie("default_date")) {
     var requestData = {
       "client": client_name,
@@ -229,19 +168,27 @@ function CampagneController() {
     }
     console.log("from dashboard");
     console.log(requestData);
+
     chart.updateCampagne(requestData, graph_url);
+    grid.collapseSetting = collapseSetting;
+    grid.updateTreeGrid(requestData, table_url);
+
+    //delete cookies
     setCookie("default_value_1", "", 0);
     setCookie("default_value_2", "", 0);
     setCookie("default_value_3", "", 0);
-    //
   } else {
-    chart.initialChart(graph_url + "?client=" + client_name);
+    chart.initialChart(graph_url + "?client=" + client_name, true);
+
+    grid.initialTreeGrid(table_url + '?client=' + client_name, collapseSetting);
   }
 
   $("#Valider").click(function() {
+    var period = codeCleaner.getDateTimeInputRange("datepicker1");
+    $('#commentdatepicker ').jqxDateTimeInput('setDate', $("#datepicker1").jqxDateTimeInput('getRange').to);
     var requestData = {
       "client": client_name,
-      "period": codeCleaner.getDateTimeInputRange("datepicker1"),
+      "period": period,
       "value1": codeCleaner.getDropDownListItem("valueselector1"),
       "value2": codeCleaner.getDropDownListItem("valueselector2"),
       "value3": codeCleaner.getDropDownListItem("valueselector3"),

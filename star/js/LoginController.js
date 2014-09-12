@@ -27,7 +27,8 @@ function valider() {
                 } else {
                     window.location = "Dashboard";
                 }
-                $("#message_container").html('<div id="display-success"><img src="img/correct.png" alt="Success" style="float: left;"/>Your message was sent successfully.</div>');
+                //notify login message
+                $("#message_container").html('<div id="display-success"><img src="img/correct.png" alt="Success" style="float: left;"/>'+"L'e-mail et le mot de passe sont corrects.</div>");
             } else {
                 setCookie("mymedia_username", "", 0);
                 setCookie("mymedia_token", "", 0);

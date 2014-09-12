@@ -90,8 +90,8 @@
                                 Exporter
                             </button>
                         </div>
-                        <div class="table-container">
-                            <div id="treeGrid" ></div>
+                        <div class="table-container" >
+                            <div id="treeGrid"></div>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            LoginChecker();
+            //LoginChecker();
             CampagneController();
         });
     </script>

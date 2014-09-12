@@ -1,13 +1,16 @@
 function PerformanceController() {
-  var globaltheme = 'bootstrap';
-  var client_name = getCookie("mymedia_client_name");
-  var codeCleaner = new jqxHelperClass();
-  var layout = new LayoutController();
-  var filter_url = "http://tyco.mymedia.fr/api/api_performance_filters.php";
-  var graph_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php";
-  var table_url = "http://tyco.mymedia.fr/api/api_performance_table.php";
+  var client_name = getCookie("mymedia_client_name"),
+    codeCleaner = new jqxHelperClass(),
+    layout = new LayoutController(),
+    filter_url = "http://tyco.mymedia.fr/api/api_performance_filters.php",
+    graph_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php",
+    table_url = "http://tyco.mymedia.fr/api/api_performance_table.php";
+  //"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_data.php";
+
   layout.createLayout();
+
   $('.client-website').html(client_name);
+
   $("#Comparaison").change(function() {
     if ($(this).is(":checked")) {
       $("#datepicker2").jqxDateTimeInput({
@@ -19,13 +22,9 @@ function PerformanceController() {
       });
     }
   });
-  $("#datepicker2").jqxDateTimeInput({
-    theme: globaltheme,
-    width: '90%',
-    height: '25px',
-    disabled: true,
-    selectionMode: 'range'
-  });
+
+  codeCleaner.initialSideBarRangeDatePicker("datepicker2", true);
+
   var xaxisSelectorSource = ["GRPRef",
     "GRPcible",
     "TTRi",
@@ -36,13 +35,6 @@ function PerformanceController() {
     "% Nouveaux visiteurs i",
     "% Bounce rate (v3)"
   ];
-  $("#xaxisselector").jqxDropDownList({
-    theme: globaltheme,
-    source: xaxisSelectorSource,
-    placeHolder: "Abscisses (Taux)",
-    width: '90%',
-    height: '25'
-  });
   var yaxisSelectorSource = ["Total nombre de spots",
     "Total de contacts",
     "Budget brut",
@@ -50,13 +42,6 @@ function PerformanceController() {
     "Total de visites immediates",
     "Total leads immediats",
   ];
-  $("#yaxisselector").jqxDropDownList({
-    theme: globaltheme,
-    source: yaxisSelectorSource,
-    placeHolder: "Ordonnées (Volume)",
-    width: '90%',
-    height: '25'
-  });
   var regroupmentSource = ["Format",
     "Création",
     "Jour > DayPart + MMDayPart > Ecran (Jour,DayPart)",
@@ -66,13 +51,9 @@ function PerformanceController() {
     "Chaine, Type de jour > DayPart + MMDayPart (Chaine,Type de jour) > Ecran",
     "Jour,Chaine + Jour,Chaine,Ecran",
   ];
-  $("#regroupement").jqxDropDownList({
-    theme: globaltheme,
-    source: regroupmentSource,
-    placeHolder: "Regroupement",
-    width: '90%',
-    height: '25'
-  });
+  codeCleaner.initialSideBarDropDownList("xaxisselector", xaxisSelectorSource, false);
+  codeCleaner.initialSideBarDropDownList("yaxisselector", yaxisSelectorSource, false);
+  codeCleaner.initialSideBarDropDownList("regroupement", regroupmentSource, false);
   $("#xaxisselector").jqxDropDownList('selectItem', 'CPVi');
   $("#yaxisselector").jqxDropDownList('selectItem', 'Budget net');
   $("#regroupement").jqxDropDownList('selectItem', 'Chaine(s) > DayPart (Chaine) + MMDayPart(Chaine) > Ecran (Chaine)');
@@ -82,64 +63,15 @@ function PerformanceController() {
     timeout: 10000,
     scriptCharset: "utf-8",
     dataType: 'json',
-    url: filter_url+'?client=' + client_name,
+    url: filter_url + '?client=' + client_name,
     async: true,
     success: function(d) {
-      //console.log(d);
-      $("#Chaîne").jqxDropDownList({
-        theme: globaltheme,
-        source: d["channel"],
-        placeHolder: "Chaîne",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Version").jqxDropDownList({
-        theme: globaltheme,
-        source: d["version"],
-        placeHolder: "Version pub / créa",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Format").jqxDropDownList({
-        theme: globaltheme,
-        source: d["format"],
-        placeHolder: "Format",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Catégorie").jqxDropDownList({
-        theme: globaltheme,
-        source: d["category"],
-        placeHolder: "Catégorie",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#MMDaypart").jqxDropDownList({
-        theme: globaltheme,
-        source: d["MMDayPart"],
-        placeHolder: "MMDaypart",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Dayofweek").jqxDropDownList({
-        theme: globaltheme,
-        source: d["day"],
-        placeHolder: "Dayofweek",
-        checkboxes: true,
-        width: '90%',
-        height: '25'
-      });
-      $("#Chaîne").jqxDropDownList('checkAll');
-      $("#Version").jqxDropDownList('checkAll');
-      $("#Catégorie").jqxDropDownList('checkAll');
-      $("#Format").jqxDropDownList('checkAll');
-      $("#MMDaypart").jqxDropDownList('checkAll');
-      $("#Dayofweek").jqxDropDownList('checkAll');
+      codeCleaner.initialSideBarDropDownList("Chaîne", d["channel"], true);
+      codeCleaner.initialSideBarDropDownList("Version", d["version"], true);
+      codeCleaner.initialSideBarDropDownList("Catégorie", d["category"], true);
+      codeCleaner.initialSideBarDropDownList("Format", d["format"], true);
+      codeCleaner.initialSideBarDropDownList("MMDaypart", d["MMDayPart"], true);
+      codeCleaner.initialSideBarDropDownList("Dayofweek", d["day"], true);
 
       $("#Chaîne").jqxDropDownList('setContent', 'Chaîne(s)');
       $("#Version").jqxDropDownList('setContent', 'Version(s) pub / créa');
@@ -148,15 +80,10 @@ function PerformanceController() {
       $("#MMDaypart").jqxDropDownList('setContent', 'Daypart/MM');
       $("#Dayofweek").jqxDropDownList('setContent', 'Dayofweek/typeofday');
 
-      //datepick settings
-      $("#datepicker1").jqxDateTimeInput({
-        theme: globaltheme,
-        width: '90%',
-        height: '25px',
-        selectionMode: 'range'
-      });
-      var from = new Date(d["period"]["from"]);
-      var to = new Date(d["period"]["to"]);
+      //datepick default settings
+      codeCleaner.initialSideBarRangeDatePicker("datepicker1", false);
+      var from = new Date(d["period"]["from"]),
+        to = new Date(d["period"]["to"]);
       $("#datepicker1").jqxDateTimeInput('setRange', from, to);
       $("#datepicker2").jqxDateTimeInput('setRange', from, to);
     },

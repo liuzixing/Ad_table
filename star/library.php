@@ -12,10 +12,15 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 <script src="http://code.highcharts.com/stock/highstock.js"></script>
+
+<script src="http://code.highcharts.com/highcharts-more.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
 <script type="text/javascript" src="../js/LoginChecker.js"></script>
+
 <script type="text/javascript" src="../js/jqxHelperClass.js"></script>
+<script type="text/javascript" src="../js/DataTable.js"></script>
+<script type="text/javascript" src="../js/BubbleChart.js"></script>
 <script type="text/javascript" src="../js/RealTimeController.js"></script>
 <script type="text/javascript" src="../js/LayoutController.js"></script>
 <script type="text/javascript" src="../js/TimeSeriesController.js"></script>

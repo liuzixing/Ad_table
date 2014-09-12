@@ -6,9 +6,9 @@ function TreeGridController() {
   //3:column filter list source
   //4:colour table
 
-  var self = this;
-  var source = {};
-  var dataAdapter = {};
+  var self = this,
+    source = {},
+    dataAdapter = {};
   this.collapseSetting = [];
 
   this.setGroupTitleStyle = function() {
@@ -42,16 +42,16 @@ function TreeGridController() {
       pagerPosition: "top",
       sortable: true,
       columnsHeight: 50,
-      pageable: true,
+      // pageable: true,
       width: "100%",
       enablehover: true,
       altRows: true,
       autoRowHeight: true,
       exportSettings: {
-           columnsHeader: true,
-           collapsedRecords: true,
-           hiddenColumns: true
-       },
+        columnsHeader: true,
+        collapsedRecords: true,
+        hiddenColumns: true
+      },
       theme: 'mymedia-table',
       pageSize: 100,
       columnsResize: true,
@@ -81,19 +81,19 @@ function TreeGridController() {
     $("#treeGrid").jqxTreeGrid('endUpdate');
     self.attachColumnGroupClickEvent();
   }
-  this.closeColumn = function(){
-    if(self.collapseSetting.length == 0){
-       return;
+  this.closeColumn = function() {
+    if (self.collapseSetting.length == 0) {
+      return;
     }
-     // self.groupEcranObserver(0);
-     // self.groupEcranObserver(1);
-     // self.groupEcranObserver(2);
-     // self.groupEcranObserver(3);
-     // self.groupEcranObserver(4);
+    // self.groupEcranObserver(0);
+    // self.groupEcranObserver(1);
+    // self.groupEcranObserver(2);
+    // self.groupEcranObserver(3);
+    // self.groupEcranObserver(4);
   }
   this.attachColumnGroupClickEvent = function() {
-    if(self.collapseSetting.length == 0){
-       return;
+    if (self.collapseSetting.length == 0) {
+      return;
     }
     self.setGroupTitleStyle();
     $("#treeGrid .jqx-grid-columngroup-header:eq(" + self.collapseSetting[0]["group"] + ")").click(function() {
@@ -164,7 +164,7 @@ function TreeGridController() {
       url: client_url,
       async: true,
       success: function(d) {
-        self.data =d;
+        self.data = d;
         console.log("data for inital treegrid");
         console.log(d);
         self.createTreeGrid();

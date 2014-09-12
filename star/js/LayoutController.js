@@ -2,8 +2,17 @@ function LayoutController() {
     this.globaltheme = 'bootstrap';
     var self = this;
     this.createLayout = function() {
+        //for campagne,performance,concurrence pages
+        self.createBasicLayout("500px");
+        $("#filters").jqxExpander({
+            theme: "expander-custom",
+            showArrow: false,
+            width: '100%'
+        });
+    }
+    this.createBasicLayout = function(top_area_height){
         $('#splitContainer').jqxSplitter({
-            height: 8000,
+            height: 1400,
             width: "100%",
             orientation: 'vertical',
             theme: "layout-custom",
@@ -17,7 +26,7 @@ function LayoutController() {
             theme: "layout-custom",
             orientation: 'horizontal',
             panels: [{
-                size: "500px"
+                size: top_area_height
             }, {
                 // size: "55%"
             }]
@@ -27,16 +36,12 @@ function LayoutController() {
             showArrow: false,
             width: '100%',
         });
-        $("#filters").jqxExpander({
-            theme: "expander-custom",
-            showArrow: false,
-            width: '100%'
-        });
         $("#validation").jqxExpander({
             theme: "expander-custom",
             showArrow: false,
             width: '100%'
         });
         $(".clientCircle").attr("src","../img/"+getCookie("mymedia_client_name")+".png");
+        $('.client-website').html(getCookie("mymedia_client_name"));
     }
 }

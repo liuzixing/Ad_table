@@ -14,8 +14,6 @@
   -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,600,700,800,300' rel='stylesheet' type='text/css'>
   <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
   <script type="text/javascript" src="../external_library/scripts/jquery-1.10.2.min.js"></script>
   <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
   <script type="text/javascript" src="../js/LoginChecker.js"></script>
@@ -34,9 +32,6 @@
         <div id='clientselector' ></div>
       </div>
     </div>
-    <!-- Static navbar -->
-
-    <!-- Main component for a primary marketing message or call to action -->
     <div id='chart' style="width: 100%; height: 500px"></div>
 
     <div class="row dashboardsubtitle" id="last_day_title">
@@ -151,11 +146,11 @@
       <div class="col-sm-2 link_to_Campagne_with_Contact">
         <div class="tile blue">
           <p >
-            <span id="CAMPAGNE_total_spot" class="title"></span>
+            <span id="CAMPAGNE_spot" class="title"></span>
             Spot(s)
           </p>
           <p >
-            <span id="CAMPAGNE_total_channel" class="title"></span>
+            <span id="CAMPAGNE_channel" class="title"></span>
             Chaine(s)
           </p>
         </div>
@@ -280,7 +275,7 @@
 <?php include '../library.php';?>
 <script type="text/javascript">
         $(document).ready(function () {
-            LoginChecker();
+            //LoginChecker();
             DashboardController();
         });
     </script>

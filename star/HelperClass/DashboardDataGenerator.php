@@ -2,9 +2,9 @@
 class DashboardDataGenerator {
     static function getRealTimeInitialData($client) {
         $now   = date('Y-m-d H:i:s', time());
-        $today = date('Y-m-d', time());
+        $_24hAgo = date('Y-m-d H:i:s', time()-24*3600);
         // $yesterday =   date('Y-m-d ', mktime(0, 0, 0, date("m"), date("d") - 1   ,   date("Y")));
-        return self::getRealTimeData($client,$today,$now);
+        return self::getRealTimeData($client,$_24hAgo,$now);
     }
     static function getLiveData($client) {
         $now            = date('Y-m-d H:i:s', time());
@@ -13,27 +13,29 @@ class DashboardDataGenerator {
     }
     static function getPlotLineData($client){
 
-        $now   = new DateTime();
-        $theSQLDate = $now->format('Y-m-d');
+        $now   = date('Y-m-d', time());
+        //$theSQLDate = $now->format('Y-m-d');
+        $yesterday = date('Y-m-d', time() - 24*3600);
         require_once('/home/www/mymedia_fr/lib/dblib.php');
                 if (!($con = db_connect_leadsv2_return())) die('DB Err');
               //  $SQLstring = "SELECT * FROM Compte WHERE IDcompte = '$username'";
             $result = mysql_query("SELECT tvtyBrandID FROM `Produit` WHERE produit_name = '$client'") or die(mysql_error());
             $result = mysql_fetch_array($result);
             $theBrandId = $result["tvtyBrandID"];
-        $detections_url   = 'https://api.tvty.tv/ws/ads/detections/fr?partner=54e2baa8b1619e0c88ef418cee21f85f40b3deb4&brand=' . $theBrandId . '&start=' . $theSQLDate . '&end=' . $theSQLDate . '&tz=Europe/paris';
+        $detections_url   = 'https://api.tvty.tv/ws/ads/detections/fr?partner=54e2baa8b1619e0c88ef418cee21f85f40b3deb4&brand=' . $theBrandId . '&start=' . $yesterday . '&end=' . $now . '&tz=Europe/paris';
         $detections_text  = file_get_contents($detections_url);
         $detections_text  = str_replace("\x00", "", $detections_text);
         $detections_lines = explode("\n", $detections_text);
         $data = array();
-        foreach ($detections_lines as $detections_line) {
+        foreach ($detections_lines as $num => $detections_line)
+        {
             $detections_line = trim($detections_line);
             if ($detections_line == "")
                 continue;
             $line_fields = explode(";", $detections_line);
-            $line_data   = array();
-            if ($line_data['date'] == 'Date')
-                continue;
+            //$line_data   = array();
+            //if ($line_data['date'] == 'Date')
+                //continue;
             $data[] = Array(
                 strtotime(trim($line_fields[0]) . " " . trim($line_fields[1])) * 1000,
                 trim($line_fields[2])
