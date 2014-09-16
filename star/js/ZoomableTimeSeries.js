@@ -9,29 +9,28 @@ function ZoomableTimeSeries() {
     this.additionaleventInformation = {};
 
     this.isNavigatorEnabled = true;
-    this.updateEvent = function(datetime, comment) {
+    this.updateOneDayEvent = function(datetime, comment) {
         console.log(self.additionaleventInformation);
         if (self.additionaleventInformation == null) {
             self.additionaleventInformation = {};
         }
         self.additionaleventInformation[datetime] = comment;
         self.chart.series[2].addPoint([datetime, -1]);
-        // var tmp = self.seriesOptions[2].data;
-        // if (datetime > tmp[tmp.length - 1][0] || tmp.length == 0) {
-        //     tmp.push([datetime, -1]);
-        // } else {
-        //     for (var i = tmp.length - 1; i >= 0; i--) {
-        //         if(tmp[i][0] > datetime){
-        //             tmp[i] = tmp[i - 1];
-        //         }else{
-        //             tmp[i] = [datetime,-1];
-        //         }
-        //     };
-        // }
-        // console.log(tmp);
-        // self.seriesOptions[2].data = tmp;
-        // self.chart.series[2].setData(self.seriesOptions[2].data);
         console.log(self.chart.series[2]);
+    }
+    this.updateEvent = function(x) {
+        var serie = self.chart.series[3].data;
+        for (i = 0; i < serie.length; i++) {
+            if(serie[i].x == x){
+                serie[i].update(serie[i].y + 1);
+                break;
+            }
+        };
+        if (i == serie.length){
+            self.chart.series[3].addPoint([x,1]);
+        }
+        console.log(serie);
+        console.log(x);
     }
     this.createLoadingMessage = function() {
         $("#chart").html("<img src='../img/ajax-loader.gif' alt='loading' />");
@@ -93,8 +92,14 @@ function ZoomableTimeSeries() {
                 defaultSeriesType: 'spline',
                 zoomType: 'xy',
             },
+            credits: {
+                enabled: false
+            },
             navigator: {
                 enabled: self.isNavigatorEnabled,
+            },
+            exporting: {
+                filename: 'GraphLeadsMonitor'
             },
             legend: {
                 enabled: true,
@@ -173,15 +178,15 @@ function ZoomableTimeSeries() {
                             //console.log(this);
                             //spot = self.additionalspotInformation[this.points[0].series.name][this.x],
                             var dateTime = new Date(this.x + 2 * 60 * 60 * 1000),
-                            htmlString = dateTime.toUTCString().replace('GMT', '') + '<br>',
-                            spot = self.additionalspotInformation[this.x],
-                            color = this.points[0].series.color;
+                                htmlString = dateTime.toUTCString().replace('GMT', '') + '<br>',
+                                spot = self.additionalspotInformation[this.x],
+                                color = this.points[0].series.color;
                             for (key in spot) {
                                 // if (key == "Chaines") {
                                 //     htmlString = htmlString + "<b>" + key + " : </b>" + '<img src="../img/channel-logos/' + self.additionalspotInformation[this.x][key] + '.png">' + '<br>';
                                 // } else
                                 // {
-                                    htmlString = htmlString + '<span style="color:'+color+'"> ' + key + " : <b></span>" + spot[key] + '</b><br>';
+                                htmlString = htmlString + '<span style="color:' + color + '"> ' + key + " : <b></span>" + spot[key] + '</b><br>';
                                 // }
                             }
                             //console.log(htmlString);
@@ -283,7 +288,7 @@ function ZoomableTimeSeries() {
             cache: false
         });
     }
-    this.initialChart = function(client_url,multiY) {
+    this.initialChart = function(client_url, multiY) {
 
         self.createLoadingMessage();
         $.ajax({
@@ -297,9 +302,9 @@ function ZoomableTimeSeries() {
                 console.log("data for initial chart");
                 console.log(d);
                 self.seriesOptions = d;
-                if (multiY){
+                if (multiY) {
                     self.createMultiplyYaxis();
-                }else{
+                } else {
                     self.resetYaxis();
                 }
                 self.resetPointFormat();

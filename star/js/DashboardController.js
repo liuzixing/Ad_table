@@ -103,6 +103,7 @@ function DashboardController() {
         dashboard_info["CAMPAGNE"]["progress"] = "terminée";
       }
       dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] = Math.round(dashboard_info["CAMPAGNE"]["percent_CbudgetBrut"] * 100) / 100 + "%";
+       dashboard_info["CAMPAGNE"]["isole"] = Math.round(dashboard_info["CAMPAGNE"]["isole"] / dashboard_info["CAMPAGNE"]["total_spot"] * 10000) / 100 + "%"
             //change english key to french key end
 
             //process every number seperated by space
@@ -139,6 +140,7 @@ function DashboardController() {
         $("#last_day_table").fadeOut();
         $("#last_day_title").fadeOut();
       } else {
+        dashboard_info["LASTDAY"]["isole"] = Math.round(dashboard_info["LASTDAY"]["isole"] / dashboard_info["LASTDAY"]["nb_spot"] * 10000) / 100 + "%"
         for (key in dashboard_info["LASTDAY"]) {
           if (key != "date") {
             $("#LASTDAY_" + key).html(codeCleaner.getSeperatedNumber(dashboard_info["LASTDAY"][key], " "));

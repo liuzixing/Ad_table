@@ -17,7 +17,7 @@ function LayoutController() {
             orientation: 'vertical',
             theme: "layout-custom",
             panels: [{
-                size: '18%'
+                size: '15%'
             }, {}]
         });
         $('#splitter').jqxSplitter({

@@ -6,7 +6,7 @@ function jqxHelperClass() {
         var items = $("#" + id).jqxDropDownList('getCheckedItems');
         var res = [];
         for (var i = 0; i < items.length; i++) {
-            if (items[i].label == "tout sélectionner") {
+            if (items[i].label == "Tout sélectionner") {
                 continue;
             }
             res.push(items[i].label);
@@ -64,7 +64,7 @@ function jqxHelperClass() {
         if (checkboxes) {
             jqObject.jqxDropDownList({
                 theme: self.globaltheme,
-                source: ["tout sélectionner"].concat(source),
+                source: ["Tout sélectionner"].concat(source),
                 checkboxes: checkboxes,
                 placeHolder: id,
                 width: '90%',
@@ -89,7 +89,7 @@ function jqxHelperClass() {
         jqObject.on('checkChange', function(event) {
             if (!self.checkboxesAvailable[event.currentTarget.id])
                 return;
-            if (event.args.value != "tout sélectionner") {
+            if (event.args.value != "Tout sélectionner") {
                 self.checkboxesAvailable[event.currentTarget.id] = false;
                 jqObject.jqxDropDownList('checkIndex', 0);
                 var checkedItems = jqObject.jqxDropDownList('getCheckedItems'),

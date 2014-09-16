@@ -42,25 +42,27 @@
     </div>
     <div class="row" id="last_day_table">
       <div class="col-sm-2 link_to_Campagne_with_Contact_oneday">
-      <span class="custom-tooltip">Budget Net</span>
+        <span class="custom-tooltip">Budget Net</span>
         <div class="tile blue">
           <p >
-            <span id="LASTDAY_budgetBrut" class="title"></span><span class="title">€</span>
+            <span class="title">Budget</span>
           </p>
           <p>
-            <span id="LASTDAY_events" class="title">0</span>
-            Evènement(s)
+          <span id="LASTDAY_budgetBrut" class="title"></span><span class="title">€</span>
           </p>
+            <span id="LASTDAY_events" class="title">0</span>
+            Commentaire(s)
+
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_Contact_oneday ">
         <div class="tile blue">
+          <p class="title">Spot(s)</p>
           <p >
-            <span id="LASTDAY_nb_spot" class="title"
-></span>
-            Spot(s)
+            <span id="LASTDAY_nb_spot" class="title"></span>
           </p>
           <p >
+           <span >Sur</span>
             <span id="LASTDAY_nb_channel" class="title"
 ></span>
             Chaine(s)
@@ -68,41 +70,41 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_oneday">
+      <span class="custom-tooltip" >Basé sur <span id="LASTDAY_isole"></span> des spots</span>
         <div class="tile blue">
-          <h3 class="title">
-            <span id="LASTDAY_CPVI"></span>€ CPVi
-          </h3>
-          <p>à 5mn</p>
+          <h3 class="title">CPVi à 5mn</h3>
+          <span id="LASTDAY_CPVI"class="title"></span><span class="title">€</span>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_CPVc_oneday">
-      <span class="custom-tooltip">Moyenne journée</span>
+        <span class="custom-tooltip">Moyenne journée</span>
         <div class="tile blue">
-        <p>
-          <span class="title" id="LASTDAY_CPVc"></span><span class="title">€ CPVc</span>
+          <p>
+            <span class="title">CPV journée</span>
           </p>
+          <span class="title" id="LASTDAY_CPVc"></span><span class="title">€</span>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_Contact_oneday">
-      <span class="custom-tooltip">Total Campagne</span>
+        <span class="custom-tooltip">Total Campagne</span>
         <div class="tile blue">
-          <p >
-            <span id="LASTDAY_vues" class="title"></span>
-            Vue(s)
+          <p class="title">
+          Audience
           </p>
+           <span id="LASTDAY_vues" class="title"></span>
           <p >
             <span id="LASTDAY_Vc" class="title"></span>
             Visites gagnée(s)
           </p>
         </div>
       </div>
-      <div class="col-sm-2 link_to_Concurrence_oneday">
-      <span class="custom-tooltip">Concurrence</span>
+      <div class="col-sm-2">
+        <span class="custom-tooltip">Concurrence</span>
         <div class="tile blue">
-          <p >
-            <span id="Lastday_nbconcurrent" class="title"></span>
+          <p class="title">
             Concurrent(s)
           </p>
+          <span id="Lastday_nbconcurrent" class="title"></span>
           <p >
             <span id="Lastday_nbspot" class="title"></span>
             Spot(s)
@@ -123,7 +125,7 @@
       </div>
       <div class="pull-right">
         <div class='ProgressBar' id='jqxProgressBar'></div>
-     </div>
+      </div>
     </div>
 
     <div class="row">
@@ -131,53 +133,58 @@
         <span class="custom-tooltip">Budget Net</span>
         <div class="tile blue">
           <p >
-            <span id="CAMPAGNE_C_budgetNet" class="title"></span><span class="title">€</span>
+          <span class="title">Budget</span>
           </p>
           <p>
-            <span id="CAMPAGNE_percent_CbudgetBrut"  class="title"></span>
-            consommé
+          <span id="CAMPAGNE_C_budgetNet" class="title" ></span><span >€ (</span>
+          <span id="CAMPAGNE_percent_CbudgetBrut"  ></span>
+          ) consommé
           </p>
           <p>
             <span id="CAMPAGNE_event" class="title">0</span>
-            Evènement(s)
+            Commentaire(s)
           </p>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_Contact">
         <div class="tile blue">
+           <p class="title">Spot(s)</p>
           <p >
             <span id="CAMPAGNE_spot" class="title"></span>
-            Spot(s)
           </p>
           <p >
-            <span id="CAMPAGNE_channel" class="title"></span>
+           <span >Sur</span>
+            <span id="CAMPAGNE_channel" class="title"
+></span>
             Chaine(s)
           </p>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne">
+        <span class="custom-tooltip" >Basé sur <span id="CAMPAGNE_isole"></span> des spots</span>
         <div class="tile blue">
           <h3 class="title">
-            <span id="CAMPAGNE_CPVI" ></span>€ CPVi
+             CPVi à 5mn
           </h3>
-          <p>à 5mn</p>
+          <span id="CAMPAGNE_CPVI" class="title"></span><span class="title">€</span>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_CPVc">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
         <div class="tile blue">
           <p>
-          <span id="CAMPAGNE_CPVc" class="title" ></span><span class="title">€ CPVc</span>
+          <span class="title">CPV campagne</span>
           </p>
+            <span id="CAMPAGNE_CPVc" class="title" ></span><span class="title">€</span>
         </div>
       </div>
       <div class="col-sm-2 link_to_Campagne_with_Contact">
-      <span class="custom-tooltip">Total Campagne</span>
+        <span class="custom-tooltip">Total Campagne</span>
         <div class="tile blue">
-          <p >
-            <span id="CAMPAGNE_total_vues" class="title"></span>
-            Vue(s)
+          <p class="title" >
+            Audience
           </p>
+          <span id="CAMPAGNE_total_vues" class="title"></span>
           <p>
             <span id="CAMPAGNE_Vc"  class="title"></span>
             Visites gagnée(s)
@@ -185,12 +192,12 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Concurrence">
-      <span class="custom-tooltip">Concurrence</span>
+        <span class="custom-tooltip">Concurrence</span>
         <div class="tile blue">
-          <p >
-            <span id="campagne_nbconcurrent" class="title"></span>
+          <p class="title">
             Concurrent(s)
           </p>
+          <span id="campagne_nbconcurrent" class="title"></span>
           <p >
             <span id="campagne_nbspot" class="title"></span>
             Spot(s)
@@ -201,7 +208,7 @@
     <!-- end row -->
     <div class="row">
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
         <div class="tile darkblue">
           <div class="title">
             <div class="channelCircle">
@@ -211,7 +218,7 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
         <div class="tile darkblue">
           <div class="title">
             <div class="channelCircle">
@@ -221,7 +228,7 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
 
         <div class="tile darkblue">
           <div class="title">
@@ -232,7 +239,7 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
         <div class="tile darkblue">
           <div class="title">
             <div class="channelCircle">
@@ -242,7 +249,7 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
         <div class="tile darkblue">
           <div class="title">
             <div class="channelCircle">
@@ -252,7 +259,7 @@
         </div>
       </div>
       <div class="col-sm-2 link_to_Performance">
-      <span class="custom-tooltip">Moyenne Campagne</span>
+        <span class="custom-tooltip">Moyenne Campagne</span>
 
         <div class="tile darkblue">
           <div class="title">

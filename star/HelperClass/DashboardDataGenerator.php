@@ -8,7 +8,7 @@ class DashboardDataGenerator {
     }
     static function getLiveData($client) {
         $now            = date('Y-m-d H:i:s', time());
-        $someSecondsAgo = date('Y-m-d H:i:s', time() - 100);
+        $someSecondsAgo = date('Y-m-d H:i:s', time() - 110);
        return self::getRealTimeData($client,$someSecondsAgo,$now);
     }
     static function getPlotLineData($client){

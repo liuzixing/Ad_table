@@ -9,8 +9,11 @@ function TreeGridController() {
   var self = this,
     source = {},
     dataAdapter = {};
+  this.fileName = "Leadsmonitor";
   this.collapseSetting = [];
+  this.setfileName = function() {
 
+  }
   this.setGroupTitleStyle = function() {
     for (var i = 0; i < self.collapseSetting.length; i++) {
       if (self.collapseSetting[i]["collapsed"]) {
@@ -34,6 +37,7 @@ function TreeGridController() {
     self.dataAdapter = new $.jqx.dataAdapter(self.source, {
       loadComplete: function() {}
     });
+    self.codeCleaner = new jqxHelperClass();
     self.destroyLoadingMessage();
     // create jqxTreeGrid.
     $("#treeGrid").jqxTreeGrid({
@@ -50,7 +54,15 @@ function TreeGridController() {
       exportSettings: {
         columnsHeader: true,
         collapsedRecords: true,
-        hiddenColumns: true
+        hiddenColumns: true,
+        fileName: "Leadsmonitor",
+        // function(){
+        //   var fileName = ;
+        //   // firstDate = self.codeCleaner.getDateTimeInputRange("datepicker1");
+
+        //   //fileName += firstDate.from.replace(/\s/g, '') + firstDate.to.replace(/\s/g, '') ;
+        //   return fileName;
+        // }
       },
       theme: 'mymedia-table',
       pageSize: 100,
@@ -117,6 +129,13 @@ function TreeGridController() {
     //create data exporting UI
     $("#csvExport").jqxButton({});
     $("#csvExport").click(function() {
+      firstDate = self.codeCleaner.getDateTimeInputRange("datepicker1");
+      self.fileName = "Leadsmonitor"+ firstDate.from.toString().replace(/\//g, '') + firstDate.to.toString().replace(/\//g, '');
+      $("#treeGrid").jqxTreeGrid({
+        exportSettings: {
+          fileName: self.fileName
+        }
+      });
       $("#treeGrid").jqxTreeGrid('exportData', 'csv');
     });
   }

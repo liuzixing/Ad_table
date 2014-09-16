@@ -5,6 +5,7 @@ function BubbleController() {
     zoomLevel = 0,
     regroupement = [],
     client_name = "";
+  this.currentValue = [""];
   this.data = [];
   this.client_url = "http://tyco.mymedia.fr/api/api_performance_graphe.php";
    //"http://tyco.mymedia.fr/fatemeh/export_leadsmonitor/performance_data.php";
@@ -26,6 +27,7 @@ function BubbleController() {
       if (self.zoomLevel >= self.regroupement.length - 1) {
         return;
       }
+
       var codeCleaner = new jqxHelperClass();
       var requestData = {
         "client": self.client_name,
@@ -51,6 +53,9 @@ function BubbleController() {
       }
 
       requestData["bubble"] = [Object.keys(self.data[self.zoomLevel][e.elementIndex])[0], self.data[self.zoomLevel][e.elementIndex][Object.keys(self.data[self.zoomLevel][e.elementIndex])[0]]];
+
+      self.currentValue[self.zoomLevel + 1] = requestData["bubble"][1];
+
       console.log("sending request to zoom");
       console.log(requestData);
       self.zoom(requestData);
@@ -85,7 +90,7 @@ function BubbleController() {
         minRadius: 24,
         maxRadius: 25,
         click: myEventHandler,
-        displayText: 'Référence'
+        displayText: self.regroupement[self.zoomLevel]
       }, {
         dataField: keys[3],
         radiusDataField: keys[0],
@@ -103,11 +108,11 @@ function BubbleController() {
         minRadius: 24,
         maxRadius: 25,
         click: myEventHandler,
-        displayText: 'Reference'
+        displayText: self.regroupement[self.zoomLevel]
       }];
     }
     self.settings = {
-      title: self.regroupement[self.zoomLevel],
+      title: self.currentValue.slice(1, self.zoomLevel+1).join(','),
       description: "",
       toolTipShowDelay: 500,
       enableAnimations: true,
@@ -120,11 +125,11 @@ function BubbleController() {
       },
       source: self.data[self.zoomLevel],
       xAxis: xAxis_setting,
-      colorScheme: 'scheme02',
+      colorScheme: 'scheme05',
       seriesGroups: [{
         toolTipFormatFunction: toolTipCustomFormatFn,
         type: 'bubble',
-        useGradient: false,
+        useGradient: true,
         valueAxis: {
           logarithmicScale: true,
           logarithmicScaleBase: 17,
@@ -179,6 +184,7 @@ function BubbleController() {
         self.data = [];
         if (d.length > 0) {
           self.data.push(d);
+          self.currentValue = [""];
           self.zoomLevel = 0;
           self.createChart();
         }
@@ -211,6 +217,7 @@ function BubbleController() {
     console.log("going back");
     if (self.zoomLevel > 0) {
       self.data[self.zoomLevel] = undefined;
+      self.currentValue[self.zoomLevel] = "";
       self.zoomLevel--;
       self.destroyLoadingMessage();
       self.createChart();

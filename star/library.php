@@ -17,7 +17,6 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script  type="text/javascript"src="../js/cookies_helper_function.js"></script>
 <script type="text/javascript" src="../js/LoginChecker.js"></script>
-
 <script type="text/javascript" src="../js/jqxHelperClass.js"></script>
 <script type="text/javascript" src="../js/DataTable.js"></script>
 <script type="text/javascript" src="../js/BubbleChart.js"></script>

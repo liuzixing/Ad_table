@@ -21,7 +21,7 @@
                  var lastpoint = _self._chart.series[0].xData[_self._chart.series[0].xData.length - 1];
                  // var atLeastUpdateOnePoint = false;
                  //var count_add_points = 0;
-                 //console.log(point.length);
+                 console.log(point);
                  for (var i = 0; i < point.length; i++) {
                      if (point[i][0] - lastpoint <= 0) {
                          continue;
@@ -88,6 +88,9 @@
              credits: {
                  enabled: false
              },
+             exporting: {
+                 filename: 'LiveLeadsMonitor'
+             },
              plotOptions: {
                  spline: {
                      //set how many points maximun
@@ -132,7 +135,7 @@
                  },
                  offset: 50,
                  title: {
-                     text: 'Visits',
+                     text: 'Nouvelles Visites',
                  }
              },
 

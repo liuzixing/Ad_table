@@ -5,7 +5,7 @@
 
     <a class="navbar-brand" href="javascript: void(0)">
       <img style=""
-             src="../img/leadsmonitor-logo.png"></a>
+             src="../img/reeperf_rvb.png"></a>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-pills">
         <li <?php if (basename($_SERVER["REQUEST_URI"]) == "Dashboard") echo 'class="active"'; ?>
@@ -74,7 +74,7 @@
       </li>
       -->
       <li>
-        <img src="../img/logo-my-media_2es.jpg" class="agenceCircle"></li>
+        <img src="../img/logo-my-media.jpg" class="agenceCircle"></li>
       <!-- <li class="username-wrapper" style="line-height:105px;">
       <p id="username" ></p>
     </li>

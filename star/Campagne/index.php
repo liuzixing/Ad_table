@@ -31,7 +31,7 @@
                 <div id='options' >
                     <div >
                         <span class="numberCircle" >1</span>
-                        <span class="expander-header">Choix des données</span>
+                        <span class="expander-header">Données</span>
                     </div>
                     <div>
                         <div class="periode-text">Période</div>
@@ -71,7 +71,7 @@
                     <div>
                         <button class="button ajouter-button" id="addcomment" >
                             <img src="../img/blank.png" class="sprite  sprite-plus_btn button-sprite"  />
-                            Ajouter un évènement
+                            Ajouter un commentaire
                         </button>
                         <div id='jqxwindow'>
                             <div>  Ajouter un commentaire</div>
