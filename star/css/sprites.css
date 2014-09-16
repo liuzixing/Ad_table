@@ -16,7 +16,10 @@
 .sprite-bulle-active{ background-position: 0 -378px; width: 32px; height: 32px; }
 .sprite-calendar{ background-position: 0 -420px; width: 18px; height: 18px; }
 .sprite-campagne{ background-position: 0 -448px; width: 32px; height: 32px; }
-.sprite-campagne:hover{ background-position: 0 -490px; width: 32px; height: 32px; }
+.sprite-campagne:hover{
+background: url(../img/icones/campagne_active.png) no-repeat;
+    background-position: 0 0px; width: 32px; height: 32px;
+     }
 .sprite-campagne-active{ background-position: 0 -490px; width: 32px; height: 32px; }
 .sprite-check{ background-position: 0 -532px; width: 32px; height: 32px; }
 .sprite-check_btn{ background-position: 0 -574px; width: 17px; height: 17px; }
@@ -38,7 +41,9 @@
 .sprite-cloud:hover{ background-position: 0 -1023px; width: 32px; height: 32px; }
 .sprite-cloud-active{ background-position: 0 -1023px; width: 32px; height: 32px; }
 .sprite-concurrents{ background-position: 0 -1065px; width: 40px; height: 32px; }
-.sprite-concurrents:hover{ background-position: 0 -1107px; width: 40px; height: 32px; }
+.sprite-concurrents:hover{
+background: url(../img/icones/concurrents_active.png) no-repeat;
+    background-position: 0 0px; width: 40px; height: 32px; }
 .sprite-concurrents-active{ background-position: 0 -1107px; width: 40px; height: 32px; }
 .sprite-duplicate{ background-position: 0 -1149px; width: 32px; height: 32px; }
 .sprite-duplicate:hover{ background-position: 0 -1191px; width: 32px; height: 32px; }
@@ -66,8 +71,10 @@
 .sprite-heart:hover{ background-position: 0 -1806px; width: 32px; height: 32px; }
 .sprite-heart-active{ background-position: 0 -1806px; width: 32px; height: 32px; }
 .sprite-home{ background-position: 0 -1848px; width: 32px; height: 32px; }
-.sprite-home:hover{ background-position: 0 -1890px; width: 32px; height: 32px; }
-.sprite-home-active{ background-position: 0 -1890px; width: 32px; height: 32px; }
+.sprite-home:hover{
+    background: url(../img/icones/home_active.png) no-repeat;
+    background-position: 0 0px; width: 32px; height: 32px; }
+.sprite-home-active{background-position: 0 -1890px; width: 32px; height: 32px; }
 .sprite-horloge{ background-position: 0 -1932px; width: 32px; height: 32px; }
 .sprite-horloge:hover{ background-position: 0 -1974px; width: 32px; height: 32px; }
 .sprite-horloge-active{ background-position: 0 -1974px; width: 32px; height: 32px; }
@@ -111,7 +118,8 @@
 .sprite-note2-active{ background-position: -50px -1034px; width: 32px; height: 32px; }
 .sprite-note8hover{ background-position: -50px -1076px; width: 32px; height: 32px; }
 .sprite-param{ background-position: -50px -1118px; width: 32px; height: 32px; }
-.sprite-param:hover{ background-position: -50px -1160px; width: 32px; height: 32px; }
+.sprite-param:hover{ background: url(../img/icones/param_active.png) no-repeat;
+    background-position: 0 0px; width: 32px; height: 32px; }
 .sprite-param-active{ background-position: -50px -1160px; width: 32px; height: 32px; }
 .sprite-pause{ background-position: -50px -1202px; width: 32px; height: 32px; }
 .sprite-pause:hover{ background-position: -50px -1244px; width: 32px; height: 32px; }
@@ -119,7 +127,10 @@
 .sprite-people:hover{ background-position: -50px -1286px; width: 32px; height: 32px; }
 .sprite-people-active{ background-position: -50px -1286px; width: 32px; height: 32px; }
 .sprite-performance{ background-position: -50px -1328px; width: 32px; height: 32px; }
-.sprite-performance:hover{ background-position: -50px -1370px; width: 32px; height: 32px; }
+.sprite-performance:hover{
+    background: url(../img/icones/performance_active.png) no-repeat;
+    background-position: 0 0px; width: 32px; height: 32px;
+ }
 .sprite-performance-active{ background-position: -50px -1370px; width: 32px; height: 32px; }
 .sprite-photo{ background-position: -50px -1412px; width: 32px; height: 32px; }
 .sprite-photo2{ background-position: -50px -1454px; width: 32px; height: 32px; }

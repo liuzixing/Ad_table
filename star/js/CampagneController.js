@@ -170,24 +170,27 @@ function CampagneController() {
         "from": codeCleaner.getDateFormat(new Date(getCookie("default_date"))),
         "to": codeCleaner.getDateFormat(new Date(getCookie("default_date"))),
       };
+      grid.collapseSetting = collapseSetting;
+      grid.updateTreeGrid(requestData, table_url);
     } else {
       console.log("x");
+      grid.initialTreeGrid(table_url + '?client=' + client_name, collapseSetting);
       //requestData["period"] = codeCleaner.getDateTimeInputRange("datepicker1");
     }
     console.log("from dashboard");
     console.log(requestData);
 
     chart.updateCampagne(requestData, graph_url);
-    // grid.collapseSetting = collapseSetting;
-    // grid.updateTreeGrid(requestData, table_url);
+
     //delete cookies
     setCookie("default_value_1", "", 0);
     setCookie("default_value_2", "", 0);
     setCookie("default_value_3", "", 0);
   } else {
     chart.initialChart(graph_url + "?client=" + client_name, true);
-  }
     grid.initialTreeGrid(table_url + '?client=' + client_name, collapseSetting);
+  }
+
 
   $("#Valider").click(function() {
     var period = codeCleaner.getDateTimeInputRange("datepicker1");

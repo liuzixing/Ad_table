@@ -48,7 +48,7 @@
             <span class="title">Budget</span>
           </p>
           <p>
-          <span id="LASTDAY_budgetBrut" class="title"></span><span class="title">€</span>
+          <span id="LASTDAY_budgetNet" class="title"></span><span class="title">€</span>
           </p>
             <span id="LASTDAY_events" class="title">0</span>
             Commentaire(s)
